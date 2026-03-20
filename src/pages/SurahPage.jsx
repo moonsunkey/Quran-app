@@ -1,19 +1,21 @@
 // src/pages/SurahPage.jsx
 import { useParams, Link } from 'react-router-dom'
 import { useProgress } from '../hooks/useProgress'
-import { SECTIONS as AL_WAQIA_SECTIONS, SURAH_META as AL_WAQIA_META } from '../data/al-waqia'
-import { SECTIONS as AL_MULK_SECTIONS,  SURAH_META as AL_MULK_META  } from '../data/al-mulk'
+import { SECTIONS as AL_FATIHA_SECTIONS, SURAH_META as AL_FATIHA_META } from '../data/al-fatiha'
+import { SECTIONS as AL_WAQIA_SECTIONS,  SURAH_META as AL_WAQIA_META  } from '../data/al-waqia'
+import { SECTIONS as AL_MULK_SECTIONS,   SURAH_META as AL_MULK_META   } from '../data/al-mulk'
 import SurahViewer from '../components/SurahViewer'
 
+// ── Add new surahs here ───────────────────────────────────────────────────────
 const SURAH_DATA_MAP = {
-  'al-waqia': { sections: AL_WAQIA_SECTIONS, meta: AL_WAQIA_META },
-  'al-mulk':  { sections: AL_MULK_SECTIONS,  meta: AL_MULK_META  },
+  'al-fatiha': { sections: AL_FATIHA_SECTIONS, meta: AL_FATIHA_META },
+  'al-waqia':  { sections: AL_WAQIA_SECTIONS,  meta: AL_WAQIA_META  },
+  'al-mulk':   { sections: AL_MULK_SECTIONS,   meta: AL_MULK_META   },
 }
 
 export default function SurahPage({ user }) {
   const { id } = useParams()
   const data   = SURAH_DATA_MAP[id]
-
   const { memorized, toggle, markSection, syncing } = useProgress(user, id)
 
   if (!data) {
