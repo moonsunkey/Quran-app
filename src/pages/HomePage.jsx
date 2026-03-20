@@ -25,7 +25,7 @@ const SURAHS = [
     meaning: 'The Sovereignty',
     ayahs: 30,
     difficulty: 'Beginner',
-    status: 'coming-soon',
+    status: 'available',
     color: '#5B8FD4',
     description: 'A beloved short surah — the Prophet ﷺ recommended reciting it every night.',
   },
