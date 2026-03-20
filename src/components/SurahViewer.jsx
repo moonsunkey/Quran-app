@@ -1,0 +1,536 @@
+// src/components/SurahViewer.jsx
+// The main 4-tab learning interface used for every surah.
+// Props: meta, sections, memorized, onToggle, onMarkSection, syncing, user
+
+import { useState, useRef, useEffect, useCallback } from 'react'
+import { Link } from 'react-router-dom'
+
+const hexRgb = h => {
+  if (!h||h.length<7) return '180,180,180'
+  return `${parseInt(h.slice(1,3),16)},${parseInt(h.slice(3,5),16)},${parseInt(h.slice(5,7),16)}`
+}
+
+const RECITERS = [
+  { id: 'Husary_128kbps',                  name: 'Al-Husary',   style: 'Clear & slow — best for learners ⭐' },
+  { id: 'Alafasy_128kbps',                 name: 'Al-Afasy',    style: 'Melodic & popular' },
+  { id: 'Abdul_Basit_Murattal_192kbps',    name: 'Abdul Basit', style: 'Classical & powerful' },
+  { id: 'Minshawi_Murattal_128kbps',       name: 'Al-Minshawi', style: 'Warm & traditional' },
+]
+
+// ── Audio hook ────────────────────────────────────────────────────────────────
+function useAudio(reciterId) {
+  const audioRef   = useRef(null)
+  const [playing, setPlaying]   = useState(null)   // "56-1" format
+  const [loading, setLoading]   = useState(false)
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    const a = new Audio()
+    audioRef.current = a
+    a.oncanplay      = () => setLoading(false)
+    a.ontimeupdate   = () => { if (a.duration) setProgress(a.currentTime / a.duration * 100) }
+    a.onended        = () => { setPlaying(null); setProgress(0) }
+    a.onerror        = () => { setLoading(false); setPlaying(null) }
+    return () => { a.pause(); a.src = '' }
+  }, [])
+
+  const toggle = useCallback((surah, ayah) => {
+    const key = `${surah}-${ayah}`
+    const url = `https://everyayah.com/data/${reciterId}/${String(surah).padStart(3,'0')}${String(ayah).padStart(3,'0')}.mp3`
+    const a   = audioRef.current
+    if (!a) return
+    if (playing === key && !a.paused) { a.pause(); setPlaying(null); setProgress(0); return }
+    a.pause(); a.src = url; setLoading(true); setPlaying(key); setProgress(0)
+    a.load(); a.play().catch(() => setLoading(false))
+  }, [playing, reciterId])
+
+  const stop = useCallback(() => {
+    audioRef.current?.pause()
+    setPlaying(null); setProgress(0)
+  }, [])
+
+  return { toggle, stop, playing, loading, progress }
+}
+
+// ── Main component ────────────────────────────────────────────────────────────
+export default function SurahViewer({ meta, sections, memorized, onToggle, onMarkSection, syncing, user }) {
+  const [tab,         setTab]         = useState('learn')
+  const [activeSec,   setActiveSec]   = useState(sections[0]?.id)
+  const [practiceMode,setPracticeMode]= useState('show-all')
+  const [expandedKey,  setExpandedKey]  = useState(null)
+  const [reciterIdx,   setReciterIdx]   = useState(0)
+  const [showPicker,   setShowPicker]   = useState(false)
+
+  const reciter = RECITERS[reciterIdx]
+  const audio   = useAudio(reciter.id)
+  const sec     = sections.find(s => s.id === activeSec) || sections[0]
+  const total   = sections.reduce((a,s) => a + s.verses.length, 0)
+  const mem     = memorized || {}
+  const done    = Object.values(mem).filter(Boolean).length
+  const pct     = total ? Math.round(done / total * 100) : 0
+
+  const TABS = [
+    { id:'learn',    icon:'📖', label:'Learn'    },
+    { id:'practice', icon:'🧠', label:'Practice' },
+    { id:'map',      icon:'🗺',  label:'Map'      },
+    { id:'progress', icon:'✦',  label:'Progress' },
+  ]
+
+  return (
+    <div style={{ minHeight:'100vh', fontFamily:"'Lato','Palatino Linotype',Georgia,serif" }}>
+
+      {/* Sub-header */}
+      <div style={{ background:'rgba(0,0,0,0.3)', borderBottom:'1px solid rgba(212,168,67,0.15)', padding:'10px 16px' }}>
+        <div style={{ maxWidth:860, margin:'0 auto' }}>
+          <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:10 }}>
+            <Link to="/" style={{ color:'#6a5a40', fontSize:12, textDecoration:'none' }}>← Library</Link>
+            <span style={{ color:'#3a2a18' }}>·</span>
+            <span style={{ fontSize:14, color:'#D4A843', fontWeight:700 }}>{meta.arabic}</span>
+            <span style={{ fontSize:12, color:'#6a5a40' }}>{meta.name} · {meta.ayahs} ayahs</span>
+            {syncing && <span style={{ fontSize:10, color:'#4CAF8A', marginLeft:'auto' }}>⟳ Saving…</span>}
+            {!user   && <span style={{ fontSize:10, color:'#6a5a40', marginLeft:'auto' }}>Sign in to sync progress</span>}
+          </div>
+          {/* Progress bar */}
+          <div style={{ display:'flex', alignItems:'center', gap:8 }}>
+            <div style={{ flex:1, height:3, background:'rgba(255,255,255,0.06)', borderRadius:2, overflow:'hidden' }}>
+              <div style={{ width:`${pct}%`, height:'100%', background:'linear-gradient(90deg,#D4A843,#f0c84e)', borderRadius:2, transition:'width 0.4s' }} />
+            </div>
+            <span style={{ fontSize:11, color:'#D4A843', flexShrink:0 }}>{done}/{total} ayahs</span>
+          </div>
+
+          {/* Reciter picker */}
+          <div style={{ display:'flex', alignItems:'center', gap:8, marginTop:8, position:'relative' }}>
+            <span style={{ fontSize:10, color:'#6a5a40' }}>🎙 Reciter:</span>
+            <button onClick={() => setShowPicker(v => !v)} style={{
+              padding:'4px 10px', borderRadius:6, border:'1px solid rgba(212,168,67,0.25)',
+              background:'rgba(212,168,67,0.08)', color:'#D4A843', fontSize:11, cursor:'pointer',
+            }}>{reciter.name} ▾</button>
+            {showPicker && (
+              <div style={{
+                position:'absolute', top:'110%', left:60, width:260, zIndex:50,
+                background:'#0c1b30', border:'1px solid rgba(212,168,67,0.2)', borderRadius:10, padding:8,
+              }}>
+                {RECITERS.map((r, i) => (
+                  <div key={r.id} onClick={() => { setReciterIdx(i); setShowPicker(false); audio.stop(); }} style={{
+                    padding:'7px 10px', borderRadius:7, cursor:'pointer', marginBottom:3,
+                    background: i === reciterIdx ? 'rgba(212,168,67,0.12)' : 'transparent',
+                    border: `1px solid ${i === reciterIdx ? 'rgba(212,168,67,0.3)' : 'transparent'}`,
+                  }}>
+                    <div style={{ fontSize:12, color: i === reciterIdx ? '#D4A843' : '#ddd5c0' }}>{r.name} {i === reciterIdx ? '✓' : ''}</div>
+                    <div style={{ fontSize:10, color:'#6a5a40' }}>{r.style}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Tab bar */}
+      <div style={{ borderBottom:'1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ maxWidth:860, margin:'0 auto', display:'flex' }}>
+          {TABS.map(t => (
+            <button key={t.id} onClick={() => setTab(t.id)} style={{
+              flex:1, padding:'10px 4px', border:'none', cursor:'pointer',
+              background:  tab===t.id ? 'rgba(212,168,67,0.08)' : 'transparent',
+              color:       tab===t.id ? '#D4A843' : '#6a5a40',
+              borderBottom:`2px solid ${tab===t.id ? '#D4A843' : 'transparent'}`,
+              fontSize:12, transition:'all 0.2s',
+            }}>{t.icon} {t.label}</button>
+          ))}
+        </div>
+      </div>
+
+      {/* Content */}
+      <div style={{ maxWidth:860, margin:'0 auto', padding:'20px 12px' }}>
+
+        {/* ── LEARN ── */}
+        {tab === 'learn' && (
+          <LearnTab
+            sections={sections} sec={sec} activeSec={activeSec}
+            setActiveSec={id => { setActiveSec(id); setExpandedKey(null) }}
+            memorized={mem} onToggle={onToggle} onMarkSection={onMarkSection}
+            audio={audio} meta={meta}
+            expandedKey={expandedKey} setExpandedKey={setExpandedKey}
+          />
+        )}
+
+        {/* ── PRACTICE ── */}
+        {tab === 'practice' && (
+          <PracticeTab
+            sections={sections} sec={sec} activeSec={activeSec}
+            setActiveSec={setActiveSec}
+            memorized={mem} onToggle={onToggle}
+            practiceMode={practiceMode} setPracticeMode={setPracticeMode}
+            audio={audio} meta={meta}
+          />
+        )}
+
+        {/* ── MAP ── */}
+        {tab === 'map' && (
+          <MapTab sections={sections} memorized={mem} meta={meta} onSelect={id => { setActiveSec(id); setTab('learn') }} />
+        )}
+
+        {/* ── PROGRESS ── */}
+        {tab === 'progress' && (
+          <ProgressTab sections={sections} memorized={mem} onToggle={onToggle} onMarkSection={onMarkSection} meta={meta} />
+        )}
+      </div>
+    </div>
+  )
+}
+
+// ── LEARN TAB ─────────────────────────────────────────────────────────────────
+function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle, onMarkSection, audio, meta, expandedKey, setExpandedKey }) {
+  const sectionDone = sec.verses.every(v => memorized[`${sec.id}-${v.n}`])
+
+  return (
+    <div>
+      {/* Section chips */}
+      <div style={{ display:'flex', gap:6, overflowX:'auto', paddingBottom:8, marginBottom:14 }}>
+        {sections.map(s => (
+          <button key={s.id} onClick={() => setActiveSec(s.id)} style={{
+            flexShrink:0, padding:'5px 12px',
+            border:`1.5px solid ${activeSec===s.id ? s.color : 'rgba(255,255,255,0.08)'}`,
+            borderRadius:20,
+            background: activeSec===s.id ? `rgba(${hexRgb(s.color)},0.15)` : 'transparent',
+            color: activeSec===s.id ? s.color : '#6a5a40',
+            fontSize:11, cursor:'pointer', transition:'all 0.2s', whiteSpace:'nowrap',
+          }}>{s.icon} {s.label}</button>
+        ))}
+      </div>
+
+      {/* Section header */}
+      <div style={{ background:`rgba(${hexRgb(sec.color)},0.07)`, border:`1px solid rgba(${hexRgb(sec.color)},0.2)`, borderRadius:12, padding:'14px 16px', marginBottom:14 }}>
+        <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', gap:12 }}>
+          <div style={{ flex:1 }}>
+            <div style={{ fontSize:16, color:sec.color, fontWeight:700 }}>{sec.icon} {sec.label} <span style={{ fontSize:11, color:'#6a5a40', fontWeight:400 }}>· Ayahs {sec.ayahs}</span></div>
+            <div style={{ fontSize:12, color:'#a09070', marginTop:4, lineHeight:1.6 }}>{sec.summary}</div>
+            <div style={{ marginTop:8, fontSize:11, color:'#6a5a40', background:'rgba(0,0,0,0.2)', borderRadius:6, padding:'6px 10px' }}>
+              <span style={{ color:sec.color }}>💡 </span>{sec.memTip}
+            </div>
+          </div>
+          <div style={{ fontSize:22, fontFamily:'Amiri,serif', color:'#ddd5c0', textAlign:'right', lineHeight:1.6 }}>{sec.arabic}</div>
+        </div>
+        {/* Mark whole section */}
+        <button
+          onClick={() => onMarkSection(sec.verses.map(v => `${sec.id}-${v.n}`), !sectionDone)}
+          style={{
+            marginTop:10, padding:'5px 14px', fontSize:11,
+            border:`1px solid ${sectionDone ? '#4CAF8A' : `rgba(${hexRgb(sec.color)},0.4)`}`,
+            borderRadius:20, background:'transparent',
+            color: sectionDone ? '#4CAF8A' : sec.color, cursor:'pointer',
+          }}>{sectionDone ? '✓ Section complete' : `Mark all ${sec.verses.length} ayahs done`}</button>
+      </div>
+
+      {/* Verses */}
+      {sec.verses.map(v => {
+        const key     = `${sec.id}-${v.n}`
+        const isMem   = memorized[key]
+        const isExp   = expandedKey === key
+        const playKey = `${meta.number}-${v.n}`
+        const isPlay  = audio.playing === playKey
+
+        return (
+          <div key={key} style={{
+            background: isMem ? 'rgba(76,175,138,0.04)' : 'rgba(255,255,255,0.02)',
+            border:`1px solid ${isMem ? 'rgba(76,175,138,0.2)' : isExp ? `rgba(${hexRgb(sec.color)},0.3)` : 'rgba(255,255,255,0.06)'}`,
+            borderRadius:10, marginBottom:10, overflow:'hidden',
+          }}>
+            <div style={{ padding:'12px 14px' }}>
+              <div style={{ display:'flex', gap:10, alignItems:'flex-start' }}>
+                {/* Number */}
+                <div style={{ width:28, height:28, flexShrink:0, borderRadius:'50%', border:`1.5px solid rgba(${hexRgb(sec.color)},0.4)`, display:'flex', alignItems:'center', justifyContent:'center', fontSize:10, color:sec.color, marginTop:6 }}>{v.n}</div>
+
+                <div style={{ flex:1 }}>
+                  {/* Arabic */}
+                  <div dir="rtl" style={{ fontSize:26, color:'#f5ecd8', fontFamily:'Amiri,serif', lineHeight:2, textAlign:'right', marginBottom:4 }}>{v.ar}</div>
+                  {/* Transliteration — highlight long vowels and hard letters */}
+                  <div style={{ fontSize:14, fontStyle:'italic', letterSpacing:0.4, lineHeight:1.7, marginBottom:4 }}>
+                    {v.tr.split('  ').map((word, wi, arr) => {
+                      const hasLong = /aa|ee|oo/.test(word)
+                      const hasHard = /[SDTQ]|kh|gh/.test(word) || word.includes("'")
+                      return (
+                        <span key={wi}>
+                          <span style={{ color: hasHard ? '#E6944A' : hasLong ? '#81d4c0' : '#D4A843' }}>{word}</span>
+                          {wi < arr.length - 1 && <span style={{ color:'#3a2a18' }}> · </span>}
+                        </span>
+                      )
+                    })}
+                  </div>
+                  {/* Translation */}
+                  <div style={{ fontSize:13, color:'#7a6a52', lineHeight:1.5 }}>{v.en}</div>
+                </div>
+
+                {/* Controls */}
+                <div style={{ display:'flex', flexDirection:'column', gap:5, alignItems:'center', flexShrink:0 }}>
+                  <button onClick={() => audio.toggle(meta.number, v.n)} style={{
+                    width:34, height:34, borderRadius:'50%', border:'none', cursor:'pointer',
+                    background: isPlay ? '#D4A843' : 'rgba(212,168,67,0.12)',
+                    color: isPlay ? '#06101c' : '#D4A843',
+                    fontSize:13, display:'flex', alignItems:'center', justifyContent:'center',
+                  }}>{audio.loading && audio.playing===playKey ? '⏳' : isPlay ? '⏹' : '▶'}</button>
+                  <button onClick={() => onToggle(key)} style={{
+                    width:28, height:28, borderRadius:'50%',
+                    border:`1.5px solid ${isMem ? '#4CAF8A' : 'rgba(255,255,255,0.12)'}`,
+                    background: isMem ? 'rgba(76,175,138,0.2)' : 'transparent',
+                    color: isMem ? '#4CAF8A' : '#4a3a28', fontSize:12, cursor:'pointer',
+                    display:'flex', alignItems:'center', justifyContent:'center',
+                  }}>{isMem ? '✓' : '○'}</button>
+                  <button onClick={() => setExpandedKey(isExp ? null : key)} style={{ background:'transparent', border:'none', cursor:'pointer', color:'#4a3a28', fontSize:11 }}>{isExp ? '▲' : '▼'}</button>
+                </div>
+              </div>
+              {/* Audio bar */}
+              {isPlay && (
+                <div style={{ marginTop:6, paddingLeft:38, height:2, background:'rgba(255,255,255,0.05)', borderRadius:2, overflow:'hidden' }}>
+                  <div style={{ width:`${audio.progress}%`, height:'100%', background:'#D4A843', borderRadius:2, transition:'width 0.1s' }} />
+                </div>
+              )}
+            </div>
+
+            {/* Syllable breakdown */}
+            {isExp && (
+              <div style={{ borderTop:`1px solid rgba(${hexRgb(sec.color)},0.12)`, padding:'12px 14px', background:'rgba(0,0,0,0.25)' }}>
+                <div style={{ fontSize:10, color:sec.color, letterSpacing:1, marginBottom:10 }}>SYLLABLE BREAKDOWN</div>
+                <div style={{ display:'flex', flexWrap:'wrap', gap:6, marginBottom:10 }}>
+                  {v.tr.split('  ').filter(w => w.trim()).map((word, i) => {
+                    const hasLong = /aa|ee|oo/.test(word)
+                    const hasAyn  = word.includes("'")
+                    const hasHard = /[SDTQ]|kh|gh/.test(word)
+                    return (
+                      <div key={i} style={{
+                        background: hasAyn ? 'rgba(230,148,74,0.1)' : hasHard ? 'rgba(192,80,77,0.08)' : hasLong ? 'rgba(129,212,192,0.08)' : 'rgba(255,255,255,0.03)',
+                        border:`1px solid ${hasAyn ? 'rgba(230,148,74,0.3)' : hasHard ? 'rgba(192,80,77,0.2)' : hasLong ? 'rgba(129,212,192,0.2)' : 'rgba(255,255,255,0.06)'}`,
+                        borderRadius:6, padding:'4px 9px',
+                      }}>
+                        <div style={{ fontSize:12, color:'#D4A843', fontFamily:'monospace' }}>{word}</div>
+                        <div style={{ fontSize:9, color:'#6a5a40' }}>
+                          {hasAyn  && <span style={{ color:'#E6944A' }}>⚠ayn </span>}
+                          {hasLong && <span style={{ color:'#81d4c0' }}>stretch </span>}
+                          {hasHard && !hasAyn && <span style={{ color:'#C0504D' }}>⚠throat </span>}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+                <div style={{ fontSize:10, color:'#5a4a32', padding:'7px 10px', background:'rgba(212,168,67,0.04)', borderRadius:6 }}>
+                  🔁 <span style={{ color:'#D4A843' }}>Repeat method:</span> Listen ▶ → follow with transliteration → cover → try alone → 3 rounds.
+                </div>
+              </div>
+            )}
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+// ── PRACTICE TAB ──────────────────────────────────────────────────────────────
+function PracticeTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle, practiceMode, setPracticeMode, audio, meta }) {
+  return (
+    <div>
+      <div style={{ background:'rgba(155,89,182,0.07)', border:'1px solid rgba(155,89,182,0.2)', borderRadius:12, padding:'14px 16px', marginBottom:14 }}>
+        <div style={{ fontSize:13, color:'#9B59B6', fontWeight:700, marginBottom:8 }}>🧠 Practice Mode</div>
+        <div style={{ fontSize:11, color:'#a09070', marginBottom:10 }}>Hide a layer and test your memory. Tap the covered area to reveal it.</div>
+        <div style={{ display:'flex', gap:6, flexWrap:'wrap' }}>
+          {[
+            {id:'show-all', label:'👁 Show All'},
+            {id:'hide-tr',  label:'Hide Transliteration'},
+            {id:'hide-ar',  label:'Hide Arabic'},
+            {id:'hide-en',  label:'Hide Translation'},
+          ].map(m => (
+            <button key={m.id} onClick={() => setPracticeMode(m.id)} style={{
+              fontSize:11, padding:'5px 12px', borderRadius:20, border:'none', cursor:'pointer',
+              background: practiceMode===m.id ? '#9B59B6' : 'rgba(255,255,255,0.04)',
+              color:      practiceMode===m.id ? 'white'   : '#6a5a40',
+            }}>{m.label}</button>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ display:'flex', gap:6, overflowX:'auto', paddingBottom:8, marginBottom:12 }}>
+        {sections.map(s => (
+          <button key={s.id} onClick={() => setActiveSec(s.id)} style={{
+            flexShrink:0, fontSize:10, padding:'4px 10px', borderRadius:20, border:'none', cursor:'pointer',
+            background: activeSec===s.id ? `rgba(${hexRgb(s.color)},0.18)` : 'rgba(255,255,255,0.04)',
+            color:      activeSec===s.id ? s.color : '#6a5a40', whiteSpace:'nowrap',
+          }}>{s.icon} {s.label.split(' ').slice(0,2).join(' ')}</button>
+        ))}
+      </div>
+
+      {sec.verses.map(v => {
+        const key     = `${sec.id}-${v.n}`
+        const playKey = `${meta.number}-${v.n}`
+        return (
+          <PracticeCard key={key} v={v} sec={sec} mode={practiceMode}
+            isMem={memorized[key]} onToggle={() => onToggle(key)}
+            onPlay={() => audio.toggle(meta.number, v.n)}
+            isPlaying={audio.playing===playKey}
+            audioLoading={audio.loading && audio.playing===playKey} />
+        )
+      })}
+    </div>
+  )
+}
+
+function PracticeCard({ v, sec, mode, isMem, onToggle, onPlay, isPlaying, audioLoading }) {
+  const [revAr, setRevAr] = useState(false)
+  const [revTr, setRevTr] = useState(false)
+  const [revEn, setRevEn] = useState(false)
+
+  const Mask = ({ hidden, onReveal, children }) => hidden
+    ? <div onClick={onReveal} style={{ background:'rgba(255,255,255,0.03)', border:'1px dashed rgba(255,255,255,0.1)', borderRadius:6, padding:'7px 12px', cursor:'pointer', color:'#4a3a28', fontSize:10, letterSpacing:1, textAlign:'center' }}>TAP TO REVEAL ▸</div>
+    : <>{children}</>
+
+  return (
+    <div style={{ background: isMem ? 'rgba(76,175,138,0.04)' : 'rgba(255,255,255,0.02)', border:`1px solid ${isMem ? 'rgba(76,175,138,0.2)' : 'rgba(255,255,255,0.06)'}`, borderRadius:10, padding:'12px 14px', marginBottom:10 }}>
+      <div style={{ display:'flex', gap:10, alignItems:'flex-start' }}>
+        <div style={{ width:26, height:26, flexShrink:0, borderRadius:'50%', border:`1.5px solid rgba(${hexRgb(sec.color)},0.4)`, display:'flex', alignItems:'center', justifyContent:'center', fontSize:10, color:sec.color }}>{v.n}</div>
+        <div style={{ flex:1, display:'flex', flexDirection:'column', gap:5 }}>
+          <Mask hidden={mode==='hide-ar'&&!revAr} onReveal={() => setRevAr(true)}>
+            <div dir="rtl" style={{ fontSize:22, color:'#f5ecd8', fontFamily:'Amiri,serif', lineHeight:2, textAlign:'right' }}>{v.ar}</div>
+          </Mask>
+          <Mask hidden={mode==='hide-tr'&&!revTr} onReveal={() => setRevTr(true)}>
+            <div style={{ fontSize:13, color:'#D4A843', fontStyle:'italic' }}>{v.tr.replace(/  /g,' ')}</div>
+          </Mask>
+          <Mask hidden={mode==='hide-en'&&!revEn} onReveal={() => setRevEn(true)}>
+            <div style={{ fontSize:12, color:'#7a6a52' }}>{v.en}</div>
+          </Mask>
+        </div>
+        <div style={{ display:'flex', flexDirection:'column', gap:5, alignItems:'center', flexShrink:0 }}>
+          <button onClick={onPlay} style={{ width:30, height:30, borderRadius:'50%', border:'none', cursor:'pointer', background: isPlaying ? '#D4A843' : 'rgba(212,168,67,0.1)', color: isPlaying ? '#06101c' : '#D4A843', fontSize:12, display:'flex', alignItems:'center', justifyContent:'center' }}>
+            {audioLoading ? '⏳' : isPlaying ? '⏹' : '▶'}
+          </button>
+          <button onClick={onToggle} style={{ width:26, height:26, borderRadius:'50%', border:`1.5px solid ${isMem ? '#4CAF8A' : 'rgba(255,255,255,0.1)'}`, background: isMem ? 'rgba(76,175,138,0.2)' : 'transparent', color: isMem ? '#4CAF8A' : '#4a3a28', fontSize:11, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center' }}>{isMem ? '✓' : '○'}</button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ── MAP TAB ───────────────────────────────────────────────────────────────────
+function MapTab({ sections, memorized, meta, onSelect }) {
+  const mem = memorized || {}
+  return (
+    <div>
+      <div style={{ textAlign:'center', marginBottom:20 }}>
+        <div style={{ fontSize:11, color:'#6a5a40', letterSpacing:2, marginBottom:4 }}>STRUCTURAL OVERVIEW</div>
+        <div style={{ fontSize:18, color:'#D4A843' }}>{meta.arabic} · {meta.ayahs} Ayahs</div>
+      </div>
+      <div style={{ display:'flex', flexDirection:'column', alignItems:'center' }}>
+        {/* Root */}
+        <div style={{ background:'rgba(212,168,67,0.1)', border:'2px solid #D4A843', borderRadius:12, padding:'12px 28px', textAlign:'center', marginBottom:0 }}>
+          <div style={{ fontSize:20, color:'#D4A843' }}>{sections[0].arabic}</div>
+          <div style={{ fontSize:11, color:'#6a5a40', marginTop:2 }}>{sections[0].label} · {sections[0].ayahs}</div>
+        </div>
+        <div style={{ width:2, height:16, background:'rgba(212,168,67,0.25)' }} />
+        {/* Grid */}
+        <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:10, width:'100%' }}>
+          {/* Left: Forerunners */}
+          <MapNode sec={sections[1]} memorized={mem} onSelect={onSelect} />
+          {/* Center: Signs + Quran + Death */}
+          <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
+            {[sections[4], sections[5], sections[6]].map(s => <MapNode key={s.id} sec={s} memorized={mem} onSelect={onSelect} compact />)}
+          </div>
+          {/* Right: Right + Left */}
+          <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
+            <MapNode sec={sections[2]} memorized={mem} onSelect={onSelect} />
+            <MapNode sec={sections[3]} memorized={mem} onSelect={onSelect} />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function MapNode({ sec, memorized, onSelect, compact }) {
+  const done = sec.verses.filter(v => memorized[`${sec.id}-${v.n}`]).length
+  const pct  = Math.round(done / sec.verses.length * 100)
+  return (
+    <div onClick={() => onSelect(sec.id)} style={{
+      background:`rgba(${hexRgb(sec.color)},0.08)`,
+      border:`1.5px solid rgba(${hexRgb(sec.color)},${pct===100?0.6:0.25})`,
+      borderRadius:10, padding: compact ? '8px 10px' : '12px 14px',
+      cursor:'pointer', transition:'all 0.2s',
+    }}>
+      <div style={{ fontSize: compact ? 12 : 13, color:sec.color, fontWeight:700, marginBottom:2 }}>{sec.icon} {sec.label}</div>
+      <div style={{ fontSize:10, color:'#6a5a40', marginBottom:4 }}>{sec.arabic} · {sec.ayahs}</div>
+      <div style={{ height:3, background:'rgba(255,255,255,0.05)', borderRadius:2, overflow:'hidden' }}>
+        <div style={{ width:`${pct}%`, height:'100%', background:sec.color, borderRadius:2 }} />
+      </div>
+      <div style={{ fontSize:9, color:sec.color, marginTop:3 }}>{done}/{sec.verses.length}</div>
+    </div>
+  )
+}
+
+// ── PROGRESS TAB ──────────────────────────────────────────────────────────────
+function ProgressTab({ sections, memorized, onToggle, onMarkSection, meta }) {
+  const total = sections.reduce((a,s) => a + s.verses.length, 0)
+  const done  = Object.values(memorized).filter(Boolean).length
+  const pct   = total ? Math.round(done/total*100) : 0
+
+  return (
+    <div>
+      <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:10, marginBottom:20 }}>
+        {[
+          {l:'Total',   v:total,      c:'#D4A843'},
+          {l:'Done',    v:done,       c:'#4CAF8A'},
+          {l:'Left',    v:total-done, c:'#C0504D'},
+          {l:'%',       v:`${pct}%`,  c:'#5B8FD4'},
+        ].map(s => (
+          <div key={s.l} style={{ textAlign:'center', padding:'14px 8px', background:`rgba(${hexRgb(s.c)},0.07)`, border:`1px solid rgba(${hexRgb(s.c)},0.2)`, borderRadius:10 }}>
+            <div style={{ fontSize:22, fontWeight:700, color:s.c }}>{s.v}</div>
+            <div style={{ fontSize:10, color:'#6a5a40', marginTop:2 }}>{s.l}</div>
+          </div>
+        ))}
+      </div>
+
+      {sections.map(s => {
+        const secDone = s.verses.filter(v => memorized[`${s.id}-${v.n}`]).length
+        const secPct  = Math.round(secDone/s.verses.length*100)
+        const allDone = secDone === s.verses.length
+        return (
+          <div key={s.id} style={{ background:'rgba(255,255,255,0.02)', border:'1px solid rgba(255,255,255,0.06)', borderRadius:10, padding:'12px 14px', marginBottom:10 }}>
+            <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:6 }}>
+              <span style={{ color:s.color, fontWeight:600, fontSize:13 }}>{s.icon} {s.label}</span>
+              <div style={{ display:'flex', gap:8, alignItems:'center' }}>
+                <span style={{ fontSize:12, color: allDone ? '#4CAF8A' : s.color }}>{secDone}/{s.verses.length} {allDone ? '✓' : ''}</span>
+                <button onClick={() => onMarkSection(s.verses.map(v => `${s.id}-${v.n}`), !allDone)} style={{
+                  fontSize:10, padding:'3px 8px', borderRadius:10,
+                  border:`1px solid ${allDone ? '#4CAF8A' : `rgba(${hexRgb(s.color)},0.4)`}`,
+                  background:'transparent', color: allDone ? '#4CAF8A' : s.color, cursor:'pointer',
+                }}>{allDone ? 'Unmark' : 'Mark all'}</button>
+              </div>
+            </div>
+            <div style={{ height:4, background:'rgba(255,255,255,0.05)', borderRadius:2, overflow:'hidden', marginBottom:8 }}>
+              <div style={{ width:`${secPct}%`, height:'100%', background:s.color, borderRadius:2, transition:'width 0.4s' }} />
+            </div>
+            <div style={{ display:'flex', flexWrap:'wrap', gap:3 }}>
+              {s.verses.map(v => {
+                const k = `${s.id}-${v.n}`
+                return (
+                  <div key={v.n} onClick={() => onToggle(k)} title={`Ayah ${v.n}`} style={{
+                    width:18, height:18, borderRadius:3, cursor:'pointer',
+                    background: memorized[k] ? s.color : 'rgba(255,255,255,0.04)',
+                    border:`1px solid ${memorized[k] ? s.color : 'rgba(255,255,255,0.08)'}`,
+                    transition:'all 0.15s', display:'flex', alignItems:'center', justifyContent:'center',
+                    fontSize:7, color: memorized[k] ? '#06101c' : 'transparent',
+                  }}>✓</div>
+                )
+              })}
+            </div>
+          </div>
+        )
+      })}
+
+      {done === total && (
+        <div style={{ textAlign:'center', padding:'28px', background:'rgba(212,168,67,0.08)', border:'1px solid rgba(212,168,67,0.3)', borderRadius:14, marginTop:10 }}>
+          <div style={{ fontSize:32, marginBottom:8 }}>✦</div>
+          <div style={{ fontSize:18, color:'#D4A843', fontWeight:700 }}>Masha'Allah! Alhamdulillah!</div>
+          <div style={{ fontSize:13, color:'#a09070', marginTop:4 }}>You have completed {meta.arabic}</div>
+          <div style={{ fontSize:11, color:'#6a5a40', marginTop:4 }}>May Allah bless your recitation and accept it. آمين</div>
+        </div>
+      )}
+    </div>
+  )
+}
