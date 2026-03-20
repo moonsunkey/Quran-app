@@ -174,6 +174,7 @@ export default function SurahViewer({ meta, sections, memorized, onToggle, onMar
     { id:'guide',    icon:'📚', label:'Guide'    },
     { id:'learn',    icon:'📖', label:'Learn'    },
     { id:'practice', icon:'🧠', label:'Practice' },
+    { id:'map',      icon:'🗺',  label:'Map'      },
     { id:'progress', icon:'✦',  label:'Progress' },
   ]
 
@@ -264,6 +265,16 @@ export default function SurahViewer({ meta, sections, memorized, onToggle, onMar
             memorized={mem} onToggle={onToggle}
             practiceMode={practiceMode} setPracticeMode={setPracticeMode}
             audio={audio} meta={meta}
+          />
+        )}
+
+        {/* ── MAP TAB ── */}
+        {tab === 'map' && (
+          <MapTab
+            sections={sections}
+            memorized={mem}
+            meta={meta}
+            onSelect={id => { setActiveSec(id); setTab('learn') }}
           />
         )}
 
