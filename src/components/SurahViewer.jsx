@@ -182,7 +182,8 @@ export default function SurahViewer({ meta, sections, memorized, onToggle, onMar
 
 // ── LEARN TAB ─────────────────────────────────────────────────────────────────
 function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle, onMarkSection, audio, meta, expandedKey, setExpandedKey }) {
-  const sectionDone = sec.verses.every(v => memorized[`${sec.id}-${v.n}`])
+  const mem = memorized || {}
+  const sectionDone = sec.verses.every(v => mem[`${sec.id}-${v.n}`])
 
   return (
     <div>
@@ -226,7 +227,7 @@ function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle,
       {/* Verses */}
       {sec.verses.map(v => {
         const key     = `${sec.id}-${v.n}`
-        const isMem   = memorized[key]
+        const isMem   = mem[key]
         const isExp   = expandedKey === key
         const playKey = `${meta.number}-${v.n}`
         const isPlay  = audio.playing === playKey
@@ -327,6 +328,7 @@ function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle,
 
 // ── PRACTICE TAB ──────────────────────────────────────────────────────────────
 function PracticeTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle, practiceMode, setPracticeMode, audio, meta }) {
+  const mem = memorized || {}
   return (
     <div>
       <div style={{ background:'rgba(155,89,182,0.07)', border:'1px solid rgba(155,89,182,0.2)', borderRadius:12, padding:'14px 16px', marginBottom:14 }}>
@@ -363,7 +365,7 @@ function PracticeTab({ sections, sec, activeSec, setActiveSec, memorized, onTogg
         const playKey = `${meta.number}-${v.n}`
         return (
           <PracticeCard key={key} v={v} sec={sec} mode={practiceMode}
-            isMem={memorized[key]} onToggle={() => onToggle(key)}
+            isMem={mem[key]} onToggle={() => onToggle(key)}
             onPlay={() => audio.toggle(meta.number, v.n)}
             isPlaying={audio.playing===playKey}
             audioLoading={audio.loading && audio.playing===playKey} />
@@ -411,6 +413,8 @@ function PracticeCard({ v, sec, mode, isMem, onToggle, onPlay, isPlaying, audioL
 // ── MAP TAB ───────────────────────────────────────────────────────────────────
 function MapTab({ sections, memorized, meta, onSelect }) {
   const mem = memorized || {}
+  // Split sections: first is always the "root", rest shown in a responsive grid
+  const [root, ...rest] = sections
   return (
     <div>
       <div style={{ textAlign:'center', marginBottom:20 }}>
@@ -418,25 +422,17 @@ function MapTab({ sections, memorized, meta, onSelect }) {
         <div style={{ fontSize:18, color:'#D4A843' }}>{meta.arabic} · {meta.ayahs} Ayahs</div>
       </div>
       <div style={{ display:'flex', flexDirection:'column', alignItems:'center' }}>
-        {/* Root */}
+        {/* Root node */}
         <div style={{ background:'rgba(212,168,67,0.1)', border:'2px solid #D4A843', borderRadius:12, padding:'12px 28px', textAlign:'center', marginBottom:0 }}>
-          <div style={{ fontSize:20, color:'#D4A843' }}>{sections[0].arabic}</div>
-          <div style={{ fontSize:11, color:'#6a5a40', marginTop:2 }}>{sections[0].label} · {sections[0].ayahs}</div>
+          <div style={{ fontSize:20, color:'#D4A843' }}>{root.arabic}</div>
+          <div style={{ fontSize:11, color:'#6a5a40', marginTop:2 }}>{root.label} · {root.ayahs}</div>
         </div>
         <div style={{ width:2, height:16, background:'rgba(212,168,67,0.25)' }} />
-        {/* Grid */}
-        <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:10, width:'100%' }}>
-          {/* Left: Forerunners */}
-          <MapNode sec={sections[1]} memorized={mem} onSelect={onSelect} />
-          {/* Center: Signs + Quran + Death */}
-          <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
-            {[sections[4], sections[5], sections[6]].map(s => <MapNode key={s.id} sec={s} memorized={mem} onSelect={onSelect} compact />)}
-          </div>
-          {/* Right: Right + Left */}
-          <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
-            <MapNode sec={sections[2]} memorized={mem} onSelect={onSelect} />
-            <MapNode sec={sections[3]} memorized={mem} onSelect={onSelect} />
-          </div>
+        {/* Dynamic grid — works for any number of sections */}
+        <div style={{ display:'grid', gridTemplateColumns:`repeat(${Math.min(rest.length, 3)}, 1fr)`, gap:10, width:'100%' }}>
+          {rest.map(s => (
+            <MapNode key={s.id} sec={s} memorized={mem} onSelect={onSelect} />
+          ))}
         </div>
       </div>
     </div>
@@ -444,7 +440,8 @@ function MapTab({ sections, memorized, meta, onSelect }) {
 }
 
 function MapNode({ sec, memorized, onSelect, compact }) {
-  const done = sec.verses.filter(v => memorized[`${sec.id}-${v.n}`]).length
+  const mem = memorized || {}
+  const done = sec.verses.filter(v => mem[`${sec.id}-${v.n}`]).length
   const pct  = Math.round(done / sec.verses.length * 100)
   return (
     <div onClick={() => onSelect(sec.id)} style={{
@@ -465,6 +462,7 @@ function MapNode({ sec, memorized, onSelect, compact }) {
 
 // ── PROGRESS TAB ──────────────────────────────────────────────────────────────
 function ProgressTab({ sections, memorized, onToggle, onMarkSection, meta }) {
+  const mem = memorized || {}
   const total = sections.reduce((a,s) => a + s.verses.length, 0)
   const done  = Object.values(memorized).filter(Boolean).length
   const pct   = total ? Math.round(done/total*100) : 0
@@ -511,10 +509,10 @@ function ProgressTab({ sections, memorized, onToggle, onMarkSection, meta }) {
                 return (
                   <div key={v.n} onClick={() => onToggle(k)} title={`Ayah ${v.n}`} style={{
                     width:18, height:18, borderRadius:3, cursor:'pointer',
-                    background: memorized[k] ? s.color : 'rgba(255,255,255,0.04)',
-                    border:`1px solid ${memorized[k] ? s.color : 'rgba(255,255,255,0.08)'}`,
+                    background: mem[k] ? s.color : 'rgba(255,255,255,0.04)',
+                    border:`1px solid ${mem[k] ? s.color : 'rgba(255,255,255,0.08)'}`,
                     transition:'all 0.15s', display:'flex', alignItems:'center', justifyContent:'center',
-                    fontSize:7, color: memorized[k] ? '#06101c' : 'transparent',
+                    fontSize:7, color: mem[k] ? '#06101c' : 'transparent',
                   }}>✓</div>
                 )
               })}
