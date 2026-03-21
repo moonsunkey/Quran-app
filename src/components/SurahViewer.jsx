@@ -140,7 +140,9 @@ export default function SurahViewer({ meta, sections, memorized, onToggle, onMar
   const [reciterIdx,   setReciterIdx]   = useState(0)
   const [showPicker,   setShowPicker]   = useState(false)
   const [autoPlaying,  setAutoPlaying]  = useState(false)
+  const [autoAyah,     setAutoAyah]     = useState(null)
   const autoIdxRef = useRef(0)
+  const verseRefsRef = useRef({})
 
   const reciter = RECITERS[reciterIdx]
   const audio   = useAudio(reciter.id)
@@ -155,8 +157,14 @@ export default function SurahViewer({ meta, sections, memorized, onToggle, onMar
     autoIdxRef.current = 0
     setAutoPlaying(true)
     const playNext = (idx) => {
-      if (idx >= sec.verses.length) { setAutoPlaying(false); return }
+      if (idx >= sec.verses.length) { setAutoPlaying(false); setAutoAyah(null); return }
       const v = sec.verses[idx]
+      setAutoAyah(v.n)
+      // Scroll the verse into view smoothly
+      const el = verseRefsRef.current[v.n]
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }
       audio.play(meta.number, v.n, () => {
         autoIdxRef.current = idx + 1
         playNext(idx + 1)
@@ -167,6 +175,7 @@ export default function SurahViewer({ meta, sections, memorized, onToggle, onMar
 
   const stopAutoPlay = useCallback(() => {
     setAutoPlaying(false)
+    setAutoAyah(null)
     audio.stop()
   }, [audio])
 
@@ -253,7 +262,8 @@ export default function SurahViewer({ meta, sections, memorized, onToggle, onMar
             setActiveSec={id => { setActiveSec(id); setExpandedKey(null); stopAutoPlay(); }}
             memorized={mem} onToggle={onToggle} onMarkSection={onMarkSection}
             audio={audio} meta={meta} expandedKey={expandedKey} setExpandedKey={setExpandedKey}
-            autoPlaying={autoPlaying} onStartAutoPlay={startAutoPlay} onStopAutoPlay={stopAutoPlay}
+            autoPlaying={autoPlaying} autoAyah={autoAyah} verseRefsRef={verseRefsRef}
+            onStartAutoPlay={startAutoPlay} onStopAutoPlay={stopAutoPlay}
           />
         )}
 
@@ -366,7 +376,7 @@ function GuideTab() {
 }
 
 // ── LEARN TAB ─────────────────────────────────────────────────────────────────
-function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle, onMarkSection, audio, meta, expandedKey, setExpandedKey, autoPlaying, onStartAutoPlay, onStopAutoPlay }) {
+function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle, onMarkSection, audio, meta, expandedKey, setExpandedKey, autoPlaying, autoAyah, verseRefsRef, onStartAutoPlay, onStopAutoPlay }) {
   const mem = memorized || {}
   const sectionDone = sec.verses.every(v => mem[`${sec.id}-${v.n}`])
 
@@ -409,7 +419,7 @@ function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle,
         const isPlay  = audio.playing === playKey
 
         return (
-          <div key={key} style={{ background: isMem ? 'rgba(76,175,138,0.04)' : 'rgba(255,255,255,0.02)', border:`1px solid ${isMem ? 'rgba(76,175,138,0.2)' : isPlay ? `rgba(${hexRgb(sec.color)},0.4)` : isExp ? `rgba(${hexRgb(sec.color)},0.2)` : 'rgba(255,255,255,0.06)'}`, borderRadius:10, marginBottom:10, overflow:'hidden', transition:'border-color 0.2s' }}>
+          <div key={key} ref={el => { if (verseRefsRef) verseRefsRef.current[v.n] = el }} style={{ background: autoAyah===v.n ? `rgba(${hexRgb(sec.color)},0.08)` : isMem ? 'rgba(76,175,138,0.04)' : 'rgba(255,255,255,0.02)', border:`1px solid ${autoAyah===v.n ? sec.color : isMem ? 'rgba(76,175,138,0.2)' : isPlay ? `rgba(${hexRgb(sec.color)},0.4)` : isExp ? `rgba(${hexRgb(sec.color)},0.2)` : 'rgba(255,255,255,0.06)'}`, borderRadius:10, marginBottom:10, overflow:'hidden', transition:'all 0.3s' }}>
             <div style={{ padding:'12px 14px' }}>
               <div style={{ display:'flex', gap:10, alignItems:'flex-start' }}>
                 <div style={{ width:28, height:28, flexShrink:0, borderRadius:'50%', border:`1.5px solid rgba(${hexRgb(sec.color)},0.4)`, display:'flex', alignItems:'center', justifyContent:'center', fontSize:12, color:sec.color, marginTop:6 }}>{v.n}</div>
