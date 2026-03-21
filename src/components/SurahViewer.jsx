@@ -139,6 +139,7 @@ export default function SurahViewer({ meta, sections, memorized, onToggle, onMar
   const [expandedKey,  setExpandedKey]  = useState(null)
   const [reciterIdx,   setReciterIdx]   = useState(0)
   const [showPicker,   setShowPicker]   = useState(false)
+  const [lang,         setLang]         = useState('en')  // 'en' | 'zh' | 'both'
   const [autoPlaying,  setAutoPlaying]  = useState(false)
   const [autoAyah,     setAutoAyah]     = useState(null)
   const autoIdxRef = useRef(0)
@@ -228,13 +229,23 @@ export default function SurahViewer({ meta, sections, memorized, onToggle, onMar
             )}
 
             {/* Colour legend */}
-            <div style={{ marginLeft:'auto', display:'flex', gap:10, alignItems:'center' }}>
+            <div style={{ marginLeft:'auto', display:'flex', gap:10, alignItems:'center', flexWrap:'wrap' }}>
               {[['#D4A843','normal'],['#81d4c0','stretch'],['#E6944A','hard']].map(([c,l]) => (
                 <div key={l} style={{ display:'flex', alignItems:'center', gap:3 }}>
                   <div style={{ width:8, height:8, borderRadius:2, background:c }} />
                   <span style={{ fontSize:9, color:'#6a5a40' }}>{l}</span>
                 </div>
               ))}
+              {/* Language toggle */}
+              <div style={{ display:'flex', gap:2, marginLeft:8 }}>
+                {[['en','EN'],['zh','中文'],['both','双语']].map(([l,label]) => (
+                  <button key={l} onClick={() => setLang(l)} style={{
+                    fontSize:10, padding:'2px 8px', borderRadius:10, border:'none', cursor:'pointer',
+                    background: lang===l ? '#D4A843' : 'rgba(255,255,255,0.06)',
+                    color: lang===l ? '#06101c' : '#6a5a40',
+                  }}>{label}</button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -263,7 +274,7 @@ export default function SurahViewer({ meta, sections, memorized, onToggle, onMar
             memorized={mem} onToggle={onToggle} onMarkSection={onMarkSection}
             audio={audio} meta={meta} expandedKey={expandedKey} setExpandedKey={setExpandedKey}
             autoPlaying={autoPlaying} autoAyah={autoAyah} verseRefsRef={verseRefsRef}
-            onStartAutoPlay={startAutoPlay} onStopAutoPlay={stopAutoPlay}
+            onStartAutoPlay={startAutoPlay} onStopAutoPlay={stopAutoPlay} lang={lang}
           />
         )}
 
@@ -274,7 +285,7 @@ export default function SurahViewer({ meta, sections, memorized, onToggle, onMar
             setActiveSec={id => { setActiveSec(id); audio.stop(); }}
             memorized={mem} onToggle={onToggle}
             practiceMode={practiceMode} setPracticeMode={setPracticeMode}
-            audio={audio} meta={meta}
+            audio={audio} meta={meta} lang={lang}
           />
         )}
 
@@ -376,7 +387,7 @@ function GuideTab() {
 }
 
 // ── LEARN TAB ─────────────────────────────────────────────────────────────────
-function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle, onMarkSection, audio, meta, expandedKey, setExpandedKey, autoPlaying, autoAyah, verseRefsRef, onStartAutoPlay, onStopAutoPlay }) {
+function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle, onMarkSection, audio, meta, expandedKey, setExpandedKey, autoPlaying, autoAyah, verseRefsRef, onStartAutoPlay, onStopAutoPlay, lang }) {
   const mem = memorized || {}
   const sectionDone = sec.verses.every(v => mem[`${sec.id}-${v.n}`])
 
@@ -426,7 +437,10 @@ function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle,
                 <div style={{ flex:1 }}>
                   <div dir="rtl" style={{ fontSize:30, color:'#f5ecd8', fontFamily:'Amiri,serif', lineHeight:2, textAlign:'right', marginBottom:4 }}>{v.ar}</div>
                   <TranslitLine tr={v.tr} />
-                  <div style={{ fontSize:15, color:'#7a6a52', lineHeight:1.6, marginTop:4 }}>{v.en}</div>
+                  <div style={{ fontSize:15, color:'#7a6a52', lineHeight:1.6, marginTop:4 }}>
+                    {(lang==='en'||lang==='both') && <div>{v.en}</div>}
+                    {(lang==='zh'||lang==='both') && v.zh && <div style={{ color:'#8fb8a0', fontFamily:'sans-serif', marginTop: lang==='both' ? 2 : 0 }}>{v.zh}</div>}
+                  </div>
                 </div>
                 <div style={{ display:'flex', flexDirection:'column', gap:5, alignItems:'center', flexShrink:0 }}>
                   <button onClick={() => audio.toggle(meta.number, v.n)} style={{ width:42, height:42, borderRadius:'50%', border:'none', cursor:'pointer', background: isPlay ? '#D4A843' : 'rgba(212,168,67,0.12)', color: isPlay ? '#06101c' : '#D4A843', fontSize:13, display:'flex', alignItems:'center', justifyContent:'center' }}>
@@ -446,18 +460,50 @@ function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle,
             {/* Expanded syllable breakdown */}
             {isExp && (
               <div style={{ borderTop:`1px solid rgba(${hexRgb(sec.color)},0.12)`, padding:'12px 14px', background:'rgba(0,0,0,0.25)' }}>
-                <div style={{ fontSize:10, color:sec.color, letterSpacing:1, marginBottom:10 }}>SYLLABLE BREAKDOWN</div>
-                <div style={{ display:'flex', flexWrap:'wrap', gap:6, marginBottom:10 }}>
-                  {v.tr.split('  ').filter(w => w.trim()).map((word, i) => {
-                    const lbl = wordLabel(word)
-                    return (
-                      <div key={i} style={{ background:`rgba(${hexRgb(wordColor(word))},0.08)`, border:`1px solid rgba(${hexRgb(wordColor(word))},0.25)`, borderRadius:6, padding:'4px 9px' }}>
-                        <div style={{ fontSize:12, color: wordColor(word), fontFamily:'monospace' }}>{word}</div>
-                        {lbl && <div style={{ fontSize:9, color: lbl.color }}>{lbl.text}</div>}
-                      </div>
-                    )
-                  })}
-                </div>
+                {/* Word-by-word breakdown if available */}
+                {v.words && v.words.length > 0 ? (
+                  <div>
+                    <div style={{ fontSize:10, color:sec.color, letterSpacing:1, marginBottom:10 }}>WORD BY WORD — 逐词解析</div>
+                    <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(130px,1fr))', gap:8, marginBottom:12 }}>
+                      {v.words.map((w, i) => {
+                        const col = wordColor(w.tr)
+                        const lbl = wordLabel(w.tr)
+                        return (
+                          <div key={i} style={{ background:`rgba(${hexRgb(col)},0.07)`, border:`1px solid rgba(${hexRgb(col)},0.25)`, borderRadius:8, padding:'8px 10px' }}>
+                            {/* Arabic word */}
+                            <div dir="rtl" style={{ fontSize:20, color:'#f5ecd8', fontFamily:'Amiri,serif', textAlign:'right', marginBottom:4, lineHeight:1.6 }}>{w.ar}</div>
+                            {/* Transliteration chunk */}
+                            <div style={{ fontSize:12, color:col, fontFamily:'monospace', marginBottom:4 }}>{w.tr}</div>
+                            {/* English */}
+                            {(lang==='en'||lang==='both'||lang===undefined) && (
+                              <div style={{ fontSize:11, color:'#7a6a52', lineHeight:1.4 }}>{w.en}</div>
+                            )}
+                            {/* Chinese */}
+                            {(lang==='zh'||lang==='both') && w.zh && (
+                              <div style={{ fontSize:12, color:'#8fb8a0', fontFamily:'sans-serif', marginTop:2, lineHeight:1.4 }}>{w.zh}</div>
+                            )}
+                            {lbl && <div style={{ fontSize:9, color:lbl.color, marginTop:3 }}>{lbl.text}</div>}
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <div style={{ fontSize:10, color:sec.color, letterSpacing:1, marginBottom:10 }}>SYLLABLE BREAKDOWN</div>
+                    <div style={{ display:'flex', flexWrap:'wrap', gap:6, marginBottom:10 }}>
+                      {v.tr.split('  ').filter(w => w.trim()).map((word, i) => {
+                        const lbl = wordLabel(word)
+                        return (
+                          <div key={i} style={{ background:`rgba(${hexRgb(wordColor(word))},0.08)`, border:`1px solid rgba(${hexRgb(wordColor(word))},0.25)`, borderRadius:6, padding:'4px 9px' }}>
+                            <div style={{ fontSize:12, color: wordColor(word), fontFamily:'monospace' }}>{word}</div>
+                            {lbl && <div style={{ fontSize:9, color: lbl.color }}>{lbl.text}</div>}
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )}
                 <div style={{ fontSize:10, color:'#5a4a32', padding:'7px 10px', background:'rgba(212,168,67,0.04)', borderRadius:6 }}>
                   🔁 <span style={{ color:'#D4A843' }}>Method:</span> Listen ▶ → follow transliteration → cover → try alone → 3 rounds.
                 </div>
@@ -471,7 +517,7 @@ function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle,
 }
 
 // ── PRACTICE TAB ──────────────────────────────────────────────────────────────
-function PracticeTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle, practiceMode, setPracticeMode, audio, meta }) {
+function PracticeTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle, practiceMode, setPracticeMode, audio, meta, lang }) {
   const mem = memorized || {}
   return (
     <div>
@@ -492,13 +538,13 @@ function PracticeTab({ sections, sec, activeSec, setActiveSec, memorized, onTogg
       {sec.verses.map(v => {
         const key    = `${sec.id}-${v.n}`
         const isPlay = audio.playing === `${meta.number}-${v.n}`
-        return <PracticeCard key={key} v={v} sec={sec} mode={practiceMode} isMem={mem[key]} onToggle={() => onToggle(key)} onPlay={() => audio.toggle(meta.number, v.n)} isPlaying={isPlay} audioLoading={audio.loading && isPlay} />
+        return <PracticeCard key={key} v={v} sec={sec} mode={practiceMode} isMem={mem[key]} onToggle={() => onToggle(key)} onPlay={() => audio.toggle(meta.number, v.n)} isPlaying={isPlay} audioLoading={audio.loading && isPlay} lang={lang} />
       })}
     </div>
   )
 }
 
-function PracticeCard({ v, sec, mode, isMem, onToggle, onPlay, isPlaying, audioLoading }) {
+function PracticeCard({ v, sec, mode, isMem, onToggle, onPlay, isPlaying, audioLoading, lang }) {
   const [revAr, setRevAr] = useState(false)
   const [revTr, setRevTr] = useState(false)
   const [revEn, setRevEn] = useState(false)
@@ -517,7 +563,8 @@ function PracticeCard({ v, sec, mode, isMem, onToggle, onPlay, isPlaying, audioL
             <TranslitLine tr={v.tr} fontSize={13} />
           </Mask>
           <Mask hidden={mode==='hide-en'&&!revEn} onReveal={() => setRevEn(true)}>
-            <div style={{ fontSize:12, color:'#7a6a52' }}>{v.en}</div>
+            {(lang==='en'||lang==='both'||!lang) && <div style={{ fontSize:12, color:'#7a6a52' }}>{v.en}</div>}
+            {(lang==='zh'||lang==='both') && v.zh && <div style={{ fontSize:13, color:'#8fb8a0', fontFamily:'sans-serif', marginTop: lang==='both' ? 2 : 0 }}>{v.zh}</div>}
           </Mask>
         </div>
         <div style={{ display:'flex', flexDirection:'column', gap:5, alignItems:'center', flexShrink:0 }}>
