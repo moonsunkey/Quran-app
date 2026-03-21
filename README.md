@@ -1,87 +1,101 @@
 # Quran Memorization App 🌙
 
 A web app for new Muslims and non-Arabic speakers to memorize the Quran
-surah by surah — with Arabic text, syllabified transliteration, English
-translation, audio (Sheikh Al-Husary), and cloud-synced progress tracking.
+surah by surah — with Arabic text, colour-coded transliteration, multi-language
+translation, audio recitation, and cloud-synced progress tracking.
+
+**Live site:** https://quranmemo.app  
+**Repo:** github.com/YOUR_USERNAME/quran-app
 
 ---
 
 ## Stack
 
-| Layer        | Technology                     |
-|--------------|-------------------------------|
-| Frontend     | React 18 + Vite               |
-| Routing      | React Router v6               |
-| Auth         | Firebase Authentication (Google) |
-| Database     | Firestore (progress sync)     |
-| Audio        | everyayah.com CDN (free)      |
-| Hosting      | Vercel (free tier)            |
+| Layer        | Technology                          |
+|--------------|-------------------------------------|
+| Frontend     | React 18 + Vite                     |
+| Routing      | React Router v6                     |
+| Auth         | Firebase Authentication (email/password) |
+| Database     | Firestore (progress sync)           |
+| Audio        | everyayah.com CDN                   |
+| Hosting      | Vercel (free tier, auto-deploy from GitHub) |
 
 ---
 
-## 1. Local Setup (5 minutes)
+## Current Surahs
+
+| Surah | Number | Ayahs | Status |
+|-------|--------|-------|--------|
+| Al-Fatiha | 1 | 7 | ✓ Available — includes word-by-word + EN/ZH/HI |
+| Al-Mulk | 67 | 30 | ✓ Available — EN/ZH/HI |
+| Al-Waqia | 56 | 96 | ✓ Available — EN/ZH/HI |
+| Al-Rahman | 55 | 78 | Coming soon |
+| Ya-Sin | 36 | 83 | Coming soon |
+| Al-Kahf | 18 | 110 | Coming soon |
+
+---
+
+## Features
+
+- **4 learning tabs** per surah: Learn · Practice · Map · Progress
+- **Colour-coded transliteration** — gold (normal) · teal (stretch long vowel) · orange (hard sound)
+- **3 language toggles** — EN / 中文 (Simplified Chinese) / हिंदी (Hindi) — any combination
+- **Word-by-word breakdown** — tap ▼ on any ayah to see each Arabic word with transliteration + all translations
+- **Audio playback** — 4 reciters: Al-Husary (default) · Al-Afasy · Abdul Basit · Al-Minshawi
+- **Auto-play** — plays through a whole section, screen auto-scrolls and highlights current ayah
+- **Practice mode** — hide Arabic / transliteration / translation to test memory
+- **Progress tracking** — per-ayah checkboxes, section completion, home page progress bars
+- **Cloud sync** — sign in to sync progress across all devices
+- **Pronunciation guide** — full 📚 tab explaining all 30 Arabic sounds with English tips
+- **PWA-ready** — add to home screen on iPhone/Android, works like a native app
+- **Trilingual About page** — personal story + full how-to guide in EN / 中文 / हिंदी
+
+---
+
+## 1. Local Setup
 
 ```bash
-# Clone or unzip the project
 cd quran-app
-
-# Install dependencies
 npm install
-
-# Copy environment template
-cp .env.example .env.local
-
-# Start dev server
+# Create .env.local with your Firebase keys (see section 2)
 npm run dev
-# → Opens at http://localhost:5173
+# → http://localhost:5173
 ```
 
-The app works fully without Firebase in dev (progress saves to localStorage).
-You only need Firebase for the Google sign-in + cross-device sync.
+Progress saves to localStorage without Firebase. Firebase only needed for cross-device sync.
 
 ---
 
-## 2. Firebase Setup (10 minutes)
+## 2. Firebase Setup
 
-### Create a Firebase project
+### Create project
+1. https://console.firebase.google.com → **Add project** → name it → disable Analytics → Create
 
-1. Go to https://console.firebase.google.com
-2. Click **Add project** → name it `quran-memorization` → Continue
-3. Disable Google Analytics (not needed) → **Create project**
+### Enable Email/Password auth
+1. **Authentication** → **Get started** → **Email/Password** → Enable → Save
 
-### Enable Google Auth
+### Create Firestore
+1. **Firestore Database** → **Create database** → **Start in test mode** → Enable
 
-1. In Firebase Console → **Authentication** → **Get started**
-2. Click **Google** provider → Enable → add your support email → **Save**
+### Get config keys
+1. **Project Settings** → **Your apps** → **Web** (`</>`) → Register → copy config
 
-### Create Firestore database
-
-1. **Firestore Database** → **Create database**
-2. Choose **Start in test mode** (we'll tighten rules later) → Next
-3. Pick any location (us-central1 is fine) → **Enable**
-
-### Get your config keys
-
-1. **Project Settings** (gear icon) → **Your apps** → **Web** (`</>`)
-2. Register app name: `quran-web` → **Register**
-3. Copy the `firebaseConfig` object values into your `.env.local`:
-
+### Create `.env.local` in project root
 ```
 VITE_FIREBASE_API_KEY=AIza...
-VITE_FIREBASE_AUTH_DOMAIN=quran-memorization.firebaseapp.com
-VITE_FIREBASE_PROJECT_ID=quran-memorization
-VITE_FIREBASE_STORAGE_BUCKET=quran-memorization.appspot.com
+VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your-project
+VITE_FIREBASE_STORAGE_BUCKET=your-project.firebasestorage.app
 VITE_FIREBASE_MESSAGING_SENDER_ID=123456789
 VITE_FIREBASE_APP_ID=1:123:web:abc
 ```
 
-### Firestore security rules (paste into Firestore → Rules)
-
+### Firestore security rules
+Paste into **Firestore → Rules → Edit rules**:
 ```
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Users can only read/write their own progress
     match /users/{userId}/progress/{surahKey} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
@@ -89,112 +103,167 @@ service cloud.firestore {
 }
 ```
 
+### Add Vercel domain to Firebase authorized domains
+**Authentication → Settings → Authorized domains → Add domain** → `quranmemo.app`
+
 ---
 
-## 3. Deploy to Vercel (5 minutes)
+## 3. Deployment
 
-### Option A — Vercel CLI (fastest)
-
+**Auto-deploy via GitHub (already set up):**
 ```bash
-npm install -g vercel
-vercel
-
-# Answer prompts:
-# Set up and deploy? → Y
-# Which scope? → your account
-# Link to existing project? → N
-# Project name? → quran-memorization
-# Directory? → ./   (root)
-# Override settings? → N
+git add .
+git commit -m "Your message"
+git push
+# Vercel picks it up automatically — deploys in ~60 seconds
 ```
 
-Then add your Firebase env vars in the Vercel dashboard:
-**Project → Settings → Environment Variables** → add each `VITE_FIREBASE_*` key.
+**Always run `npm run build` before pushing** — catches all errors locally before they reach Vercel.
 
-Redeploy: `vercel --prod`
+**If Vercel doesn't auto-deploy:** Settings → Git → confirm main branch is connected.
 
-### Option B — GitHub + Vercel (recommended for ongoing updates)
-
-1. Push this folder to a GitHub repo
-2. Go to https://vercel.com → **New Project** → import your repo
-3. Add all `VITE_FIREBASE_*` environment variables
-4. Click **Deploy**
-
-Every `git push` auto-deploys. Free on Vercel's Hobby tier.
+**Environment variables on Vercel:**
+Project → Settings → Environment Variables → add all 6 `VITE_FIREBASE_*` keys.
 
 ---
 
 ## 4. Adding a New Surah
 
-1. Create `src/data/al-mulk.js` (copy `al-waqia.js` as template)
-2. Fill in Arabic, transliteration, and translation for each ayah
-3. In `src/pages/SurahPage.jsx`, import and register:
-   ```js
-   import { SECTIONS as AL_MULK_SECTIONS, SURAH_META as AL_MULK_META } from '../data/al-mulk'
-   const SURAH_DATA_MAP = {
-     'al-waqia': { sections: SECTIONS,          meta: SURAH_META      },
-     'al-mulk':  { sections: AL_MULK_SECTIONS,  meta: AL_MULK_META    },
-   }
-   ```
-4. In `src/pages/HomePage.jsx`, change `status: 'coming-soon'` → `status: 'available'`
-5. Done — the full UI (Learn, Practice, Map, Progress) works automatically.
+**Always use `SURAH_TEMPLATE.js` as your starting point.** It has all the rules.
+
+### Step 1 — Create the data file
+Copy `src/data/SURAH_TEMPLATE.js` → rename to `src/data/al-xxx.js`
+
+**Critical quote rules (every rule exists because it broke a build):**
+
+| Field | Quote type | Example |
+|-------|-----------|---------|
+| `ar:` | Single `'...'` | `ar:'بِسْمِ ٱللَّهِ'` |
+| `tr:` | **Double `"..."`** | `tr:"Bis-mil-laa-hir  raH-maa-nir"` |
+| `en:` | Single `'...'` (double if has apostrophe) | `en:'Guide us'` |
+| `zh:` | **Double `"..."`** | `zh:"奉真主之名"` |
+| `hi:` | **Double `"..."`** | `hi:"अल्लाह के नाम से"` |
+| `memTip:` | Backticks `` `...` `` | `` memTip: `Allah's mercy...` `` |
+| `summary:` | Backticks if has apostrophe | `` summary: `He's the Lord...` `` |
+
+### Step 2 — Register in SurahPage.jsx
+```js
+import { SECTIONS as AL_XXX_SECTIONS, SURAH_META as AL_XXX_META } from '../data/al-xxx'
+
+const SURAH_DATA_MAP = {
+  'al-fatiha': { sections: AL_FATIHA_SECTIONS, meta: AL_FATIHA_META },
+  'al-waqia':  { sections: AL_WAQIA_SECTIONS,  meta: AL_WAQIA_META  },
+  'al-mulk':   { sections: AL_MULK_SECTIONS,   meta: AL_MULK_META   },
+  'al-xxx':    { sections: AL_XXX_SECTIONS,     meta: AL_XXX_META    }, // ← add this
+}
+```
+
+### Step 3 — Add card in HomePage.jsx
+Add to the `SURAHS` array:
+```js
+{
+  id: 'al-xxx', number: XX, name: 'Al-Xxx',
+  arabic: '...', meaning: '...', ayahs: XX,
+  difficulty: 'Beginner', status: 'available',
+  color: '#XXXXXX', description: '...'
+},
+```
+
+### Step 4 — Test and push
+```bash
+npm run build        # must show ✓ built — fix any errors before pushing
+git add .
+git commit -m "Add Surah Al-Xxx (XX)"
+git push
+```
 
 ---
 
 ## 5. Audio
 
-Audio is streamed for free from **everyayah.com** using this URL pattern:
+Audio streamed from **everyayah.com**:
 ```
 https://everyayah.com/data/{reciterId}/{surah_3digits}{ayah_3digits}.mp3
 ```
 
-The default reciter is **Mahmoud Khalil Al-Husary** (`Husary_128kbps`) —
-slow, clear, ideal for new learners.
+Default reciter: **Mahmoud Khalil Al-Husary** (`Husary_128kbps`) — slow and clear, best for learners.
 
-To change the reciter, update `reciterId` in the surah's `SURAH_META` object.
-Other available IDs: `Alafasy_128kbps`, `Abdul_Basit_Murattal_192kbps`, `Minshawi_Murattal_128kbps`
+Available reciters:
+- `Husary_128kbps` — Al-Husary (default)
+- `Alafasy_128kbps` — Al-Afasy
+- `Abdul_Basit_Murattal_192kbps` — Abdul Basit
+- `Minshawi_Murattal_128kbps` — Al-Minshawi
 
----
-
-## 6. Roadmap
-
-- [ ] Al-Mulk (67) — great beginner surah, only 30 ayahs
-- [ ] Al-Rahman (55) — beloved, with repeating refrain
-- [ ] Ya-Sin (36)
-- [ ] Al-Kahf (18)
-- [ ] Pronunciation guide page
-- [ ] Streak tracking (days practiced)
-- [ ] Email/password auth option
-- [ ] PWA / offline mode
-- [ ] iOS & Android via Capacitor or React Native
+`audioOffset`: total ayahs in all surahs before this one.
+Find it at: `https://api.quran.com/api/v4/verses/by_key/{surah}:{ayah}`
 
 ---
 
-## Project structure
+## 6. Project Structure
 
 ```
 quran-app/
-├── index.html
+├── index.html              ← SEO meta tags, PWA meta, favicon
 ├── vite.config.js
 ├── package.json
-├── .env.example          ← copy to .env.local with your Firebase keys
+├── .env.local              ← Firebase keys (never commit this)
 └── src/
-    ├── main.jsx           ← React entry + Router
-    ├── App.jsx            ← Route definitions
-    ├── firebase.js        ← Firebase init + helpers
+    ├── main.jsx            ← React entry + Router
+    ├── App.jsx             ← Route definitions + auth wiring
+    ├── firebase.js         ← Firebase init + signIn/signUp/signOut + Firestore helpers
     ├── hooks/
-    │   ├── useAuth.js     ← Google sign-in state
-    │   └── useProgress.js ← Firestore/localStorage sync
+    │   ├── useAuth.js      ← Email/password auth state
+    │   └── useProgress.js  ← Firestore/localStorage progress sync
     ├── data/
-    │   └── al-waqia.js    ← All 96 ayahs with transliteration
+    │   ├── SURAH_TEMPLATE.js  ← Copy this when adding a new surah
+    │   ├── al-fatiha.js    ← 7 ayahs, word-by-word, EN/ZH/HI
+    │   ├── al-mulk.js      ← 30 ayahs, EN/ZH/HI
+    │   └── al-waqia.js     ← 96 ayahs, EN/ZH/HI
     ├── pages/
-    │   ├── HomePage.jsx   ← Surah library
-    │   └── SurahPage.jsx  ← Loads surah data by URL
+    │   ├── HomePage.jsx    ← Surah library with progress bars
+    │   ├── SurahPage.jsx   ← Loads surah data by URL param
+    │   └── AboutPage.jsx   ← Trilingual about page (EN/ZH/HI)
     └── components/
-        ├── Header.jsx     ← Nav + auth button
-        └── SurahViewer.jsx ← Full 4-tab learning UI
+        ├── Header.jsx      ← Nav + sign in/register form
+        └── SurahViewer.jsx ← Full learning UI:
+                               - GuideTab (pronunciation guide)
+                               - LearnTab (Arabic + transliteration + translation + audio)
+                               - PracticeTab (hide/reveal layers)
+                               - MapTab (section overview, dynamic)
+                               - ProgressTab (per-ayah grid + stats)
 ```
 
 ---
 
-بارك الله فيك — May Allah bless your efforts.
+## 7. Roadmap
+
+**Next surahs (priority order):**
+- [ ] Al-Rahman (55) — 78 ayahs, repeating refrain, beloved
+- [ ] Al-Fajr (89) — 30 ayahs, powerful imagery
+- [ ] Ya-Sin (36) — heart of the Quran
+- [ ] Al-Kahf (18) — recited on Fridays
+
+**Features planned:**
+- [ ] Daily streak tracker
+- [ ] Google sign-in (OAuth fix)
+- [ ] Firestore security rules tightened for production
+- [ ] More languages (Urdu, Malay, Turkish)
+- [ ] React Native / Expo mobile app (iOS + Android)
+- [ ] Offline / PWA mode with service worker
+
+---
+
+## 8. Mobile App (Future)
+
+The web app is PWA-ready (add to home screen works now).
+
+Full native app planned via **React Native + Expo**:
+- All surah data files reuse unchanged
+- All hooks (useProgress, useAuth) reuse unchanged  
+- Firebase Auth + Firestore work identically
+- Only the UI components need rewriting (View/Text instead of div/span)
+- Single codebase → iOS App Store + Google Play
+
+---
+
+بارك الله فيك — May Allah bless your efforts. آمين
