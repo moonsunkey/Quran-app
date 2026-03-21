@@ -139,7 +139,7 @@ export default function SurahViewer({ meta, sections, memorized, onToggle, onMar
   const [expandedKey,  setExpandedKey]  = useState(null)
   const [reciterIdx,   setReciterIdx]   = useState(0)
   const [showPicker,   setShowPicker]   = useState(false)
-  const [langs, setLangs] = useState({ en:true, zh:false, pa:false })
+  const [langs, setLangs] = useState({ en:true, zh:false, hi:false })
   const toggleLang = l => setLangs(prev => ({ ...prev, [l]: !prev[l] }))
   const [autoPlaying,  setAutoPlaying]  = useState(false)
   const [autoAyah,     setAutoAyah]     = useState(null)
@@ -239,11 +239,11 @@ export default function SurahViewer({ meta, sections, memorized, onToggle, onMar
               ))}
               {/* Language toggles */}
               <div style={{ display:'flex', gap:3, marginLeft:8 }}>
-                {[['en','EN','#D4A843'],['zh','中文','#4CAF8A'],['pa','ਪੰਜਾਬੀ','#9B59B6']].map(([l,label,c]) => (
+                {[['en','EN','#D4A843'],['zh','中文','#4CAF8A'],['hi','हिन्दी','#E8871A']].map(([l,label,c]) => (
                   <button key={l} onClick={() => toggleLang(l)} style={{
                     fontSize:10, padding:'2px 8px', borderRadius:10, border:`1px solid ${langs[l] ? c : 'transparent'}`,
                     cursor:'pointer',
-                    background: langs[l] ? `rgba(${l==='en'?'212,168,67':l==='zh'?'76,175,138':'155,89,182'},0.15)` : 'rgba(255,255,255,0.04)',
+                    background: langs[l] ? `rgba(${l==='en'?'212,168,67':l==='zh'?'76,175,138':'255,112,67'},0.15)` : 'rgba(255,255,255,0.04)',
                     color: langs[l] ? c : '#6a5a40',
                   }}>{label}</button>
                 ))}
@@ -442,7 +442,7 @@ function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle,
                   <div style={{ fontSize:15, color:'#7a6a52', lineHeight:1.6, marginTop:4 }}>
                     {langs.en && <div>{v.en}</div>}
                     {langs.zh && v.zh && <div style={{ color:'#8fb8a0', fontFamily:'sans-serif', marginTop:2 }}>{v.zh}</div>}
-                    {langs.pa && v.pa && <div style={{ color:'#b89fd4', fontFamily:'sans-serif', marginTop:2 }}>{v.pa}</div>}
+                    {langs.hi && v.hi && <div style={{ color:'#FF7043', fontFamily:'sans-serif', marginTop:2 }}>{v.hi}</div>}
                   </div>
                 </div>
                 <div style={{ display:'flex', flexDirection:'column', gap:5, alignItems:'center', flexShrink:0 }}>
@@ -482,7 +482,7 @@ function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle,
                             {/* Chinese */}
                             {langs.zh && w.zh && <div style={{ fontSize:12, color:'#8fb8a0', fontFamily:'sans-serif', marginTop:2, lineHeight:1.4 }}>{w.zh}</div>}
                             {/* Punjabi */}
-                            {langs.pa && w.pa && <div style={{ fontSize:12, color:'#b89fd4', fontFamily:'sans-serif', marginTop:2, lineHeight:1.4 }}>{w.pa}</div>}
+                            {langs.hi && w.hi && <div style={{ fontSize:12, color:'#FF7043', fontFamily:'sans-serif', marginTop:2, lineHeight:1.4 }}>{w.hi}</div>}
                             {lbl && <div style={{ fontSize:9, color:lbl.color, marginTop:3 }}>{lbl.text}</div>}
                           </div>
                         )
@@ -566,7 +566,7 @@ function PracticeCard({ v, sec, mode, isMem, onToggle, onPlay, isPlaying, audioL
           <Mask hidden={mode==='hide-en'&&!revEn} onReveal={() => setRevEn(true)}>
             {langs.en && <div style={{ fontSize:12, color:'#7a6a52' }}>{v.en}</div>}
             {langs.zh && v.zh && <div style={{ fontSize:13, color:'#8fb8a0', fontFamily:'sans-serif', marginTop:2 }}>{v.zh}</div>}
-            {langs.pa && v.pa && <div style={{ fontSize:13, color:'#b89fd4', fontFamily:'sans-serif', marginTop:2 }}>{v.pa}</div>}
+            {langs.hi && v.hi && <div style={{ fontSize:13, color:'#FF7043', fontFamily:'sans-serif', marginTop:2 }}>{v.hi}</div>}
           </Mask>
         </div>
         <div style={{ display:'flex', flexDirection:'column', gap:5, alignItems:'center', flexShrink:0 }}>
