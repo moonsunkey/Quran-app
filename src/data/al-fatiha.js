@@ -1,7 +1,6 @@
 // src/data/al-fatiha.js
 // Surah Al-Fatiha (1) — The Opening — 7 ayahs
-// Includes: Arabic · transliteration · English · Simplified Chinese (马坚译本 style)
-// Words: word-by-word breakdown with colour-coded transliteration chunks
+// Translations: English · Simplified Chinese (马坚) · Punjabi Shahmukhi
 
 export const SURAH_META = {
   number:     1,
@@ -9,10 +8,14 @@ export const SURAH_META = {
   arabic:     'الفاتحة',
   meaning:    'The Opening',
   meaningZh:  '开端章',
+  meaningPa:  'ਸ਼ੁਰੂਆਤ ਦਾ ਅਧਿਆਇ',
+  meaningPa:  'ਖੋਲ੍ਹਣ ਵਾਲੀ / کھولن والی',
   ayahs:      7,
   revelation: 'Makki',
   theme:      `The complete conversation between the servant and Allah — praise, gratitude, and guidance`,
   themeZh:    `仆人与真主之间的完整对话——赞颂、感恩与祈求引导`,
+  themePa:    `ਬੰਦੇ ਅਤੇ ਅੱਲ੍ਹਾ ਵਿਚਕਾਰ ਸੰਪੂਰਨ ਗੱਲਬਾਤ — ਤਾਰੀਫ਼, ਸ਼ੁਕਰਗੁਜ਼ਾਰੀ ਅਤੇ ਰਾਹਨੁਮਾਈ ਦੀ ਬੇਨਤੀ`,
+  themePa:    `بندے اتے اللہ وچکار مکمل گੱਲਬਾਤ — تعریف، شکر اتے ہدایت دی دعا`,
   reciterId:  'Husary_128kbps',
   audioOffset: 0,
 }
@@ -20,10 +23,11 @@ export const SURAH_META = {
 export const SECTIONS = [
   {
     id: 'bismillah', label: 'In the Name of Allah', arabic: 'بسم الله',
-    labelZh: '奉真主之名',
+    labelZh: '奉真主之名', labelPa: 'اللہ دے ناں نال',
     ayahs: '1', color: '#D4A843', icon: '✦',
     summary: 'Every surah begins with this — the opening invocation. Recited before starting any good action.',
     summaryZh: '每章以此开始——开场祈祷。在开始任何善事之前诵读。',
+    summaryPa: 'ہر سورة ایس نال شروع ہندی اے۔ کوئی وی نیک کم شروع کرن توں پہلاں پڑھی جاندی اے۔',
     memTip: `The most repeated phrase in Islam. You already know this — بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ`,
     verses: [
       {
@@ -32,21 +36,24 @@ export const SECTIONS = [
         tr: "Bis-mil-laa-hir  raH-maa-nir  ra-Heem",
         en: 'In the name of Allah, the Most Gracious, the Most Merciful',
         zh: '奉至仁至慈的真主之名',
+        pa: 'ਅੱਲ੍ਹਾ ਦੇ ਨਾਮ ਨਾਲ ਜੋ ਬੜਾ ਮਿਹਰਬਾਨ ਤੇ ਰਹਿਮ ਕਰਨ ਵਾਲਾ ਹੈ',
+        pa: 'اللہ دے ناں نال جو بڑا مہربان، نہایت رحم والا اے',
         words: [
-          { ar:'بِسْمِ',       tr:'Bis-mi',      en:'In the name of',     zh:'奉…之名' },
-          { ar:'ٱللَّهِ',      tr:'llaa-hi',     en:'Allah',              zh:'真主' },
-          { ar:'ٱلرَّحْمَٰنِ', tr:'raH-maa-ni',  en:'the Most Gracious',  zh:'至仁' },
-          { ar:'ٱلرَّحِيمِ',   tr:'ra-Heem',     en:'the Most Merciful',  zh:'至慈' },
+          { ar:'بِسْمِ',       tr:'Bis-mi',      en:'In the name of',    zh:'奉…之名',   pa:'ناں نال' },
+          { ar:'ٱللَّهِ',      tr:'llaa-hi',     en:'Allah',             zh:'真主',      pa:'اللہ' },
+          { ar:'ٱلرَّحْمَٰنِ', tr:'raH-maa-ni',  en:'the Most Gracious', zh:'至仁',      pa:'بڑا مہربان' },
+          { ar:'ٱلرَّحِيمِ',   tr:'ra-Heem',     en:'the Most Merciful', zh:'至慈',      pa:'نہایت رحم والا' },
         ],
       },
     ],
   },
   {
     id: 'praise', label: 'Praise & Gratitude', arabic: 'الحمد والشكر',
-    labelZh: '赞颂与感恩',
+    labelZh: '赞颂与感恩', labelPa: 'تعریف اتے شکر',
     ayahs: '2–4', color: '#4CAF8A', icon: '🌿',
     summary: 'All praise belongs to Allah — Lord of all worlds, the Most Merciful, Master of the Day of Judgment.',
     summaryZh: '一切赞颂归真主——众世界的主，至仁至慈，报应日的主宰。',
+    summaryPa: 'ساری تعریف اللہ لئی اے — سارے جہانیاں دا رب، بڑا مہربان، جزا دے دن دا مالک۔',
     memTip: `Three attributes of Allah in three ayahs: Lord of worlds → Most Merciful → Master of Judgment.`,
     verses: [
       {
@@ -55,11 +62,13 @@ export const SECTIONS = [
         tr: "Al-Ham-du  lil-laa-hi  rab-bil  'aa-la-meen",
         en: 'All praise is for Allah — Lord of all the worlds',
         zh: '一切赞颂，全归真主，全世界的主',
+        pa: 'ਸਾਰੀ ਤਾਰੀਫ਼ ਅੱਲ੍ਹਾ ਲਈ ਹੈ ਜੋ ਸਾਰੇ ਜਹਾਨਾਂ ਦਾ ਰੱਬ ਹੈ',
+        pa: 'ساری تعریف اللہ لئی اے جو سارے جہانیاں دا رب اے',
         words: [
-          { ar:'ٱلْحَمْدُ',    tr:'Al-Ham-du',   en:'All praise',         zh:'一切赞颂' },
-          { ar:'لِلَّهِ',      tr:'lil-laa-hi',  en:'is for Allah',       zh:'归于真主' },
-          { ar:'رَبِّ',        tr:'rab-bi',       en:'Lord of',            zh:'主，主宰' },
-          { ar:'ٱلْعَٰلَمِينَ', tr:"'aa-la-meen", en:'all the worlds',     zh:'全世界' },
+          { ar:'ٱلْحَمْدُ',    tr:'Al-Ham-du',   en:'All praise',        zh:'一切赞颂',  pa:'ساری تعریف' },
+          { ar:'لِلَّهِ',      tr:'lil-laa-hi',  en:'is for Allah',      zh:'归于真主',  pa:'اللہ لئی' },
+          { ar:'رَبِّ',        tr:'rab-bi',       en:'Lord of',           zh:'主，主宰',  pa:'رب' },
+          { ar:'ٱلْعَٰلَمِينَ', tr:"'aa-la-meen", en:'all the worlds',   zh:'全世界',    pa:'سارے جہانیاں دا' },
         ],
       },
       {
@@ -68,9 +77,11 @@ export const SECTIONS = [
         tr: "Ar-raH-maa-nir  ra-Heem",
         en: 'The Most Gracious, the Most Merciful',
         zh: '至仁至慈的',
+        pa: 'ਬੜਾ ਮਿਹਰਬਾਨ ਤੇ ਰਹਿਮ ਕਰਨ ਵਾਲਾ',
+        pa: 'بڑا مہربان، نہایت رحم والا',
         words: [
-          { ar:'ٱلرَّحْمَٰنِ', tr:'raH-maa-ni',  en:'the Most Gracious',  zh:'至仁' },
-          { ar:'ٱلرَّحِيمِ',   tr:'ra-Heem',     en:'the Most Merciful',  zh:'至慈' },
+          { ar:'ٱلرَّحْمَٰنِ', tr:'raH-maa-ni',  en:'the Most Gracious', zh:'至仁',      pa:'بڑا مہربان' },
+          { ar:'ٱلرَّحِيمِ',   tr:'ra-Heem',     en:'the Most Merciful', zh:'至慈',      pa:'نہایت رحم والا' },
         ],
       },
       {
@@ -79,20 +90,23 @@ export const SECTIONS = [
         tr: "Maa-li-ki  yaw-mid  deen",
         en: 'Master of the Day of Judgment',
         zh: '报应日的主宰',
+        pa: 'ਬਦਲੇ ਦੇ ਦਿਨ ਦਾ ਮਾਲਕ',
+        pa: 'جزا دے دن دا مالک',
         words: [
-          { ar:'مَٰلِكِ', tr:'Maa-li-ki', en:'Master of',           zh:'主宰' },
-          { ar:'يَوْمِ',  tr:'yaw-mi',   en:'the Day of',           zh:'日，天' },
-          { ar:'ٱلدِّينِ', tr:'d-deen',  en:'Judgment / Recompense', zh:'报应，审判' },
+          { ar:'مَٰلِكِ', tr:'Maa-li-ki', en:'Master of',              zh:'主宰',      pa:'مالک' },
+          { ar:'يَوْمِ',  tr:'yaw-mi',   en:'the Day of',              zh:'日，天',    pa:'دن' },
+          { ar:'ٱلدِّينِ', tr:'d-deen',  en:'Judgment / Recompense',   zh:'报应，审判', pa:'جزا، بدلہ' },
         ],
       },
     ],
   },
   {
     id: 'worship', label: 'Devotion & Prayer', arabic: 'العبادة والاستعانة',
-    labelZh: '崇拜与祈援',
+    labelZh: '崇拜与祈援', labelPa: 'عبادت اتے مدد',
     ayahs: '5', color: '#5B8FD4', icon: '🤲',
     summary: 'The pivot of the surah — the servant speaks directly to Allah: You alone we worship, You alone we ask for help.',
     summaryZh: '此章的核心——仆人直接对真主说：我们只崇拜你，只向你求助。',
+    summaryPa: 'ایس سورة دا مرکز — بندہ سیدھا اللہ نال گੱਲ ਕਰਦਾ ਹੈ: ਅਸੀਂ ਸਿਰਫ਼ ਤੇਰੀ ਹੀ ਇਬਾਦਤ ਕਰਦੇ ਹਾਂ۔',
     memTip: `Ayah 5 is the centre of Al-Fatiha. It shifts from ABOUT Allah to TO Allah.`,
     verses: [
       {
@@ -101,22 +115,25 @@ export const SECTIONS = [
         tr: "Iy-yaa-ka  na'-bu-du  wa  iy-yaa-ka  nas-ta-'een",
         en: 'You alone we worship, and You alone we ask for help',
         zh: '我们只崇拜你，只求你佑助',
+        pa: 'ਅਸੀਂ ਕੇਵਲ ਤੇਰੀ ਇਬਾਦਤ ਕਰਦੇ ਹਾਂ ਅਤੇ ਕੇਵਲ ਤੈਥੋਂ ਮਦਦ ਮੰਗਦੇ ਹਾਂ',
+        pa: 'ہم صرف تیری عبادت کردے آں اتے صرف تیتوں مدد منگدے آں',
         words: [
-          { ar:'إِيَّاكَ',    tr:'Iy-yaa-ka',   en:'You alone',          zh:'只有你' },
-          { ar:'نَعْبُدُ',    tr:"na'-bu-du",   en:'we worship',         zh:'我们崇拜' },
-          { ar:'وَ',          tr:'wa',           en:'and',                zh:'并且' },
-          { ar:'إِيَّاكَ',    tr:'iy-yaa-ka',   en:'You alone',          zh:'只有你' },
-          { ar:'نَسْتَعِينُ', tr:"nas-ta-'een", en:'we ask for help',    zh:'我们求助' },
+          { ar:'إِيَّاكَ',    tr:'Iy-yaa-ka',   en:'You alone',         zh:'只有你',   pa:'صرف تینوں' },
+          { ar:'نَعْبُدُ',    tr:"na'-bu-du",   en:'we worship',        zh:'我们崇拜',  pa:'ہم عبادت کردے آں' },
+          { ar:'وَ',          tr:'wa',           en:'and',               zh:'并且',      pa:'اتے' },
+          { ar:'إِيَّاكَ',    tr:'iy-yaa-ka',   en:'You alone',         zh:'只有你',    pa:'صرف تینوں' },
+          { ar:'نَسْتَعِينُ', tr:"nas-ta-'een", en:'we ask for help',   zh:'我们求助',  pa:'ہم مدد منگدے آں' },
         ],
       },
     ],
   },
   {
     id: 'guidance', label: 'The Request', arabic: 'الدعاء',
-    labelZh: '祈祷',
+    labelZh: '祈祷', labelPa: 'دعا',
     ayahs: '6–7', color: '#9B59B6', icon: '🌙',
     summary: 'The ultimate prayer — guide us to the straight path, the path of those You blessed, not those who went astray.',
     summaryZh: '终极祈祷——引导我们走上正路，那些蒙你恩惠的人的路，不是迷误者的路。',
+    summaryPa: 'سب توں وڈی دعا — ساڈی رہنمائی کر سیدھے راستے ول، جنہاں تے تو نے نعمت کیتی، اوہناں دے راستے ول۔',
     memTip: `The surah ends with a dua. Ayah 6 is the request; ayah 7 describes it. Recited at least 17 times daily.`,
     verses: [
       {
@@ -125,10 +142,12 @@ export const SECTIONS = [
         tr: "Ih-di-naS  Si-raa-Tal  mus-ta-qeem",
         en: 'Guide us to the straight path',
         zh: '求你引导我们走上正路',
+        pa: 'ਸਾਨੂੰ ਸਿੱਧਾ ਰਸਤਾ ਦਿਖਾ',
+        pa: 'ساڈی رہنمائی کر سیدھے راستے ول',
         words: [
-          { ar:'ٱهْدِنَا',       tr:'Ih-di-naa',    en:'Guide us',          zh:'引导我们' },
-          { ar:'ٱلصِّرَٰطَ',     tr:'S-Si-raa-Ta',  en:'the path',          zh:'道路' },
-          { ar:'ٱلْمُسْتَقِيمَ', tr:'mus-ta-qeem',  en:'the straight',      zh:'正直的，笔直的' },
+          { ar:'ٱهْدِنَا',       tr:'Ih-di-naa',    en:'Guide us',         zh:'引导我们',  pa:'ساڈی رہنمائی کر' },
+          { ar:'ٱلصِّرَٰطَ',     tr:'S-Si-raa-Ta',  en:'the path',         zh:'道路',      pa:'راستہ' },
+          { ar:'ٱلْمُسْتَقِيمَ', tr:'mus-ta-qeem',  en:'the straight',     zh:'正直的',    pa:'سیدھا' },
         ],
       },
       {
@@ -137,16 +156,18 @@ export const SECTIONS = [
         tr: "Si-raa-Tal  la-dhee-na  an-'am-ta  'a-lay-him  ghay-ril  magh-Doo-bi  'a-lay-him  wa-laD  Daal-leen",
         en: 'The path of those You have blessed — not of those who earned anger, nor of those who went astray',
         zh: '你所赐恩人的路，不是受谴怒者的路，也不是迷误者的路',
+        pa: 'ਉਨ੍ਹਾਂ ਲੋਕਾਂ ਦਾ ਰਸਤਾ ਜਿਨ੍ਹਾਂ ਉੱਤੇ ਤੂੰ ਇਨਾਮ ਕੀਤਾ, ਉਨ੍ਹਾਂ ਦਾ ਨਹੀਂ ਜਿਨ੍ਹਾਂ ਉੱਤੇ ਗੁੱਸਾ ਹੋਇਆ, ਨਾ ਕੁਰਾਹੇ ਪਏ ਲੋਕਾਂ ਦਾ',
+        pa: 'اوہناں دا راستہ جنہاں تے تو نے نعمت کیتی — نہ اوہناں دا جنہاں تے غضب ہویا، اتے نہ گمراہیاں دا',
         words: [
-          { ar:'صِرَٰطَ',         tr:'Si-raa-Ta',    en:'The path of',         zh:'…的路' },
-          { ar:'ٱلَّذِينَ',       tr:'l-la-dhee-na', en:'those who',           zh:'那些人' },
-          { ar:'أَنْعَمْتَ',      tr:"an-'am-ta",    en:'You have blessed',    zh:'你赐恩的' },
-          { ar:'عَلَيْهِمْ',      tr:"'a-lay-him",   en:'upon them',           zh:'降于他们' },
-          { ar:'غَيْرِ',          tr:'ghay-ri',       en:'not',                 zh:'不是' },
-          { ar:'ٱلْمَغْضُوبِ',   tr:'l-magh-Doo-bi',en:'those who earned anger', zh:'受谴怒者' },
-          { ar:'عَلَيْهِمْ',      tr:"'a-lay-him",   en:'upon them',           zh:'降于他们' },
-          { ar:'وَلَا',           tr:'wa-laa',        en:'nor',                 zh:'也不是' },
-          { ar:'ٱلضَّآلِّينَ',   tr:'D-Daal-leen',   en:'those who went astray', zh:'迷误者' },
+          { ar:'صِرَٰطَ',         tr:'Si-raa-Ta',     en:'The path of',          zh:'…的路',      pa:'راستہ' },
+          { ar:'ٱلَّذِينَ',       tr:'l-la-dhee-na',  en:'those who',            zh:'那些人',      pa:'اوہناں دا' },
+          { ar:'أَنْعَمْتَ',      tr:"an-'am-ta",     en:'You have blessed',     zh:'你赐恩的',    pa:'تو نے نعمت کیتی' },
+          { ar:'عَلَيْهِمْ',      tr:"'a-lay-him",    en:'upon them',            zh:'降于他们',    pa:'اوہناں تے' },
+          { ar:'غَيْرِ',          tr:'ghay-ri',        en:'not',                  zh:'不是',        pa:'نہ' },
+          { ar:'ٱلْمَغْضُوبِ',   tr:'l-magh-Doo-bi', en:'those who earned anger',zh:'受谴怒者',    pa:'غضب والے' },
+          { ar:'عَلَيْهِمْ',      tr:"'a-lay-him",    en:'upon them',            zh:'降于他们',    pa:'اوہناں تے' },
+          { ar:'وَلَا',           tr:'wa-laa',         en:'nor',                  zh:'也不是',      pa:'اتے نہ' },
+          { ar:'ٱلضَّآلِّينَ',   tr:'D-Daal-leen',    en:'those who went astray',zh:'迷误者',      pa:'گمراہ لوک' },
         ],
       },
     ],

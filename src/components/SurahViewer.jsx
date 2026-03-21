@@ -139,7 +139,8 @@ export default function SurahViewer({ meta, sections, memorized, onToggle, onMar
   const [expandedKey,  setExpandedKey]  = useState(null)
   const [reciterIdx,   setReciterIdx]   = useState(0)
   const [showPicker,   setShowPicker]   = useState(false)
-  const [lang,         setLang]         = useState('en')  // 'en' | 'zh' | 'both'
+  const [langs, setLangs] = useState({ en:true, zh:false, pa:false })
+  const toggleLang = l => setLangs(prev => ({ ...prev, [l]: !prev[l] }))
   const [autoPlaying,  setAutoPlaying]  = useState(false)
   const [autoAyah,     setAutoAyah]     = useState(null)
   const autoIdxRef = useRef(0)
@@ -236,13 +237,14 @@ export default function SurahViewer({ meta, sections, memorized, onToggle, onMar
                   <span style={{ fontSize:9, color:'#6a5a40' }}>{l}</span>
                 </div>
               ))}
-              {/* Language toggle */}
-              <div style={{ display:'flex', gap:2, marginLeft:8 }}>
-                {[['en','EN'],['zh','中文'],['both','双语']].map(([l,label]) => (
-                  <button key={l} onClick={() => setLang(l)} style={{
-                    fontSize:10, padding:'2px 8px', borderRadius:10, border:'none', cursor:'pointer',
-                    background: lang===l ? '#D4A843' : 'rgba(255,255,255,0.06)',
-                    color: lang===l ? '#06101c' : '#6a5a40',
+              {/* Language toggles */}
+              <div style={{ display:'flex', gap:3, marginLeft:8 }}>
+                {[['en','EN','#D4A843'],['zh','中文','#4CAF8A'],['pa','ਪੰਜਾਬੀ','#9B59B6']].map(([l,label,c]) => (
+                  <button key={l} onClick={() => toggleLang(l)} style={{
+                    fontSize:10, padding:'2px 8px', borderRadius:10, border:`1px solid ${langs[l] ? c : 'transparent'}`,
+                    cursor:'pointer',
+                    background: langs[l] ? `rgba(${l==='en'?'212,168,67':l==='zh'?'76,175,138':'155,89,182'},0.15)` : 'rgba(255,255,255,0.04)',
+                    color: langs[l] ? c : '#6a5a40',
                   }}>{label}</button>
                 ))}
               </div>
@@ -274,7 +276,7 @@ export default function SurahViewer({ meta, sections, memorized, onToggle, onMar
             memorized={mem} onToggle={onToggle} onMarkSection={onMarkSection}
             audio={audio} meta={meta} expandedKey={expandedKey} setExpandedKey={setExpandedKey}
             autoPlaying={autoPlaying} autoAyah={autoAyah} verseRefsRef={verseRefsRef}
-            onStartAutoPlay={startAutoPlay} onStopAutoPlay={stopAutoPlay} lang={lang}
+            onStartAutoPlay={startAutoPlay} onStopAutoPlay={stopAutoPlay} langs={langs}
           />
         )}
 
@@ -285,7 +287,7 @@ export default function SurahViewer({ meta, sections, memorized, onToggle, onMar
             setActiveSec={id => { setActiveSec(id); audio.stop(); }}
             memorized={mem} onToggle={onToggle}
             practiceMode={practiceMode} setPracticeMode={setPracticeMode}
-            audio={audio} meta={meta} lang={lang}
+            audio={audio} meta={meta} langs={langs}
           />
         )}
 
@@ -387,7 +389,7 @@ function GuideTab() {
 }
 
 // ── LEARN TAB ─────────────────────────────────────────────────────────────────
-function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle, onMarkSection, audio, meta, expandedKey, setExpandedKey, autoPlaying, autoAyah, verseRefsRef, onStartAutoPlay, onStopAutoPlay, lang }) {
+function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle, onMarkSection, audio, meta, expandedKey, setExpandedKey, autoPlaying, autoAyah, verseRefsRef, onStartAutoPlay, onStopAutoPlay, langs }) {
   const mem = memorized || {}
   const sectionDone = sec.verses.every(v => mem[`${sec.id}-${v.n}`])
 
@@ -438,8 +440,9 @@ function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle,
                   <div dir="rtl" style={{ fontSize:30, color:'#f5ecd8', fontFamily:'Amiri,serif', lineHeight:2, textAlign:'right', marginBottom:4 }}>{v.ar}</div>
                   <TranslitLine tr={v.tr} />
                   <div style={{ fontSize:15, color:'#7a6a52', lineHeight:1.6, marginTop:4 }}>
-                    {(lang==='en'||lang==='both') && <div>{v.en}</div>}
-                    {(lang==='zh'||lang==='both') && v.zh && <div style={{ color:'#8fb8a0', fontFamily:'sans-serif', marginTop: lang==='both' ? 2 : 0 }}>{v.zh}</div>}
+                    {langs.en && <div>{v.en}</div>}
+                    {langs.zh && v.zh && <div style={{ color:'#8fb8a0', fontFamily:'sans-serif', marginTop:2 }}>{v.zh}</div>}
+                    {langs.pa && v.pa && <div style={{ color:'#b89fd4', fontFamily:'sans-serif', marginTop:2 }}>{v.pa}</div>}
                   </div>
                 </div>
                 <div style={{ display:'flex', flexDirection:'column', gap:5, alignItems:'center', flexShrink:0 }}>
@@ -475,13 +478,11 @@ function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle,
                             {/* Transliteration chunk */}
                             <div style={{ fontSize:12, color:col, fontFamily:'monospace', marginBottom:4 }}>{w.tr}</div>
                             {/* English */}
-                            {(lang==='en'||lang==='both'||lang===undefined) && (
-                              <div style={{ fontSize:11, color:'#7a6a52', lineHeight:1.4 }}>{w.en}</div>
-                            )}
+                            {langs.en && <div style={{ fontSize:11, color:'#7a6a52', lineHeight:1.4 }}>{w.en}</div>}
                             {/* Chinese */}
-                            {(lang==='zh'||lang==='both') && w.zh && (
-                              <div style={{ fontSize:12, color:'#8fb8a0', fontFamily:'sans-serif', marginTop:2, lineHeight:1.4 }}>{w.zh}</div>
-                            )}
+                            {langs.zh && w.zh && <div style={{ fontSize:12, color:'#8fb8a0', fontFamily:'sans-serif', marginTop:2, lineHeight:1.4 }}>{w.zh}</div>}
+                            {/* Punjabi */}
+                            {langs.pa && w.pa && <div style={{ fontSize:12, color:'#b89fd4', fontFamily:'sans-serif', marginTop:2, lineHeight:1.4 }}>{w.pa}</div>}
                             {lbl && <div style={{ fontSize:9, color:lbl.color, marginTop:3 }}>{lbl.text}</div>}
                           </div>
                         )
@@ -517,7 +518,7 @@ function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle,
 }
 
 // ── PRACTICE TAB ──────────────────────────────────────────────────────────────
-function PracticeTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle, practiceMode, setPracticeMode, audio, meta, lang }) {
+function PracticeTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle, practiceMode, setPracticeMode, audio, meta, langs }) {
   const mem = memorized || {}
   return (
     <div>
@@ -538,13 +539,13 @@ function PracticeTab({ sections, sec, activeSec, setActiveSec, memorized, onTogg
       {sec.verses.map(v => {
         const key    = `${sec.id}-${v.n}`
         const isPlay = audio.playing === `${meta.number}-${v.n}`
-        return <PracticeCard key={key} v={v} sec={sec} mode={practiceMode} isMem={mem[key]} onToggle={() => onToggle(key)} onPlay={() => audio.toggle(meta.number, v.n)} isPlaying={isPlay} audioLoading={audio.loading && isPlay} lang={lang} />
+        return <PracticeCard key={key} v={v} sec={sec} mode={practiceMode} isMem={mem[key]} onToggle={() => onToggle(key)} onPlay={() => audio.toggle(meta.number, v.n)} isPlaying={isPlay} audioLoading={audio.loading && isPlay} langs={langs} />
       })}
     </div>
   )
 }
 
-function PracticeCard({ v, sec, mode, isMem, onToggle, onPlay, isPlaying, audioLoading, lang }) {
+function PracticeCard({ v, sec, mode, isMem, onToggle, onPlay, isPlaying, audioLoading, langs }) {
   const [revAr, setRevAr] = useState(false)
   const [revTr, setRevTr] = useState(false)
   const [revEn, setRevEn] = useState(false)
@@ -563,8 +564,9 @@ function PracticeCard({ v, sec, mode, isMem, onToggle, onPlay, isPlaying, audioL
             <TranslitLine tr={v.tr} fontSize={13} />
           </Mask>
           <Mask hidden={mode==='hide-en'&&!revEn} onReveal={() => setRevEn(true)}>
-            {(lang==='en'||lang==='both'||!lang) && <div style={{ fontSize:12, color:'#7a6a52' }}>{v.en}</div>}
-            {(lang==='zh'||lang==='both') && v.zh && <div style={{ fontSize:13, color:'#8fb8a0', fontFamily:'sans-serif', marginTop: lang==='both' ? 2 : 0 }}>{v.zh}</div>}
+            {langs.en && <div style={{ fontSize:12, color:'#7a6a52' }}>{v.en}</div>}
+            {langs.zh && v.zh && <div style={{ fontSize:13, color:'#8fb8a0', fontFamily:'sans-serif', marginTop:2 }}>{v.zh}</div>}
+            {langs.pa && v.pa && <div style={{ fontSize:13, color:'#b89fd4', fontFamily:'sans-serif', marginTop:2 }}>{v.pa}</div>}
           </Mask>
         </div>
         <div style={{ display:'flex', flexDirection:'column', gap:5, alignItems:'center', flexShrink:0 }}>
