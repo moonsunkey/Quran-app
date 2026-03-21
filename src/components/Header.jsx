@@ -29,19 +29,22 @@ export default function Header({ user, onSignIn, onSignUp, onSignOut }) {
       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       position: 'sticky', top: 0, zIndex: 100,
     }}>
-      {/* Logo */}
-      <Link to="/" style={{ textDecoration:'none', display:'flex', alignItems:'center', gap:10 }}>
-        <div style={{
-          width:36, height:36, borderRadius:'50%',
-          border:'2px solid #D4A843',
-          display:'flex', alignItems:'center', justifyContent:'center',
-          background:'rgba(212,168,67,0.1)', color:'#D4A843', fontSize:10, textAlign:'center', lineHeight:1.2,
-        }}>القرآن</div>
-        <div>
-          <div style={{ fontSize:15, color:'#D4A843', fontWeight:700, lineHeight:1 }}>Quran Memorization</div>
-          <div style={{ fontSize:9, color:'#6a5a40', letterSpacing:1.5 }}>FOR NEW LEARNERS</div>
-        </div>
-      </Link>
+      {/* Logo + nav */}
+      <div style={{ display:'flex', alignItems:'center', gap:20 }}>
+        <Link to="/" style={{ textDecoration:'none', display:'flex', alignItems:'center', gap:10 }}>
+          <div style={{
+            width:36, height:36, borderRadius:'50%',
+            border:'2px solid #D4A843',
+            display:'flex', alignItems:'center', justifyContent:'center',
+            background:'rgba(212,168,67,0.1)', color:'#D4A843', fontSize:10, textAlign:'center', lineHeight:1.2,
+          }}>القرآن</div>
+          <div>
+            <div style={{ fontSize:15, color:'#D4A843', fontWeight:700, lineHeight:1 }}>Quran Memorization</div>
+            <div style={{ fontSize:9, color:'#6a5a40', letterSpacing:1.5 }}>FOR NEW LEARNERS</div>
+          </div>
+        </Link>
+        <Link to="/about" style={{ fontSize:12, color:'#6a5a40', textDecoration:'none' }}>About</Link>
+      </div>
 
       {/* Auth */}
       {user ? (

@@ -29,7 +29,7 @@ function wordLabel(word) {
 }
 
 // ── Coloured transliteration line ─────────────────────────────────────────────
-function TranslitLine({ tr, fontSize = 14 }) {
+function TranslitLine({ tr, fontSize = 16 }) {
   const words = tr.split('  ')
   return (
     <div style={{ fontSize, fontStyle:'italic', letterSpacing:0.4, lineHeight:1.8 }}>
@@ -235,7 +235,7 @@ export default function SurahViewer({ meta, sections, memorized, onToggle, onMar
       <div style={{ borderBottom:'1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth:900, margin:'0 auto', display:'flex' }}>
           {TABS.map(t => (
-            <button key={t.id} onClick={() => setTab(t.id)} style={{ flex:1, padding:'10px 4px', border:'none', cursor:'pointer', background: tab===t.id ? 'rgba(212,168,67,0.08)' : 'transparent', color: tab===t.id ? '#D4A843' : '#6a5a40', borderBottom:`2px solid ${tab===t.id ? '#D4A843' : 'transparent'}`, fontSize:12, transition:'all 0.2s' }}>{t.icon} {t.label}</button>
+            <button key={t.id} onClick={() => setTab(t.id)} style={{ flex:1, padding:'10px 4px', border:'none', cursor:'pointer', background: tab===t.id ? 'rgba(212,168,67,0.08)' : 'transparent', color: tab===t.id ? '#D4A843' : '#6a5a40', borderBottom:`2px solid ${tab===t.id ? '#D4A843' : 'transparent'}`, fontSize:14, transition:'all 0.2s' }}>{t.icon} {t.label}</button>
           ))}
         </div>
       </div>
@@ -294,8 +294,8 @@ function GuideTab() {
     <div>
       {/* Welcome banner */}
       <div style={{ background:'rgba(212,168,67,0.07)', border:'1px solid rgba(212,168,67,0.2)', borderRadius:12, padding:'16px 20px', marginBottom:20 }}>
-        <div style={{ fontSize:15, color:'#D4A843', fontWeight:700, marginBottom:6 }}>Welcome, New Learner 🌙</div>
-        <div style={{ fontSize:13, color:'#a09070', lineHeight:1.8 }}>
+        <div style={{ fontSize:18, color:'#D4A843', fontWeight:700, marginBottom:8 }}>Welcome, New Learner 🌙</div>
+        <div style={{ fontSize:15, color:'#a09070', lineHeight:1.8 }}>
           Arabic has some sounds that don't exist in English — but most are familiar! Only 9 are truly "new" and they're marked <span style={{ color:'#E6944A' }}>⚠ Hard</span>. Use the colour guide to read transliterations:
         </div>
         <div style={{ display:'flex', gap:12, marginTop:10, flexWrap:'wrap' }}>
@@ -339,7 +339,7 @@ function GuideTab() {
                 <code style={{ fontSize:14, color:'#D4A843', fontFamily:'monospace' }}>{s.roman}</code>
                 {s.hard && <span style={{ fontSize:9, color:'#E6944A', background:'rgba(230,148,74,0.1)', borderRadius:10, padding:'1px 6px' }}>⚠ NEW SOUND</span>}
               </div>
-              <div style={{ fontSize:12, color:'#a09070', lineHeight:1.5 }}>{s.tip}</div>
+              <div style={{ fontSize:13, color:'#a09070', lineHeight:1.6 }}>{s.tip}</div>
               <div style={{ fontSize:11, color:'#6a5a40', marginTop:3 }}>e.g. <em style={{ color:'#D4A843' }}>{s.example}</em></div>
             </div>
           </div>
@@ -375,7 +375,7 @@ function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle,
       {/* Section chips */}
       <div style={{ display:'flex', gap:6, overflowX:'auto', paddingBottom:8, marginBottom:14 }}>
         {sections.map(s => (
-          <button key={s.id} onClick={() => setActiveSec(s.id)} style={{ flexShrink:0, padding:'5px 12px', border:`1.5px solid ${activeSec===s.id ? s.color : 'rgba(255,255,255,0.08)'}`, borderRadius:20, background: activeSec===s.id ? `rgba(${hexRgb(s.color)},0.15)` : 'transparent', color: activeSec===s.id ? s.color : '#6a5a40', fontSize:11, cursor:'pointer', whiteSpace:'nowrap' }}>{s.icon} {s.label}</button>
+          <button key={s.id} onClick={() => setActiveSec(s.id)} style={{ flexShrink:0, padding:'5px 12px', border:`1.5px solid ${activeSec===s.id ? s.color : 'rgba(255,255,255,0.08)'}`, borderRadius:20, background: activeSec===s.id ? `rgba(${hexRgb(s.color)},0.15)` : 'transparent', color: activeSec===s.id ? s.color : '#6a5a40', fontSize:13, cursor:'pointer', whiteSpace:'nowrap' }}>{s.icon} {s.label}</button>
         ))}
       </div>
 
@@ -383,18 +383,18 @@ function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle,
       <div style={{ background:`rgba(${hexRgb(sec.color)},0.07)`, border:`1px solid rgba(${hexRgb(sec.color)},0.2)`, borderRadius:12, padding:'14px 16px', marginBottom:14 }}>
         <div style={{ display:'flex', justifyContent:'space-between', gap:12 }}>
           <div style={{ flex:1 }}>
-            <div style={{ fontSize:16, color:sec.color, fontWeight:700 }}>{sec.icon} {sec.label} <span style={{ fontSize:11, color:'#6a5a40', fontWeight:400 }}>· Ayahs {sec.ayahs}</span></div>
-            <div style={{ fontSize:12, color:'#a09070', marginTop:4, lineHeight:1.6 }}>{sec.summary}</div>
-            <div style={{ marginTop:8, fontSize:11, color:'#6a5a40', background:'rgba(0,0,0,0.2)', borderRadius:6, padding:'6px 10px' }}><span style={{ color:sec.color }}>💡 </span>{sec.memTip}</div>
+            <div style={{ fontSize:18, color:sec.color, fontWeight:700 }}>{sec.icon} {sec.label} <span style={{ fontSize:11, color:'#6a5a40', fontWeight:400 }}>· Ayahs {sec.ayahs}</span></div>
+            <div style={{ fontSize:14, color:'#a09070', marginTop:4, lineHeight:1.7 }}>{sec.summary}</div>
+            <div style={{ marginTop:8, fontSize:13, color:'#6a5a40', background:'rgba(0,0,0,0.2)', borderRadius:6, padding:'8px 12px' }}><span style={{ color:sec.color }}>💡 </span>{sec.memTip}</div>
           </div>
           <div style={{ fontSize:22, fontFamily:'Amiri,serif', color:'#ddd5c0', lineHeight:1.6, textAlign:'right' }}>{sec.arabic}</div>
         </div>
         <div style={{ display:'flex', gap:8, marginTop:10, flexWrap:'wrap' }}>
-          <button onClick={() => onMarkSection(sec.verses.map(v => `${sec.id}-${v.n}`), !sectionDone)} style={{ padding:'5px 14px', fontSize:11, border:`1px solid ${sectionDone ? '#4CAF8A' : `rgba(${hexRgb(sec.color)},0.4)`}`, borderRadius:20, background:'transparent', color: sectionDone ? '#4CAF8A' : sec.color, cursor:'pointer' }}>
+          <button onClick={() => onMarkSection(sec.verses.map(v => `${sec.id}-${v.n}`), !sectionDone)} style={{ padding:'8px 16px', fontSize:13, border:`1px solid ${sectionDone ? '#4CAF8A' : `rgba(${hexRgb(sec.color)},0.4)`}`, borderRadius:20, background:'transparent', color: sectionDone ? '#4CAF8A' : sec.color, cursor:'pointer' }}>
             {sectionDone ? '✓ Section complete' : `Mark all ${sec.verses.length} done`}
           </button>
           {/* Auto-play button */}
-          <button onClick={autoPlaying ? onStopAutoPlay : onStartAutoPlay} style={{ padding:'5px 14px', fontSize:11, border:`1px solid ${autoPlaying ? '#C0504D' : 'rgba(212,168,67,0.3)'}`, borderRadius:20, background: autoPlaying ? 'rgba(192,80,77,0.1)' : 'rgba(212,168,67,0.08)', color: autoPlaying ? '#C0504D' : '#D4A843', cursor:'pointer' }}>
+          <button onClick={autoPlaying ? onStopAutoPlay : onStartAutoPlay} style={{ padding:'8px 16px', fontSize:13, border:`1px solid ${autoPlaying ? '#C0504D' : 'rgba(212,168,67,0.3)'}`, borderRadius:20, background: autoPlaying ? 'rgba(192,80,77,0.1)' : 'rgba(212,168,67,0.08)', color: autoPlaying ? '#C0504D' : '#D4A843', cursor:'pointer' }}>
             {autoPlaying ? '⏹ Stop auto-play' : '▶▶ Auto-play section'}
           </button>
         </div>
@@ -412,18 +412,18 @@ function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle,
           <div key={key} style={{ background: isMem ? 'rgba(76,175,138,0.04)' : 'rgba(255,255,255,0.02)', border:`1px solid ${isMem ? 'rgba(76,175,138,0.2)' : isPlay ? `rgba(${hexRgb(sec.color)},0.4)` : isExp ? `rgba(${hexRgb(sec.color)},0.2)` : 'rgba(255,255,255,0.06)'}`, borderRadius:10, marginBottom:10, overflow:'hidden', transition:'border-color 0.2s' }}>
             <div style={{ padding:'12px 14px' }}>
               <div style={{ display:'flex', gap:10, alignItems:'flex-start' }}>
-                <div style={{ width:28, height:28, flexShrink:0, borderRadius:'50%', border:`1.5px solid rgba(${hexRgb(sec.color)},0.4)`, display:'flex', alignItems:'center', justifyContent:'center', fontSize:10, color:sec.color, marginTop:6 }}>{v.n}</div>
+                <div style={{ width:28, height:28, flexShrink:0, borderRadius:'50%', border:`1.5px solid rgba(${hexRgb(sec.color)},0.4)`, display:'flex', alignItems:'center', justifyContent:'center', fontSize:12, color:sec.color, marginTop:6 }}>{v.n}</div>
                 <div style={{ flex:1 }}>
-                  <div dir="rtl" style={{ fontSize:26, color:'#f5ecd8', fontFamily:'Amiri,serif', lineHeight:2, textAlign:'right', marginBottom:4 }}>{v.ar}</div>
+                  <div dir="rtl" style={{ fontSize:30, color:'#f5ecd8', fontFamily:'Amiri,serif', lineHeight:2, textAlign:'right', marginBottom:4 }}>{v.ar}</div>
                   <TranslitLine tr={v.tr} />
-                  <div style={{ fontSize:13, color:'#7a6a52', lineHeight:1.5, marginTop:4 }}>{v.en}</div>
+                  <div style={{ fontSize:15, color:'#7a6a52', lineHeight:1.6, marginTop:4 }}>{v.en}</div>
                 </div>
                 <div style={{ display:'flex', flexDirection:'column', gap:5, alignItems:'center', flexShrink:0 }}>
-                  <button onClick={() => audio.toggle(meta.number, v.n)} style={{ width:34, height:34, borderRadius:'50%', border:'none', cursor:'pointer', background: isPlay ? '#D4A843' : 'rgba(212,168,67,0.12)', color: isPlay ? '#06101c' : '#D4A843', fontSize:13, display:'flex', alignItems:'center', justifyContent:'center' }}>
+                  <button onClick={() => audio.toggle(meta.number, v.n)} style={{ width:42, height:42, borderRadius:'50%', border:'none', cursor:'pointer', background: isPlay ? '#D4A843' : 'rgba(212,168,67,0.12)', color: isPlay ? '#06101c' : '#D4A843', fontSize:13, display:'flex', alignItems:'center', justifyContent:'center' }}>
                     {audio.loading && isPlay ? '⏳' : isPlay ? '⏹' : '▶'}
                   </button>
-                  <button onClick={() => onToggle(key)} style={{ width:28, height:28, borderRadius:'50%', border:`1.5px solid ${isMem ? '#4CAF8A' : 'rgba(255,255,255,0.12)'}`, background: isMem ? 'rgba(76,175,138,0.2)' : 'transparent', color: isMem ? '#4CAF8A' : '#4a3a28', fontSize:12, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center' }}>{isMem ? '✓' : '○'}</button>
-                  <button onClick={() => setExpandedKey(isExp ? null : key)} style={{ background:'transparent', border:'none', cursor:'pointer', color:'#4a3a28', fontSize:10 }}>{isExp ? '▲' : '▼'}</button>
+                  <button onClick={() => onToggle(key)} style={{ width:36, height:36, borderRadius:'50%', border:`1.5px solid ${isMem ? '#4CAF8A' : 'rgba(255,255,255,0.12)'}`, background: isMem ? 'rgba(76,175,138,0.2)' : 'transparent', color: isMem ? '#4CAF8A' : '#4a3a28', fontSize:12, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center' }}>{isMem ? '✓' : '○'}</button>
+                  <button onClick={() => setExpandedKey(isExp ? null : key)} style={{ background:'transparent', border:'none', cursor:'pointer', color:'#4a3a28', fontSize:14, padding:'4px 8px' }}>{isExp ? '▲' : '▼'}</button>
                 </div>
               </div>
               {isPlay && (
@@ -501,7 +501,7 @@ function PracticeCard({ v, sec, mode, isMem, onToggle, onPlay, isPlaying, audioL
         <div style={{ width:26, height:26, flexShrink:0, borderRadius:'50%', border:`1.5px solid rgba(${hexRgb(sec.color)},0.4)`, display:'flex', alignItems:'center', justifyContent:'center', fontSize:10, color:sec.color }}>{v.n}</div>
         <div style={{ flex:1, display:'flex', flexDirection:'column', gap:5 }}>
           <Mask hidden={mode==='hide-ar'&&!revAr} onReveal={() => setRevAr(true)}>
-            <div dir="rtl" style={{ fontSize:22, color:'#f5ecd8', fontFamily:'Amiri,serif', lineHeight:2, textAlign:'right' }}>{v.ar}</div>
+            <div dir="rtl" style={{ fontSize:28, color:'#f5ecd8', fontFamily:'Amiri,serif', lineHeight:2, textAlign:'right' }}>{v.ar}</div>
           </Mask>
           <Mask hidden={mode==='hide-tr'&&!revTr} onReveal={() => setRevTr(true)}>
             <TranslitLine tr={v.tr} fontSize={13} />
@@ -551,7 +551,7 @@ function MapNode({ sec, memorized, onSelect, compact }) {
   const pct  = Math.round(done / sec.verses.length * 100)
   return (
     <div onClick={() => onSelect(sec.id)} style={{ background:`rgba(${hexRgb(sec.color)},0.08)`, border:`1.5px solid rgba(${hexRgb(sec.color)},${pct===100?0.6:0.25})`, borderRadius:10, padding: compact ? '8px 10px' : '12px 14px', cursor:'pointer', transition:'all 0.2s' }}>
-      <div style={{ fontSize: compact ? 12 : 13, color:sec.color, fontWeight:700, marginBottom:2 }}>{sec.icon} {sec.label}</div>
+      <div style={{ fontSize: compact ? 13 : 15, color:sec.color, fontWeight:700, marginBottom:2 }}>{sec.icon} {sec.label}</div>
       <div style={{ fontSize:10, color:'#6a5a40', marginBottom:4 }}>{sec.arabic} · {sec.ayahs}</div>
       <div style={{ height:3, background:'rgba(255,255,255,0.05)', borderRadius:2, overflow:'hidden' }}>
         <div style={{ width:`${pct}%`, height:'100%', background:sec.color, borderRadius:2 }} />
@@ -573,7 +573,7 @@ function ProgressTab({ sections, memorized, onToggle, onMarkSection, meta }) {
       <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:10, marginBottom:20 }}>
         {[{l:'Total',v:total,c:'#D4A843'},{l:'Done',v:done,c:'#4CAF8A'},{l:'Left',v:total-done,c:'#C0504D'},{l:'%',v:`${pct}%`,c:'#5B8FD4'}].map(s => (
           <div key={s.l} style={{ textAlign:'center', padding:'14px 8px', background:`rgba(${hexRgb(s.c)},0.07)`, border:`1px solid rgba(${hexRgb(s.c)},0.2)`, borderRadius:10 }}>
-            <div style={{ fontSize:22, fontWeight:700, color:s.c }}>{s.v}</div>
+            <div style={{ fontSize:26, fontWeight:700, color:s.c }}>{s.v}</div>
             <div style={{ fontSize:10, color:'#6a5a40', marginTop:2 }}>{s.l}</div>
           </div>
         ))}
