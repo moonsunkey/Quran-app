@@ -1,0 +1,71 @@
+export const SURAH_META = {
+  number:      108,
+  name:        'Al-Kawthar',
+  arabic:      'الْكَوْثَرَ',
+  meaning:     'Abundance',
+  meaningZh:   "大量",
+  meaningHi:   "कौसर",
+  ayahs:       3,
+  revelation:  'Makki',
+  theme:       `The shortest surah in the Quran. Revealed as divine consolation when enemies mocked the Prophet for having no surviving sons. Allah promises boundless blessings — the river Al-Kawthar in paradise — in exchange for prayer and sacrifice, and declares that the mockers are the ones truly cut off.`,
+  reciterId:   'Husary_128kbps',
+  audioOffset: 6204,
+}
+
+export const SECTIONS = [
+  {
+    id:        'the-gift-of-abundance',
+    label:     'The Gift of Abundance',
+    arabic:    'عَطَاءُ الْكَوْثَرِ',
+    labelZh:   "大量的恩赐",
+    labelHi:   "कौसर की नेमत",
+    ayahs:     '1-3',
+    color:     '#059669',
+    icon:      '🌊',
+    summary:   `Allah declares He has given the Prophet boundless good — the river Al-Kawthar in paradise. In gratitude, the Prophet is commanded to pray and sacrifice. As for the enemies who taunt and mock: they are the ones who will be cut off and forgotten, not him.`,
+    summaryZh: "真主宣布他已赐给先知无尽的好处——天园中的豪沙河。作为感恩，先知被命令礼拜和献祭。至于嘲讽他的敌人，他们才是真正断子绝孙的人。",
+    summaryHi: "अल्लाह घोषणा करता है कि उसने नबी को बेहिसाब नेमतें दी हैं — जन्नत में हौज़-ए-कौसर। शुक्रगुज़ारी में नबी को नमाज़ और क़ुर्बानी का हुक्म है। और जो दुश्मन तंज़ करते हैं — वही बेनाम-ओ-निशान हैं।",
+    memTip:    `Shortest surah, most powerful reversal. The taunt against the Prophet ("you have no sons") is thrown back: "In-na shaa-ni-'a-ka hu-wal-ab-tar" — your ENEMY is the cut-off one. Three verses: gift → response → verdict. The word "Kaw-thar" means overflowing abundance.`,
+    verses: [
+      {
+        n:  1,
+        ar: 'إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ',
+        tr: "In-naa a'-Tay-naa-kal-kaw-thar",
+        en: 'Indeed, We have given you abundance,',
+        zh: "我确已赐给你大量的好处，",
+        hi: "बेशक हमने तुम्हें कौसर अता किया,",
+        words: [
+          { ar:'إِنَّا', tr:"in-naa", en:'indeed We', zh:"我确已", hi:"बेशक हमने" },
+          { ar:'أَعْطَيْنَاكَ', tr:"a'-Tay-naa-ka", en:'have given you', zh:"赐给你", hi:"तुम्हें अता किया" },
+          { ar:'الْكَوْثَرَ', tr:"al-kaw-thar", en:'abundance/Al-Kawthar', zh:"大量的好处", hi:"कौसर" },
+        ],
+      },
+      {
+        n:  2,
+        ar: 'فَصَلِّ لِرَبِّكَ وَانْحَرْ',
+        tr: "Fa-Sal-li li-rab-bi-ka wan-Har",
+        en: 'So pray to your Lord and sacrifice.',
+        zh: "故你当为你的主而礼拜，并宰牲，",
+        hi: "तो अपने रब के लिए नमाज़ पढ़ो और क़ुर्बानी करो,",
+        words: [
+          { ar:'فَصَلِّ', tr:"fa-Sal-li", en:'so pray', zh:"所以礼拜", hi:"तो नमाज़ पढ़ो" },
+          { ar:'لِرَبِّكَ', tr:"li-rab-bi-ka", en:'to your Lord', zh:"为你的主", hi:"अपने रब के लिए" },
+          { ar:'وَانْحَرْ', tr:"wan-Har", en:'and sacrifice', zh:"并宰牲", hi:"और क़ुर्बानी करो" },
+        ],
+      },
+      {
+        n:  3,
+        ar: 'إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ',
+        tr: "In-na shaa-ni-'a-ka hu-wal-ab-tar",
+        en: 'Indeed, your enemy is the one cut off.',
+        zh: "你的仇人才是真正断子绝孙的。",
+        hi: "बेशक तुम्हारा दुश्मन ही बेनाम-ओ-निशान है।",
+        words: [
+          { ar:'إِنَّ', tr:"in-na", en:'indeed', zh:"确实", hi:"बेशक" },
+          { ar:'شَانِئَكَ', tr:"shaa-ni-'a-ka", en:'your enemy/hater', zh:"你的仇人", hi:"तुम्हारा दुश्मन" },
+          { ar:'هُوَ الْأَبْتَرُ', tr:"hu-wal-ab-tar", en:'is the one cut off', zh:"才是断子绝孙的", hi:"ही बेनाम-ओ-निशान है" },
+        ],
+      },
+    ],
+  },
+]

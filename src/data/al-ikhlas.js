@@ -1,0 +1,83 @@
+export const SURAH_META = {
+  number:      112,
+  name:        'Al-Ikhlas',
+  arabic:      'الْإِخْلَاصِ',
+  meaning:     'Sincerity',
+  meaningZh:   "忠诚",
+  meaningHi:   "इख़लास",
+  ayahs:       4,
+  revelation:  'Makki',
+  theme:       `The surah of pure monotheism — said by the Prophet to equal one third of the Quran in weight. It defines Allah through four statements: He is One, He is the Eternal Refuge on whom all depend, He did not beget and was not begotten, and nothing is comparable to Him.`,
+  reciterId:   'Husary_128kbps',
+  audioOffset: 6221,
+}
+
+export const SECTIONS = [
+  {
+    id:        'the-four-pillars-of-tawheed',
+    label:     'The Four Pillars of Tawheed',
+    arabic:    'أَرْكَانُ التَّوْحِيدِ',
+    labelZh:   "认主独一的四大支柱",
+    labelHi:   "तौहीद के चार स्तंभ",
+    ayahs:     '1-4',
+    color:     '#7C3AED',
+    icon:      '☝️',
+    summary:   `Say: He is Allah, the One. Allah, the Eternal Self-Sufficient. He did not give birth nor was He born. And there is nothing that can be compared to Him. Four statements that define divine oneness completely.`,
+    summaryZh: "你说：他是真主，是独一的主；真主是万物所仰赖的；他没有生产，也没有被生产；没有任何物可以做他的匹敌。",
+    summaryHi: "कहो, वह अल्लाह एक है। अल्लाह बेनियाज़ है। न उसकी कोई औलाद और न वह किसी की औलाद। और न कोई उसका हमसर है। ये चार जुमले तौहीद को मुकम्मल बयान करते हैं।",
+    memTip:    `Four verses, four total negations of false belief: not multiple (One), not needy (As-Samad), not a parent or child (no birth), not comparable (nothing like Him). Recite in every Salah — the Prophet said reciting it three times equals reciting the whole Quran.`,
+    verses: [
+      {
+        n:  1,
+        ar: 'قُلْ هُوَ اللَّهُ أَحَدٌ',
+        tr: "Qul hu-wal-laa-hu a-Had",
+        en: 'Say: He is Allah, the One,',
+        zh: "你说：他是真主，是独一的主，",
+        hi: "कहो, वह अल्लाह एक है,",
+        words: [
+          { ar:'قُلْ', tr:"qul", en:'say', zh:"说", hi:"कहो" },
+          { ar:'هُوَ', tr:"hu-wa", en:'He is', zh:"他是", hi:"वह" },
+          { ar:'اللَّهُ', tr:"al-laa-hu", en:'Allah', zh:"真主", hi:"अल्लाह" },
+          { ar:'أَحَدٌ', tr:"a-Had", en:'the One', zh:"独一的", hi:"एक है" },
+        ],
+      },
+      {
+        n:  2,
+        ar: 'اللَّهُ الصَّمَدُ',
+        tr: "Al-laa-huS-Sa-mad",
+        en: 'Allah, the Eternal Refuge.',
+        zh: "真主是万物所仰赖的；",
+        hi: "अल्लाह बेनियाज़ है,",
+        words: [
+          { ar:'اللَّهُ', tr:"al-laa-hu", en:'Allah', zh:"真主", hi:"अल्लाह" },
+          { ar:'الصَّمَدُ', tr:"aS-Sa-mad", en:'the Eternal Refuge', zh:"万物所仰赖的", hi:"बेनियाज़ है" },
+        ],
+      },
+      {
+        n:  3,
+        ar: 'لَمْ يَلِدْ وَلَمْ يُولَدْ',
+        tr: "Lam ya-lid wa-lam yoo-lad",
+        en: 'He neither begets nor was He begotten,',
+        zh: "他没有生产，也没有被生产，",
+        hi: "न उसकी कोई औलाद है और न वह किसी की औलाद,",
+        words: [
+          { ar:'لَمْ يَلِدْ', tr:"lam ya-lid", en:'He did not beget', zh:"他没有生产", hi:"न उसकी औलाद" },
+          { ar:'وَلَمْ يُولَدْ', tr:"wa-lam yoo-lad", en:'nor was He begotten', zh:"也没有被生产", hi:"और न वह किसी की औलाद" },
+        ],
+      },
+      {
+        n:  4,
+        ar: 'وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ',
+        tr: "Wa-lam ya-kul-la-hoo ku-fu-wan a-Had",
+        en: 'And there is nothing comparable to Him.',
+        zh: "没有任何物可以做他的匹敌。",
+        hi: "और न कोई उसका हमसर है।",
+        words: [
+          { ar:'وَلَمْ يَكُن', tr:"wa-lam ya-kun", en:'and there is not', zh:"没有", hi:"और नहीं है" },
+          { ar:'لَّهُ', tr:"la-hoo", en:'for Him', zh:"他的", hi:"उसका" },
+          { ar:'كُفُوًا أَحَدٌ', tr:"ku-fu-wan a-Had", en:'any comparable one', zh:"任何匹敌", hi:"कोई हमसर" },
+        ],
+      },
+    ],
+  },
+]

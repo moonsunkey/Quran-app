@@ -1,0 +1,72 @@
+export const SURAH_META = {
+  number:      103,
+  name:        'Al-Asr',
+  arabic:      'الْعَصْرِ',
+  meaning:     'The Declining Day',
+  meaningZh:   "时光",
+  meaningHi:   "ज़माना",
+  ayahs:       3,
+  revelation:  'Makki',
+  theme:       `Three verses that contain the entire formula for human success. Imam al-Shafi'i said that if only this surah had been revealed, it would have been sufficient as a guide for mankind.`,
+  reciterId:   'Husary_128kbps',
+  audioOffset: 6176,
+}
+
+export const SECTIONS = [
+  {
+    id:        'the-formula-for-success',
+    label:     'The Formula for Success',
+    arabic:    'مِعْيَارُ النَّجَاحِ',
+    labelZh:   "成功的标准",
+    labelHi:   "कामयाबी का मेयार",
+    ayahs:     '1-3',
+    color:     '#DC2626',
+    icon:      '⏳',
+    summary:   `By the passage of time, all of humanity is at a loss — except those who combine four things: faith, righteous action, mutual counsel to truth, and mutual counsel to patience. The shortest formula for success ever given.`,
+    summaryZh: "以时光起誓，人类确实处于亏折之中——除了那些信道、行善、互相勉励真理、互相勉励坚忍的人。这是有史以来最简短的成功之道。",
+    summaryHi: "ज़माने की क़सम, इंसान घाटे में है — सिवाय उनके जो चार चीज़ें जमा करते हैं: ईमान, नेक अमल, हक़ की नसीहत, और सब्र की नसीहत।",
+    memTip:    `Three verses, four keys: Iman → 'Amal → Haqq → Sabr. Picture time running out like sand — the only escape is those four. The surah is an oath (By Time!), a verdict (mankind is losing!), then the single exception.`,
+    verses: [
+      {
+        n:  1,
+        ar: 'وَالْعَصْرِ',
+        tr: "Wal-'aS-r",
+        en: 'By the declining day,',
+        zh: "以时光起誓，",
+        hi: "ज़माने की क़सम,",
+        words: [
+          { ar:'وَالْعَصْرِ', tr:"wal-'aS-ri", en:'by time/the age', zh:"以时光", hi:"ज़माने की क़सम" },
+        ],
+      },
+      {
+        n:  2,
+        ar: 'إِنَّ الْإِنسَانَ لَفِي خُسْرٍ',
+        tr: "In-nal-in-saa-na la-fee khusr",
+        en: 'Indeed, mankind is in loss,',
+        zh: "人类确实处于亏折之中，",
+        hi: "बेशक इंसान घाटे में है,",
+        words: [
+          { ar:'إِنَّ', tr:"in-na", en:'indeed', zh:"确实", hi:"बेशक" },
+          { ar:'الْإِنسَانَ', tr:"al-in-saa-na", en:'mankind', zh:"人类", hi:"इंसान" },
+          { ar:'لَفِي', tr:"la-fee", en:'is surely in', zh:"确实处于", hi:"ज़रूर" },
+          { ar:'خُسْرٍ', tr:"khusr", en:'loss', zh:"亏折", hi:"घाटे में है" },
+        ],
+      },
+      {
+        n:  3,
+        ar: 'إِلَّا الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَتَوَاصَوْا بِالْحَقِّ وَتَوَاصَوْا بِالصَّبْرِ',
+        tr: "Il-lal-la-dhee-na aa-ma-noo wa-'a-mi-luS-Saa-li-Haa-ti wa-ta-waa-Saw bil-Haq-qi wa-ta-waa-Saw biS-Sabr",
+        en: 'Except those who have believed and done righteous deeds and advised each other to truth and advised each other to patience.',
+        zh: "除了那些信道、行善、互相劝勉于真理、互相劝勉于坚忍的人。",
+        hi: "सिवाय उनके जो ईमान लाए और नेक काम किए और एक-दूसरे को हक़ की नसीहत की और एक-दूसरे को सब्र की नसीहत की।",
+        words: [
+          { ar:'إِلَّا', tr:"il-laa", en:'except', zh:"除了", hi:"सिवाय" },
+          { ar:'الَّذِينَ آمَنُوا', tr:"al-la-dhee-na aa-ma-noo", en:'those who believed', zh:"那些信道的人", hi:"जो ईमान लाए" },
+          { ar:'وَعَمِلُوا الصَّالِحَاتِ', tr:"wa-'a-mi-luS-Saa-li-Haat", en:'and did righteous deeds', zh:"行善的人", hi:"और नेक काम किए" },
+          { ar:'وَتَوَاصَوْا بِالْحَقِّ', tr:"wa-ta-waa-Saw bil-Haqq", en:'and counselled truth', zh:"互相劝勉真理", hi:"और हक़ की नसीहत की" },
+          { ar:'وَتَوَاصَوْا بِالصَّبْرِ', tr:"wa-ta-waa-Saw biS-Sabr", en:'and counselled patience', zh:"互相劝勉坚忍", hi:"और सब्र की नसीहत की" },
+        ],
+      },
+    ],
+  },
+]

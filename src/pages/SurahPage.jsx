@@ -1,18 +1,38 @@
 // src/pages/SurahPage.jsx
 import { useParams, Link } from 'react-router-dom'
 import { useProgress } from '../hooks/useProgress'
-import { SECTIONS as AL_FATIHA_SECTIONS, SURAH_META as AL_FATIHA_META } from '../data/al-fatiha'
-import { SECTIONS as AL_WAQIA_SECTIONS,  SURAH_META as AL_WAQIA_META  } from '../data/al-waqia'
-import { SECTIONS as AL_MULK_SECTIONS,   SURAH_META as AL_MULK_META   } from '../data/al-mulk'
-import { SECTIONS as AL_RAHMAN_SECTIONS, SURAH_META as AL_RAHMAN_META } from '../data/al-rahman'
+import { SECTIONS as AL_FATIHA_SECTIONS,  SURAH_META as AL_FATIHA_META  } from '../data/al-fatiha'
+import { SECTIONS as AL_WAQIA_SECTIONS,   SURAH_META as AL_WAQIA_META   } from '../data/al-waqia'
+import { SECTIONS as AL_MULK_SECTIONS,    SURAH_META as AL_MULK_META    } from '../data/al-mulk'
+import { SECTIONS as AL_RAHMAN_SECTIONS,  SURAH_META as AL_RAHMAN_META  } from '../data/al-rahman'
+import { SECTIONS as AL_ASR_SECTIONS,     SURAH_META as AL_ASR_META     } from '../data/al-asr'
+import { SECTIONS as AL_FIL_SECTIONS,     SURAH_META as AL_FIL_META     } from '../data/al-fil'
+import { SECTIONS as QURAYSH_SECTIONS,    SURAH_META as QURAYSH_META    } from '../data/quraysh'
+import { SECTIONS as AL_MAUN_SECTIONS,    SURAH_META as AL_MAUN_META    } from '../data/al-maun'
+import { SECTIONS as AL_KAWTHAR_SECTIONS, SURAH_META as AL_KAWTHAR_META } from '../data/al-kawthar'
+import { SECTIONS as AL_KAFIRUN_SECTIONS, SURAH_META as AL_KAFIRUN_META } from '../data/al-kafirun'
+import { SECTIONS as AN_NASR_SECTIONS,    SURAH_META as AN_NASR_META    } from '../data/an-nasr'
+import { SECTIONS as AL_IKHLAS_SECTIONS,  SURAH_META as AL_IKHLAS_META  } from '../data/al-ikhlas'
+import { SECTIONS as AL_FALAQ_SECTIONS,   SURAH_META as AL_FALAQ_META   } from '../data/al-falaq'
+import { SECTIONS as AN_NAS_SECTIONS,     SURAH_META as AN_NAS_META     } from '../data/an-nas'
 import SurahViewer from '../components/SurahViewer'
 
 // ── Add new surahs here ───────────────────────────────────────────────────────
 const SURAH_DATA_MAP = {
-  'al-fatiha': { sections: AL_FATIHA_SECTIONS, meta: AL_FATIHA_META },
-  'al-waqia':  { sections: AL_WAQIA_SECTIONS,  meta: AL_WAQIA_META  },
-  'al-mulk':   { sections: AL_MULK_SECTIONS,   meta: AL_MULK_META   },
-  'al-rahman': { sections: AL_RAHMAN_SECTIONS, meta: AL_RAHMAN_META },
+  'al-fatiha':  { sections: AL_FATIHA_SECTIONS,  meta: AL_FATIHA_META  },
+  'al-waqia':   { sections: AL_WAQIA_SECTIONS,   meta: AL_WAQIA_META   },
+  'al-mulk':    { sections: AL_MULK_SECTIONS,    meta: AL_MULK_META    },
+  'al-rahman':  { sections: AL_RAHMAN_SECTIONS,  meta: AL_RAHMAN_META  },
+  'al-asr':     { sections: AL_ASR_SECTIONS,     meta: AL_ASR_META     },
+  'al-fil':     { sections: AL_FIL_SECTIONS,     meta: AL_FIL_META     },
+  'quraysh':    { sections: QURAYSH_SECTIONS,    meta: QURAYSH_META    },
+  'al-maun':    { sections: AL_MAUN_SECTIONS,    meta: AL_MAUN_META    },
+  'al-kawthar': { sections: AL_KAWTHAR_SECTIONS, meta: AL_KAWTHAR_META },
+  'al-kafirun': { sections: AL_KAFIRUN_SECTIONS, meta: AL_KAFIRUN_META },
+  'an-nasr':    { sections: AN_NASR_SECTIONS,    meta: AN_NASR_META    },
+  'al-ikhlas':  { sections: AL_IKHLAS_SECTIONS,  meta: AL_IKHLAS_META  },
+  'al-falaq':   { sections: AL_FALAQ_SECTIONS,   meta: AL_FALAQ_META   },
+  'an-nas':     { sections: AN_NAS_SECTIONS,     meta: AN_NAS_META     },
 }
 
 export default function SurahPage({ user }) {
