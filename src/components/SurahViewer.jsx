@@ -400,6 +400,147 @@ function GuideTab() {
           </div>
         ))}
       </div>
+
+      {/* Arabic Grammar basics */}
+      <div style={{ marginTop:20, background:'rgba(155,89,182,0.06)', border:'1px solid rgba(155,89,182,0.2)', borderRadius:12, padding:'16px 20px' }}>
+        <div style={{ fontSize:13, color:'#9B59B6', fontWeight:700, marginBottom:4 }}>📖 Basic Arabic Sentence Structure</div>
+        <div style={{ fontSize:12, color:'#6a5a40', marginBottom:16, lineHeight:1.6 }}>
+          Understanding how Arabic is built helps everything click. These 6 patterns appear constantly in the Quran.
+        </div>
+
+        {/* Pattern 1: Word order */}
+        <div style={{ marginBottom:16, paddingBottom:16, borderBottom:'1px solid rgba(255,255,255,0.05)' }}>
+          <div style={{ fontSize:12, color:'#9B59B6', fontWeight:600, marginBottom:6 }}>1 · Word order — Verb comes first</div>
+          <div style={{ fontSize:12, color:'#a09070', lineHeight:1.7, marginBottom:8 }}>
+            English: <em>Subject → Verb → Object</em> — "He created the heavens"<br/>
+            Arabic: <em>Verb → Subject → Object</em> — "Created He the heavens"
+          </div>
+          <div style={{ background:'rgba(155,89,182,0.08)', borderRadius:8, padding:'10px 14px', display:'flex', gap:24, flexWrap:'wrap' }}>
+            <div style={{ textAlign:'center' }}>
+              <div style={{ fontSize:18, fontFamily:'Amiri,serif', color:'#ddd5c0', marginBottom:2 }}>خَلَقَ ٱللَّهُ</div>
+              <div style={{ fontSize:11, color:'#9B59B6' }}>kha-la-qa  Al-laa-hu</div>
+              <div style={{ fontSize:11, color:'#6a5a40', marginTop:2 }}>"Created · Allah" = Allah created</div>
+            </div>
+            <div style={{ textAlign:'center' }}>
+              <div style={{ fontSize:18, fontFamily:'Amiri,serif', color:'#ddd5c0', marginBottom:2 }}>قُلْ هُوَ</div>
+              <div style={{ fontSize:11, color:'#9B59B6' }}>qul  hu-wa</div>
+              <div style={{ fontSize:11, color:'#6a5a40', marginTop:2 }}>"Say · He" = Say: He is</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Pattern 2: No verb "to be" */}
+        <div style={{ marginBottom:16, paddingBottom:16, borderBottom:'1px solid rgba(255,255,255,0.05)' }}>
+          <div style={{ fontSize:12, color:'#9B59B6', fontWeight:600, marginBottom:6 }}>2 · No "is / are" in the present tense</div>
+          <div style={{ fontSize:12, color:'#a09070', lineHeight:1.7, marginBottom:8 }}>
+            Arabic drops the verb "to be" entirely in present statements. Two words side by side = "X is Y".
+          </div>
+          <div style={{ background:'rgba(155,89,182,0.08)', borderRadius:8, padding:'10px 14px', display:'flex', gap:24, flexWrap:'wrap' }}>
+            <div style={{ textAlign:'center' }}>
+              <div style={{ fontSize:18, fontFamily:'Amiri,serif', color:'#ddd5c0', marginBottom:2 }}>ٱللَّهُ أَكْبَرُ</div>
+              <div style={{ fontSize:11, color:'#9B59B6' }}>Al-laa-hu  ak-ba-ru</div>
+              <div style={{ fontSize:11, color:'#6a5a40', marginTop:2 }}>"Allah · greatest" = Allah is greatest</div>
+            </div>
+            <div style={{ textAlign:'center' }}>
+              <div style={{ fontSize:18, fontFamily:'Amiri,serif', color:'#ddd5c0', marginBottom:2 }}>هُوَ ٱللَّطِيفُ</div>
+              <div style={{ fontSize:11, color:'#9B59B6' }}>hu-wa  al-la-Tee-fu</div>
+              <div style={{ fontSize:11, color:'#6a5a40', marginTop:2 }}>"He · the Subtle" = He is the Subtle</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Pattern 3: Al- definite article */}
+        <div style={{ marginBottom:16, paddingBottom:16, borderBottom:'1px solid rgba(255,255,255,0.05)' }}>
+          <div style={{ fontSize:12, color:'#9B59B6', fontWeight:600, marginBottom:6 }}>3 · The definite article — ال (Al-)</div>
+          <div style={{ fontSize:12, color:'#a09070', lineHeight:1.7, marginBottom:8 }}>
+            Arabic has no word for "a/an". It only has "the" — written as <span style={{ color:'#D4A843' }}>al-</span> before the word.
+            No prefix = indefinite ("a book"). With <span style={{ color:'#D4A843' }}>al-</span> = definite ("the book").
+          </div>
+          <div style={{ background:'rgba(155,89,182,0.08)', borderRadius:8, padding:'10px 14px', display:'flex', gap:24, flexWrap:'wrap' }}>
+            <div style={{ textAlign:'center' }}>
+              <div style={{ fontSize:18, fontFamily:'Amiri,serif', color:'#ddd5c0', marginBottom:2 }}>كِتَابٌ</div>
+              <div style={{ fontSize:11, color:'#9B59B6' }}>ki-taa-bun</div>
+              <div style={{ fontSize:11, color:'#6a5a40', marginTop:2 }}>a book (indefinite)</div>
+            </div>
+            <div style={{ textAlign:'center' }}>
+              <div style={{ fontSize:18, fontFamily:'Amiri,serif', color:'#ddd5c0', marginBottom:2 }}>ٱلْكِتَابُ</div>
+              <div style={{ fontSize:11, color:'#9B59B6' }}>al-ki-taa-bu</div>
+              <div style={{ fontSize:11, color:'#6a5a40', marginTop:2 }}>THE book (definite)</div>
+            </div>
+          </div>
+          <div style={{ fontSize:11, color:'#6a5a40', marginTop:8, lineHeight:1.6 }}>
+            ⚠ Sun letters: when al- comes before certain letters (like s, sh, n, r, t), the "l" sound merges with the next letter.
+            So <em style={{ color:'#D4A843' }}>al-Rahman</em> is pronounced <em style={{ color:'#D4A843' }}>ar-Rahman</em> (the R absorbs the L).
+          </div>
+        </div>
+
+        {/* Pattern 4: Gender */}
+        <div style={{ marginBottom:16, paddingBottom:16, borderBottom:'1px solid rgba(255,255,255,0.05)' }}>
+          <div style={{ fontSize:12, color:'#9B59B6', fontWeight:600, marginBottom:6 }}>4 · Masculine and feminine nouns</div>
+          <div style={{ fontSize:12, color:'#a09070', lineHeight:1.7, marginBottom:8 }}>
+            Every Arabic noun is either masculine or feminine. Feminine nouns usually end in <span style={{ color:'#D4A843' }}>ـة (ah/at)</span> — the round ta marbuta.
+            Adjectives must match the gender of the noun they describe.
+          </div>
+          <div style={{ background:'rgba(155,89,182,0.08)', borderRadius:8, padding:'10px 14px', display:'flex', gap:24, flexWrap:'wrap' }}>
+            <div style={{ textAlign:'center' }}>
+              <div style={{ fontSize:18, fontFamily:'Amiri,serif', color:'#ddd5c0', marginBottom:2 }}>رَحْمَانٌ / رَحْمَانَةٌ</div>
+              <div style={{ fontSize:11, color:'#9B59B6' }}>raH-maan · raH-maa-nah</div>
+              <div style={{ fontSize:11, color:'#6a5a40', marginTop:2 }}>merciful (masc) · merciful (fem)</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Pattern 5: Pronouns attached */}
+        <div style={{ marginBottom:16, paddingBottom:16, borderBottom:'1px solid rgba(255,255,255,0.05)' }}>
+          <div style={{ fontSize:12, color:'#9B59B6', fontWeight:600, marginBottom:6 }}>5 · Pronouns attach to words</div>
+          <div style={{ fontSize:12, color:'#a09070', lineHeight:1.7, marginBottom:8 }}>
+            In Arabic, possessive pronouns (his, her, your, our) and object pronouns (him, them) are suffixes — glued to the end of the word rather than written separately.
+          </div>
+          <div style={{ background:'rgba(155,89,182,0.08)', borderRadius:8, padding:'10px 14px', display:'flex', gap:16, flexWrap:'wrap' }}>
+            {[
+              { ar:'رَبِّى', tr:"rab-bee", en:"my Lord (rab + ee)" },
+              { ar:'رَبِّكَ', tr:"rab-bi-ka", en:"your Lord (rab + ka)" },
+              { ar:'رَبِّهِ', tr:"rab-bi-hee", en:"his Lord (rab + hi)" },
+              { ar:'رَبِّنَا', tr:"rab-bi-naa", en:"our Lord (rab + naa)" },
+            ].map(w => (
+              <div key={w.ar} style={{ textAlign:'center' }}>
+                <div style={{ fontSize:18, fontFamily:'Amiri,serif', color:'#ddd5c0', marginBottom:2 }}>{w.ar}</div>
+                <div style={{ fontSize:11, color:'#9B59B6' }}>{w.tr}</div>
+                <div style={{ fontSize:11, color:'#6a5a40', marginTop:2 }}>{w.en}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Pattern 6: Root system */}
+        <div style={{ marginBottom:0 }}>
+          <div style={{ fontSize:12, color:'#9B59B6', fontWeight:600, marginBottom:6 }}>6 · The 3-letter root system</div>
+          <div style={{ fontSize:12, color:'#a09070', lineHeight:1.7, marginBottom:8 }}>
+            Almost every Arabic word comes from a 3-letter root. Once you know a root, you can recognise all its related words.
+            This is why learning Arabic vocabulary is faster than it looks.
+          </div>
+          <div style={{ background:'rgba(155,89,182,0.08)', borderRadius:8, padding:'10px 14px' }}>
+            <div style={{ fontSize:11, color:'#9B59B6', marginBottom:8 }}>Root ك-ت-ب (k-t-b) = writing / books</div>
+            <div style={{ display:'flex', gap:20, flexWrap:'wrap' }}>
+              {[
+                { ar:'كَتَبَ', tr:"ka-ta-ba", en:"he wrote" },
+                { ar:'كِتَابٌ', tr:"ki-taa-bun", en:"a book" },
+                { ar:'كَاتِبٌ', tr:"kaa-ti-bun", en:"a writer" },
+                { ar:'مَكْتُوبٌ', tr:"mak-too-bun", en:"written" },
+              ].map(w => (
+                <div key={w.ar} style={{ textAlign:'center' }}>
+                  <div style={{ fontSize:16, fontFamily:'Amiri,serif', color:'#ddd5c0', marginBottom:2 }}>{w.ar}</div>
+                  <div style={{ fontSize:10, color:'#9B59B6' }}>{w.tr}</div>
+                  <div style={{ fontSize:10, color:'#6a5a40', marginTop:1 }}>{w.en}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{ fontSize:11, color:'#6a5a40', marginTop:10, lineHeight:1.6 }}>
+              The Quran uses this constantly — once you notice the root ح-م-د (h-m-d) in Al-Hamdulillah, you'll spot it in Muhammad, Mahmoud, and Ahmad too.
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
