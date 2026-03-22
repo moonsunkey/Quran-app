@@ -1,0 +1,710 @@
+{
+  "startDate": null,
+  "note": "Set startDate to YYYY-MM-DD when all surahs are reviewed and ready. The GitHub Action reads this file daily.",
+  "phases": [
+    {
+      "name": "Beginner",
+      "perDay": 3
+    },
+    {
+      "name": "Intermediate",
+      "perDay": 2
+    },
+    {
+      "name": "Advanced",
+      "perDay": 1
+    }
+  ],
+  "surahs": [
+    {
+      "id": "al-fatiha",
+      "number": 1,
+      "difficulty": 1,
+      "status": "released"
+    },
+    {
+      "id": "al-mulk",
+      "number": 67,
+      "difficulty": 1,
+      "status": "released"
+    },
+    {
+      "id": "al-waqia",
+      "number": 56,
+      "difficulty": 2,
+      "status": "released"
+    },
+    {
+      "id": "al-asr",
+      "number": 103,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-kawthar",
+      "number": 108,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-ikhlas",
+      "number": 112,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-falaq",
+      "number": 113,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "an-nas",
+      "number": 114,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-qadr",
+      "number": 97,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-fil",
+      "number": 105,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "quraysh",
+      "number": 106,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-maun",
+      "number": 107,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-kafirun",
+      "number": 109,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "an-nasr",
+      "number": 110,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-masad",
+      "number": 111,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "ash-sharh",
+      "number": 94,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "at-tin",
+      "number": 95,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-alaq",
+      "number": 96,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "ad-duha",
+      "number": 93,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-layl",
+      "number": 92,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "ash-shams",
+      "number": 91,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-balad",
+      "number": 90,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-fajr",
+      "number": 89,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-ghashiyah",
+      "number": 88,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-ala",
+      "number": 87,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "at-tariq",
+      "number": 86,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-buruj",
+      "number": 85,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-inshiqaq",
+      "number": 84,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-mutaffifin",
+      "number": 83,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-infitar",
+      "number": 82,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "at-takwir",
+      "number": 81,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "abasa",
+      "number": 80,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "an-naziat",
+      "number": 79,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "an-naba",
+      "number": 78,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-mursalat",
+      "number": 77,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-insan",
+      "number": 76,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-qiyamah",
+      "number": 75,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-muddaththir",
+      "number": 74,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-muzzammil",
+      "number": 73,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-jinn",
+      "number": 72,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "nuh",
+      "number": 71,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-maarij",
+      "number": 70,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-haqqah",
+      "number": 69,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-qalam",
+      "number": 68,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "at-taghabun",
+      "number": 64,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-munafiqun",
+      "number": 63,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-jumuah",
+      "number": 62,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "as-saf",
+      "number": 61,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-mumtahanah",
+      "number": 60,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-hujurat",
+      "number": 49,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "luqman",
+      "number": 31,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "as-sajdah",
+      "number": 32,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "at-tur",
+      "number": 52,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "az-zalzalah",
+      "number": 99,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-bayyinah",
+      "number": 98,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-adiyat",
+      "number": 100,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-qariah",
+      "number": 101,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "at-takathur",
+      "number": 102,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "al-humazah",
+      "number": 104,
+      "difficulty": 1,
+      "status": "pending"
+    },
+    {
+      "id": "ar-rahman",
+      "number": 55,
+      "difficulty": 2,
+      "status": "released"
+    },
+    {
+      "id": "yasin",
+      "number": 36,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "al-fath",
+      "number": 48,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "al-hadid",
+      "number": 57,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "al-hashr",
+      "number": 59,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "at-talaq",
+      "number": 65,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "at-tahrim",
+      "number": 66,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "al-mujadila",
+      "number": 58,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "ar-rad",
+      "number": 13,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "ibrahim",
+      "number": 14,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "al-hijr",
+      "number": 15,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "al-jathiyah",
+      "number": 45,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "al-ahqaf",
+      "number": 46,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "muhammad",
+      "number": 47,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "al-ankabut",
+      "number": 29,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "ar-rum",
+      "number": 30,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "saba",
+      "number": 34,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "fatir",
+      "number": 35,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "ad-dukhan",
+      "number": 44,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "al-anfal",
+      "number": 8,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "al-hajj",
+      "number": 22,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "al-muminun",
+      "number": 23,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "al-furqan",
+      "number": 25,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "al-qasas",
+      "number": 28,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "an-naml",
+      "number": 27,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "ash-shuara",
+      "number": 26,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "al-anbiya",
+      "number": 21,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "ta-ha",
+      "number": 20,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "maryam",
+      "number": 19,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "an-nahl",
+      "number": 16,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "al-isra",
+      "number": 17,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "yusuf",
+      "number": 12,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "hud",
+      "number": 11,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "yunus",
+      "number": 10,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "al-anam",
+      "number": 6,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "an-nur",
+      "number": 24,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "qaf",
+      "number": 50,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "adh-dhariyat",
+      "number": 51,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "an-najm",
+      "number": 53,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "al-qamar",
+      "number": 54,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "al-maidah",
+      "number": 5,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "fussilat",
+      "number": 41,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "ash-shura",
+      "number": 42,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "az-zukhruf",
+      "number": 43,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "ghafir",
+      "number": 40,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "az-zumar",
+      "number": 39,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "sad",
+      "number": 38,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "as-saffat",
+      "number": 37,
+      "difficulty": 2,
+      "status": "pending"
+    },
+    {
+      "id": "al-kahf",
+      "number": 18,
+      "difficulty": 3,
+      "status": "pending"
+    },
+    {
+      "id": "al-ahzab",
+      "number": 33,
+      "difficulty": 3,
+      "status": "pending"
+    },
+    {
+      "id": "al-araf",
+      "number": 7,
+      "difficulty": 3,
+      "status": "pending"
+    },
+    {
+      "id": "at-tawbah",
+      "number": 9,
+      "difficulty": 3,
+      "status": "pending"
+    },
+    {
+      "id": "al-anam-adv",
+      "number": 6,
+      "difficulty": 3,
+      "status": "pending"
+    },
+    {
+      "id": "ali-imran",
+      "number": 3,
+      "difficulty": 3,
+      "status": "pending"
+    },
+    {
+      "id": "an-nisa",
+      "number": 4,
+      "difficulty": 3,
+      "status": "pending"
+    },
+    {
+      "id": "al-baqarah",
+      "number": 2,
+      "difficulty": 3,
+      "status": "pending"
+    }
+  ]
+}

@@ -6,7 +6,14 @@ import { ALL_SURAHS, THEMES } from '../data/surahList'
 const DIFF_LABEL = { 1:'Beginner', 2:'Intermediate', 3:'Advanced' }
 const DIFF_COLOR = { 1:'#4CAF8A', 2:'#D4A843', 3:'#C0504D' }
 
-const SURAH_ROUTES = { 1:'al-fatiha', 56:'al-waqia', 67:'al-mulk' }
+// Route map — built from surahList available flag + known id mappings
+// Add new surahs here when data file + SurahPage entry exists
+const SURAH_ID_MAP = {
+  1:'al-fatiha', 56:'al-waqia', 67:'al-mulk',
+}
+const SURAH_ROUTES = Object.fromEntries(
+  ALL_SURAHS.filter(s => s.available && SURAH_ID_MAP[s.n]).map(s => [s.n, SURAH_ID_MAP[s.n]])
+)
 
 const PERIOD_INFO = [
   { id:1, label:'Early Makki',  years:'610–615 CE', color:'#D4A843', desc:'The first revelations — short, intense, spiritual. Focused on who Allah is, the Day of Judgment, and basic ethics. The Prophet was alone with a small group of believers.' },
@@ -105,7 +112,7 @@ export default function QuranMapPage() {
                             title={`${s.n}. ${s.name} (${s.ayahs} ayahs)`}
                             onMouseEnter={() => setHovered(s.n)}
                             onMouseLeave={() => setHovered(null)}
-                            onClick={() => route && (window.location.href = `/surah/${route}`)}
+                            onClick={() => s.available && SURAH_ID_MAP[s.n] && (window.location.href = `/surah/${SURAH_ID_MAP[s.n]}`)}
                             style={{
                               width: size, height: size,
                               borderRadius: '50%',
@@ -205,7 +212,7 @@ export default function QuranMapPage() {
                                   title={`${s.n}. ${s.name} (${s.ayahs} ayahs)`}
                                   onMouseEnter={() => setHovered(s.n)}
                                   onMouseLeave={() => setHovered(null)}
-                                  onClick={() => route && (window.location.href = `/surah/${route}`)}
+                                  onClick={() => s.available && SURAH_ID_MAP[s.n] && (window.location.href = `/surah/${SURAH_ID_MAP[s.n]}`)}
                                   style={{
                                     width:size, height:size, borderRadius:'50%', flexShrink:0,
                                     background: s.available ? theme.color : `rgba(${hexRgb(theme.color)},0.25)`,
@@ -261,7 +268,7 @@ export default function QuranMapPage() {
 
                 return (
                   <div key={s.n} onMouseEnter={() => setHovered(s.n)} onMouseLeave={() => setHovered(null)}
-                    onClick={() => route && (window.location.href = `/surah/${route}`)}
+                    onClick={() => s.available && SURAH_ID_MAP[s.n] && (window.location.href = `/surah/${SURAH_ID_MAP[s.n]}`)}
                     style={{ position:'relative', display:'flex', flexDirection:'column', alignItems:'center', cursor: route ? 'pointer' : 'default' }}>
 
                     {isHov && (
@@ -324,7 +331,7 @@ export default function QuranMapPage() {
                     >
                       <td style={{ padding:'8px 10px', color:'#6a5a40', fontSize:11 }}>{s.n}</td>
                       <td style={{ padding:'8px 10px', color:'#ddd5c0' }}>
-                        {route ? <Link to={`/surah/${route}`} style={{ color:theme?.color, textDecoration:'none' }}>{s.name} →</Link> : s.name}
+                        {s.available && SURAH_ID_MAP[s.n] ? <Link to={`/surah/${SURAH_ID_MAP[s.n]}`} style={{ color:theme?.color, textDecoration:'none' }}>{s.name} →</Link> : s.name}
                       </td>
                       <td style={{ padding:'8px 10px', fontFamily:'Amiri,serif', fontSize:16, color:'#a09070' }}>{s.ar}</td>
                       <td style={{ padding:'8px 10px', color:'#6a5a40' }}>{s.ayahs}</td>
@@ -336,7 +343,7 @@ export default function QuranMapPage() {
                       </td>
                       <td style={{ padding:'8px 10px', fontSize:10, color:DIFF_COLOR[s.diff] }}>{DIFF_LABEL[s.diff]}</td>
                       <td style={{ padding:'8px 10px', fontSize:10, color: route ? '#4CAF8A' : '#3a2a18' }}>
-                        {route ? '✓ Available' : 'Coming soon'}
+                        {s.available ? '✓ Available' : 'Coming soon'}
                       </td>
                     </tr>
                   )
