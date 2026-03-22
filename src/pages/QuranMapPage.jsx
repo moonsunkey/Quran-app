@@ -9,7 +9,10 @@ const DIFF_COLOR = { 1:'#4CAF8A', 2:'#D4A843', 3:'#C0504D' }
 // Route map — built from surahList available flag + known id mappings
 // Add new surahs here when data file + SurahPage entry exists
 const SURAH_ID_MAP = {
-  1:'al-fatiha', 56:'al-waqia', 67:'al-mulk',
+  1:'al-fatiha', 55:'ar-rahman', 56:'al-waqia', 67:'al-mulk',
+  103:'al-asr',  105:'al-fil',   106:'quraysh',  107:'al-maun',
+  108:'al-kawthar', 109:'al-kafirun', 110:'an-nasr',
+  112:'al-ikhlas',  113:'al-falaq',   114:'an-nas',
 }
 const SURAH_ROUTES = Object.fromEntries(
   ALL_SURAHS.filter(s => s.available && SURAH_ID_MAP[s.n]).map(s => [s.n, SURAH_ID_MAP[s.n]])

@@ -67,7 +67,7 @@ export const ALL_SURAHS = [
   { n:52,  name:'At-Tur',         ar:'الطور',       ayahs:49,  rev:'Makki',  period:1, diff:1, theme:'JUDGE',   available:false },
   { n:53,  name:'An-Najm',        ar:'النجم',       ayahs:62,  rev:'Makki',  period:1, diff:2, theme:'GOD',     available:false },
   { n:54,  name:'Al-Qamar',       ar:'القمر',       ayahs:55,  rev:'Makki',  period:1, diff:2, theme:'STORY',   available:false },
-  { n:55,  name:'Ar-Rahman',      ar:'الرحمان',     ayahs:78,  rev:'Makki',  period:1, diff:1, theme:'NATURE',  available:true },
+  { n:55,  name:'Ar-Rahman',      ar:'الرحمان',     ayahs:78,  rev:'Makki',  period:1, diff:2, theme:'NATURE',  available:true  },
   { n:56,  name:'Al-Waqia',       ar:'الواقعة',     ayahs:96,  rev:'Makki',  period:1, diff:2, theme:'JUDGE',   available:true  },
   { n:57,  name:'Al-Hadid',       ar:'الحديد',      ayahs:29,  rev:'Madani', period:3, diff:2, theme:'GUIDE',   available:false },
   { n:58,  name:'Al-Mujadila',    ar:'المجادلة',    ayahs:22,  rev:'Madani', period:3, diff:2, theme:'LAW',     available:false },

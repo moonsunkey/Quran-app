@@ -38,31 +38,31 @@
       "id": "al-asr",
       "number": 103,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released"
     },
     {
       "id": "al-kawthar",
       "number": 108,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released"
     },
     {
       "id": "al-ikhlas",
       "number": 112,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released"
     },
     {
       "id": "al-falaq",
       "number": 113,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released"
     },
     {
       "id": "an-nas",
       "number": 114,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released"
     },
     {
       "id": "al-qadr",
@@ -74,31 +74,31 @@
       "id": "al-fil",
       "number": 105,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released"
     },
     {
       "id": "quraysh",
       "number": 106,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released"
     },
     {
       "id": "al-maun",
       "number": 107,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released"
     },
     {
       "id": "al-kafirun",
       "number": 109,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released"
     },
     {
       "id": "an-nasr",
       "number": 110,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released"
     },
     {
       "id": "al-masad",
