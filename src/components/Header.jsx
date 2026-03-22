@@ -43,6 +43,7 @@ export default function Header({ user, onSignIn, onSignUp, onSignOut }) {
             <div style={{ fontSize:9, color:'#6a5a40', letterSpacing:1.5 }}>FOR NEW LEARNERS</div>
           </div>
         </Link>
+        <Link to="/surahs" style={{ fontSize:12, color:'#6a5a40', textDecoration:'none' }}>114 Surahs</Link>
         <Link to="/about" style={{ fontSize:12, color:'#6a5a40', textDecoration:'none' }}>About</Link>
       </div>
 

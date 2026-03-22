@@ -3,7 +3,8 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import { useAuth } from './hooks/useAuth'
 import HomePage   from './pages/HomePage'
 import SurahPage  from './pages/SurahPage'
-import AboutPage  from './pages/AboutPage'
+import AboutPage      from './pages/AboutPage'
+import QuranMapPage  from './pages/QuranMapPage'
 import Header     from './components/Header'
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/"          element={<HomePage  user={user} />} />
         <Route path="/surah/:id" element={<SurahPage user={user} />} />
         <Route path="/about"     element={<AboutPage />} />
+        <Route path="/surahs"    element={<QuranMapPage />} />
         <Route path="*"          element={<Navigate to="/" replace />} />
       </Routes>
     </div>
