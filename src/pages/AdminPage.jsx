@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { db } from '../firebase'
 import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 
-const ADMIN_PASSWORD = 'quranmemo2024'
+const ADMIN_PASSWORD = 'QMZmlHGahGCQ'
 
 const STAR = '★'
 const CAT_COLOR = { suggestion:'#D4A843', surah:'#4CAF8A', language:'#5B8FD4', bug:'#C0504D' }

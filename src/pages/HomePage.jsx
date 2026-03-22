@@ -124,19 +124,31 @@ export default function HomePage({ user }) {
       </div>
 
       {/* Early access banner */}
-      <div style={{ background:'rgba(212,168,67,0.06)', border:'1px solid rgba(212,168,67,0.18)', borderRadius:12, padding:'14px 20px', display:'flex', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap', gap:12, marginBottom:24 }}>
-        <div style={{ display:'flex', alignItems:'center', gap:12 }}>
-          <div style={{ fontSize:20 }}>🌙</div>
-          <div>
-            <div style={{ fontSize:13, color:'#D4A843', fontWeight:600 }}>Early access — actively building</div>
-            <div style={{ fontSize:11, color:'#6a5a40', marginTop:1 }}>More surahs and languages coming soon. Your feedback shapes what's next.</div>
+      <div style={{ marginBottom:28, background:'linear-gradient(135deg,rgba(212,168,67,0.12),rgba(212,168,67,0.04))', border:'1px solid rgba(212,168,67,0.35)', borderRadius:14, padding:'20px 24px', position:'relative', overflow:'hidden' }}>
+        {/* Decorative Arabic in background */}
+        <div style={{ position:'absolute', right:20, top:'50%', transform:'translateY(-50%)', fontSize:64, fontFamily:'Amiri,serif', color:'rgba(212,168,67,0.07)', lineHeight:1, pointerEvents:'none', userSelect:'none' }}>بِسْمِ</div>
+        <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap', gap:16, position:'relative' }}>
+          <div style={{ display:'flex', alignItems:'flex-start', gap:14 }}>
+            <div style={{ width:40, height:40, borderRadius:10, background:'rgba(212,168,67,0.15)', border:'1px solid rgba(212,168,67,0.3)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:20, flexShrink:0 }}>🌙</div>
+            <div>
+              <div style={{ fontSize:15, color:'#D4A843', fontWeight:700, marginBottom:4 }}>We're building — and we want your input</div>
+              <div style={{ fontSize:12, color:'#8a7a60', lineHeight:1.6 }}>
+                More surahs, more languages, more features — all shaped by what learners actually need.<br/>
+                <span style={{ color:'#6a5a40' }}>It takes 60 seconds and makes a real difference.</span>
+              </div>
+            </div>
           </div>
+          <button
+            onClick={() => setShowFeedback(true)}
+            style={{
+              padding:'11px 22px', borderRadius:10, border:'1px solid rgba(212,168,67,0.5)',
+              background:'#D4A843', color:'#06101c',
+              fontSize:13, fontWeight:700, cursor:'pointer', flexShrink:0, whiteSpace:'nowrap',
+              boxShadow:'0 4px 16px rgba(212,168,67,0.2)',
+            }}>
+            Share feedback →
+          </button>
         </div>
-        <button
-          onClick={() => setShowFeedback(true)}
-          style={{ padding:'8px 18px', borderRadius:8, border:'1px solid rgba(212,168,67,0.4)', background:'rgba(212,168,67,0.1)', color:'#D4A843', fontSize:12, fontWeight:600, cursor:'pointer', flexShrink:0, whiteSpace:'nowrap' }}>
-          Share feedback →
-        </button>
       </div>
 
       {showFeedback && <FeedbackModal onClose={() => setShowFeedback(false)} />}
