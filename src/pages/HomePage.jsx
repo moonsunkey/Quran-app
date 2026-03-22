@@ -1,6 +1,7 @@
 // src/pages/HomePage.jsx
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import FeedbackModal from '../components/FeedbackModal'
 
 const SURAHS = [
   { id:'al-fatiha', number:1,  name:'Al-Fatiha', arabic:'الفاتحة', meaning:'The Opening',          ayahs:7,   difficulty:'Beginner',     status:'available',   color:'#4CAF8A', description:'The most recited surah — said in every rakat of every prayer, at least 17 times daily. Start here.' },
@@ -90,6 +91,7 @@ function SurahCard({ s }) {
 }
 
 export default function HomePage({ user }) {
+  const [showFeedback, setShowFeedback] = useState(false)
   const totalDone = SURAHS.filter(s => s.status==='available').reduce((acc, s) => {
     try {
       const saved = localStorage.getItem(`quran_progress_${s.id}`)
@@ -120,6 +122,24 @@ export default function HomePage({ user }) {
           </div>
         )}
       </div>
+
+      {/* Early access banner */}
+      <div style={{ background:'rgba(212,168,67,0.06)', border:'1px solid rgba(212,168,67,0.18)', borderRadius:12, padding:'14px 20px', display:'flex', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap', gap:12, marginBottom:24 }}>
+        <div style={{ display:'flex', alignItems:'center', gap:12 }}>
+          <div style={{ fontSize:20 }}>🌙</div>
+          <div>
+            <div style={{ fontSize:13, color:'#D4A843', fontWeight:600 }}>Early access — actively building</div>
+            <div style={{ fontSize:11, color:'#6a5a40', marginTop:1 }}>More surahs and languages coming soon. Your feedback shapes what's next.</div>
+          </div>
+        </div>
+        <button
+          onClick={() => setShowFeedback(true)}
+          style={{ padding:'8px 18px', borderRadius:8, border:'1px solid rgba(212,168,67,0.4)', background:'rgba(212,168,67,0.1)', color:'#D4A843', fontSize:12, fontWeight:600, cursor:'pointer', flexShrink:0, whiteSpace:'nowrap' }}>
+          Share feedback →
+        </button>
+      </div>
+
+      {showFeedback && <FeedbackModal onClose={() => setShowFeedback(false)} />}
 
       {/* Surah grid */}
       <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(260px,1fr))', gap:14 }}>
