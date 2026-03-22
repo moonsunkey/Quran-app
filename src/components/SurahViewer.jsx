@@ -306,6 +306,22 @@ export default function SurahViewer({ meta, sections, memorized, onToggle, onMar
           <ProgressTab sections={sections} memorized={mem} onToggle={onToggle} onMarkSection={onMarkSection} meta={meta} />
         )}
       </div>
+
+      {/* Credits footer */}
+      <div style={{ padding:'12px 20px', borderTop:'1px solid rgba(255,255,255,0.05)', display:'flex', flexWrap:'wrap', gap:16, justifyContent:'center' }}>
+        {[
+          ['Arabic text','tanzil.net (Uthmani script)','https://tanzil.net'],
+          ['English','Saheeh International','https://quran.com'],
+          ['Audio','everyayah.com · Al-Husary','https://everyayah.com'],
+          ['中文','马坚译本 (Ma Jian, 1981)',null],
+          ['हिंदी','Standard Islamic Hindi translation',null],
+        ].map(([l,v,u]) => (
+          <div key={l} style={{ fontSize:10, color:'#4a3a28', textAlign:'center' }}>
+            <span style={{ color:'#6a5a40' }}>{l}: </span>
+            {u ? <a href={u} target="_blank" rel="noopener noreferrer" style={{ color:'#4a3a28', textDecoration:'none' }}>{v}</a> : v}
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

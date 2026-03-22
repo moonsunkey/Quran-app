@@ -72,6 +72,19 @@ const CONTENT = {
         body: 'Recitation by Mahmoud Khalil Al-Husary — chosen for his slow, clear delivery, ideal for learners. Switch to Al-Afasy, Abdul Basit, or Al-Minshawi inside any surah.',
       },
       {
+        title: 'Sources & Credits',
+        color: '#6a5a40',
+        sources: [
+          { label:'Arabic text', value:'Uthmani script via tanzil.net — the standard digital Quran text used worldwide', url:'https://tanzil.net' },
+          { label:'English translation', value:'Saheeh International — clear, accurate modern English, widely recommended for new Muslims', url:'https://quran.com' },
+          { label:'Chinese translation (中文)', value:'Ma Jian (马坚) — the most widely accepted Simplified Chinese Quran translation, published 1981', url:null },
+          { label:'Hindi translation (हिंदी)', value:'Based on standard Islamic Hindi translations used across South Asian Muslim scholarship', url:null },
+          { label:'Audio recitation', value:'Mahmoud Khalil Al-Husary — via everyayah.com, a free public Quran audio resource', url:'https://everyayah.com' },
+          { label:'Transliteration', value:'Original syllabified transliteration developed for this app, following standard Arabic phonetic conventions', url:null },
+          { label:'Surah metadata', value:'Revelation periods and thematic groupings based on classical Islamic scholarship and tafsir tradition', url:null },
+        ],
+      },
+      {
         title: 'Progress',
         color: '#D4A843',
         body: 'Everything saves automatically. Sign in to sync across your phone, tablet, and computer.',
@@ -151,6 +164,19 @@ const CONTENT = {
         body: '诵读者为马哈茂德·哈利勒·侯萨里（Mahmoud Khalil Al-Husary）——以其缓慢清晰的诵读风格著称，非常适合初学者。在任意苏拉中可切换为阿法西、阿卜杜勒·巴斯特或明沙维。',
       },
       {
+        title: '资料来源与致谢',
+        color: '#6a5a40',
+        sources: [
+          { label:'阿拉伯语原文', value:'Uthmani字体，来源：tanzil.net — 全球通用的标准数字《古兰经》文本', url:'https://tanzil.net' },
+          { label:'英文翻译', value:'Saheeh International — 清晰准确的现代英语译本，广受新穆斯林推荐', url:'https://quran.com' },
+          { label:'中文翻译', value:'马坚译本 — 最广泛认可的简体中文《古兰经》译本，1981年出版', url:null },
+          { label:'印地语翻译', value:'基于南亚伊斯兰学术界通用的标准印地语翻译', url:null },
+          { label:'音频朗诵', value:'马哈茂德·哈利勒·侯萨里 — 来源：everyayah.com，免费公开的古兰经音频资源', url:'https://everyayah.com' },
+          { label:'音译', value:'本应用原创的逐音节音译系统，遵循标准阿拉伯语语音规则', url:null },
+          { label:'苏拉元数据', value:'启示时期划分和主题分类基于经典伊斯兰学术和塔夫西尔传统', url:null },
+        ],
+      },
+      {
         title: '进度保存',
         color: '#D4A843',
         body: '一切自动保存。登录后可在手机、平板和电脑之间同步进度。',
@@ -228,6 +254,19 @@ const CONTENT = {
         title: 'ऑडियो',
         color: '#E67E22',
         body: 'तिलावत महमूद ख़लील अल-हुसरी की — धीमी और साफ़ आवाज़ के लिए मशहूर, नए सीखने वालों के लिए बेहतरीन। किसी भी सूरह में अल-अफ़सी, अब्दुल बासित, या मिनशावी में बदल सकते हैं।',
+      },
+      {
+        title: 'स्रोत और श्रेय',
+        color: '#6a5a40',
+        sources: [
+          { label:'अरबी मूल पाठ', value:'Uthmani लिपि, tanzil.net से — दुनिया भर में इस्तेमाल होने वाला मानक डिजिटल क़ुरआन', url:'https://tanzil.net' },
+          { label:'अंग्रेज़ी अनुवाद', value:'Saheeh International — नए मुसलमानों के लिए व्यापक रूप से अनुशंसित स्पष्ट आधुनिक अंग्रेज़ी अनुवाद', url:'https://quran.com' },
+          { label:'चीनी अनुवाद', value:'Ma Jian (马坚) — 1981 में प्रकाशित, सबसे व्यापक रूप से स्वीकृत सरलीकृत चीनी अनुवाद', url:null },
+          { label:'हिंदी अनुवाद', value:'दक्षिण एशियाई इस्लामिक विद्वता में प्रचलित मानक हिंदी अनुवाद परंपरा पर आधारित', url:null },
+          { label:'ऑडियो तिलावत', value:'महमूद ख़लील अल-हुसरी — everyayah.com से, एक मुफ़्त सार्वजनिक क़ुरआन ऑडियो संसाधन', url:'https://everyayah.com' },
+          { label:'तर्जुमा-ए-हर्फ़', value:'इस ऐप के लिए विकसित मूल अक्षर-दर-अक्षर प्रणाली, मानक अरबी ध्वन्यात्मक नियमों का पालन करती है', url:null },
+          { label:'सूरह मेटाडेटा', value:'प्रकाशन काल और विषयगत वर्गीकरण शास्त्रीय इस्लामी छात्रवृत्ति और तफ़सीर परंपरा पर आधारित', url:null },
+        ],
       },
       {
         title: 'प्रगति',
@@ -333,6 +372,23 @@ export default function AboutPage() {
                   <div>
                     <div style={{ fontSize:14, color:c, fontWeight:700 }}>{name}</div>
                     <div style={{ fontSize:13, color:'#7a6a52' }}>{desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+          {sec.sources && (
+            <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
+              {sec.sources.map(s => (
+                <div key={s.label} style={{ display:'flex', gap:12, alignItems:'flex-start', padding:'10px 14px', background:'rgba(255,255,255,0.02)', border:'1px solid rgba(255,255,255,0.06)', borderRadius:8 }}>
+                  <div style={{ flexShrink:0, width:160 }}>
+                    <div style={{ fontSize:12, color:'#ddd5c0', fontWeight:500 }}>{s.label}</div>
+                  </div>
+                  <div style={{ flex:1, fontSize:12, color:'#6a5a40', lineHeight:1.6 }}>
+                    {s.value}
+                    {s.url && (
+                      <a href={s.url} target="_blank" rel="noopener noreferrer" style={{ display:'block', marginTop:3, fontSize:11, color:'#5B8FD4' }}>{s.url}</a>
+                    )}
                   </div>
                 </div>
               ))}
