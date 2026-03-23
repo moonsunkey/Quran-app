@@ -1,12 +1,9 @@
 // scripts/set-start-date.js
-// Run this once when all surahs are reviewed and ready:
-//   node scripts/set-start-date.js 2025-06-01
-// Or to start tomorrow:
-//   node scripts/set-start-date.js tomorrow
+import fs   from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url'
 
-const fs   = require('fs')
-const path = require('path')
-
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const scheduleFile = path.join(__dirname, '..', 'release-schedule.json')
 const schedule = JSON.parse(fs.readFileSync(scheduleFile, 'utf8'))
 
@@ -26,28 +23,22 @@ if (dateArg === 'tomorrow') {
 schedule.startDate = dateArg
 fs.writeFileSync(scheduleFile, JSON.stringify(schedule, null, 2))
 
-// Count what the schedule looks like
-const pending    = schedule.surahs.filter(s => s.status === 'pending')
-const beginners  = pending.filter(s => s.difficulty === 1)
-const inter      = pending.filter(s => s.difficulty === 2)
-const advanced   = pending.filter(s => s.difficulty === 3)
-
+const pending   = schedule.surahs.filter(s => s.status === 'pending')
+const beginners = pending.filter(s => s.difficulty === 1)
+const inter     = pending.filter(s => s.difficulty === 2)
+const advanced  = pending.filter(s => s.difficulty === 3)
 const daysB = Math.ceil(beginners.length / 3)
 const daysI = Math.ceil(inter.length / 2)
 const daysA = advanced.length
 
 console.log(`✓ Start date set to: ${dateArg}`)
-console.log(``)
-console.log(`Release timeline:`)
+console.log(`\nRelease timeline:`)
 console.log(`  ${beginners.length} beginner surahs  @ 3/day = ${daysB} days`)
 console.log(`  ${inter.length} intermediate surahs @ 2/day = ${daysI} days`)
 console.log(`  ${advanced.length} advanced surahs    @ 1/day = ${daysA} days`)
-console.log(`  Total: ~${daysB + daysI + daysA} days to complete all 114 surahs`)
-console.log(``)
-console.log(`Estimated completion: ${(() => {
-  const end = new Date(dateArg)
-  end.setDate(end.getDate() + daysB + daysI + daysA)
-  return end.toISOString().split('T')[0]
-})()}`)
-console.log(``)
-console.log(`Now commit release-schedule.json and push.`)
+console.log(`  Total: ~${daysB + daysI + daysA} days`)
+
+const end = new Date(dateArg)
+end.setDate(end.getDate() + daysB + daysI + daysA)
+console.log(`\nEstimated completion: ${end.toISOString().split('T')[0]}`)
+console.log(`\nNow commit release-schedule.json and push.`)
