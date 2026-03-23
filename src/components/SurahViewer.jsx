@@ -30,13 +30,14 @@ function wordLabel(word) {
 
 // ── Coloured transliteration line ─────────────────────────────────────────────
 function TranslitLine({ tr, fontSize = 16 }) {
+  // Split on double spaces (word boundaries) but render as flowing text
   const words = tr.split('  ')
   return (
-    <div style={{ fontSize, fontStyle:'italic', letterSpacing:0.4, lineHeight:1.8 }}>
+    <div style={{ fontSize, fontStyle:'italic', letterSpacing:0.3, lineHeight:1.9 }}>
       {words.map((w, i) => (
         <span key={i}>
           <span style={{ color: wordColor(w) }}>{w}</span>
-          {i < words.length - 1 && <span style={{ color:'#2a1a08' }}> · </span>}
+          {i < words.length - 1 && <span style={{ color:'rgba(212,168,67,0.2)' }}> </span>}
         </span>
       ))}
     </div>
