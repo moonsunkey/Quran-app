@@ -15,6 +15,14 @@ import { SECTIONS as AN_NASR_SECTIONS,    SURAH_META as AN_NASR_META    } from '
 import { SECTIONS as AL_IKHLAS_SECTIONS,  SURAH_META as AL_IKHLAS_META  } from '../data/al-ikhlas'
 import { SECTIONS as AL_FALAQ_SECTIONS,   SURAH_META as AL_FALAQ_META   } from '../data/al-falaq'
 import { SECTIONS as AN_NAS_SECTIONS,     SURAH_META as AN_NAS_META     } from '../data/an-nas'
+import { SECTIONS as ASH_SHAMS_SECTIONS,  SURAH_META as ASH_SHAMS_META  } from '../data/ash-shams'
+import { SECTIONS as AL_LAYL_SECTIONS,    SURAH_META as AL_LAYL_META    } from '../data/al-layl'
+import { SECTIONS as AD_DUHA_SECTIONS,    SURAH_META as AD_DUHA_META    } from '../data/ad-duha'
+import { SECTIONS as ASH_SHARH_SECTIONS,  SURAH_META as ASH_SHARH_META  } from '../data/ash-sharh'
+import { SECTIONS as AT_TIN_SECTIONS,     SURAH_META as AT_TIN_META     } from '../data/at-tin'
+import { SECTIONS as AL_ALAQ_SECTIONS,    SURAH_META as AL_ALAQ_META    } from '../data/al-alaq'
+import { SECTIONS as AL_QADR_SECTIONS,    SURAH_META as AL_QADR_META    } from '../data/al-qadr'
+import { SECTIONS as AL_MASAD_SECTIONS,   SURAH_META as AL_MASAD_META   } from '../data/al-masad'
 import SurahViewer from '../components/SurahViewer'
 
 // ── Add new surahs here ───────────────────────────────────────────────────────
@@ -33,6 +41,14 @@ const SURAH_DATA_MAP = {
   'al-ikhlas':  { sections: AL_IKHLAS_SECTIONS,  meta: AL_IKHLAS_META  },
   'al-falaq':   { sections: AL_FALAQ_SECTIONS,   meta: AL_FALAQ_META   },
   'an-nas':     { sections: AN_NAS_SECTIONS,     meta: AN_NAS_META     },
+  'ash-shams':  { sections: ASH_SHAMS_SECTIONS,  meta: ASH_SHAMS_META  },
+  'al-layl':    { sections: AL_LAYL_SECTIONS,    meta: AL_LAYL_META    },
+  'ad-duha':    { sections: AD_DUHA_SECTIONS,    meta: AD_DUHA_META    },
+  'ash-sharh':  { sections: ASH_SHARH_SECTIONS,  meta: ASH_SHARH_META  },
+  'at-tin':     { sections: AT_TIN_SECTIONS,     meta: AT_TIN_META     },
+  'al-alaq':    { sections: AL_ALAQ_SECTIONS,    meta: AL_ALAQ_META    },
+  'al-qadr':    { sections: AL_QADR_SECTIONS,    meta: AL_QADR_META    },
+  'al-masad':   { sections: AL_MASAD_SECTIONS,   meta: AL_MASAD_META   },
 }
 
 export default function SurahPage({ user }) {

@@ -1,0 +1,93 @@
+export const SURAH_META = {
+  number:      97,
+  name:        'Al-Qadr',
+  arabic:      'الْقَدْر',
+  meaning:     'The Night of Decree',
+  meaningZh:   "权能之夜",
+  meaningHi:   "क़द्र की रात",
+  ayahs:       5,
+  revelation:  'Makki',
+  theme:       `Al-Qadr announces the night of the first Quranic revelation — a single night worth more than a thousand months of worship. On that night, the angels and the Spirit descend by the permission of their Lord with every decreed matter. The night is peace until the break of dawn. Seeking this night in the last ten nights of Ramadan is among the most important acts of worship.`,
+  reciterId:   'Husary_128kbps',
+  audioOffset: 6125,
+}
+
+export const SECTIONS = [
+  {
+    id:        'the-night-of-power',
+    label:     'The Night of Power',
+    arabic:    'لَيْلَةُ الْقَدْر',
+    labelZh:   "权能之夜",
+    labelHi:   "शब-ए-क़द्र",
+    ayahs:     '1-5',
+    color:     '#AD1457',
+    icon:      '🌙',
+    summary:   `The Quran was sent down on a single night worth more than eighty-three years of worship. The angels descend with every divine decree. From nightfall to dawn, it is a night of complete peace and blessing. The Prophet urged seeking it in the odd nights of the last ten days of Ramadan.`,
+    summaryZh: "《古兰经》在一个夜晚降示，这一夜胜过八十三年的礼拜。天使们带着每一条神圣的命令降临。从夜幕到黎明，这是一个完全平安与祝福的夜晚。先知敦促在斋月最后十天的单数夜寻找这一夜。",
+    summaryHi: "क़ुरआन एक रात में नाज़िल हुआ जो तिरासी साल की इबादत से बेहतर है। फ़रिश्ते हर हुक्म लेकर उतरते हैं। शाम से फ़जर तक यह मुकम्मल अमन और बरकत की रात है। नबी ने रमज़ान के आख़िरी दस दिनों की ताक़ रातों में इसे ढूँढने की तरग़ीब दी।",
+    memTip:    `Five verses: revelation announced (an-zal-naa) → question asked (maa ad-raa-ka) → answer given (khayr-rum min al-fi shahr) → how (tan-az-za-lul-ma-laa-'i-ka) → result (sa-laam hiya Hat-taa maT-la-'il fajr). The surah peaks at v3 (better than 1000 months) — everything else explains that astonishing claim.`,
+    verses: [
+      {
+        n:  1,
+        ar: 'إِنَّا أَنزَلْنَاهُ فِي لَيْلَةِ الْقَدْرِ',
+        tr: "In-naa an-zal-naa-hu fee lay-la-til-qadr",
+        en: 'Indeed We sent it down in the Night of Decree.',
+        zh: "我确实在权能之夜将它降示。",
+        hi: "बेशक हमने इसे शब-ए-क़द्र में नाज़िल किया।",
+        words: [
+          { ar: 'إِنَّا أَنزَلْنَاهُ', tr: "in-naa an-zal-naa-hu", en: 'indeed We sent it down', zh: "我确实将它降示", hi: "हमने नाज़िल किया" },
+          { ar: 'فِي لَيْلَةِ الْقَدْرِ', tr: "fee lay-la-til-qadr", en: 'in the Night of Decree', zh: "在权能之夜", hi: "शब-ए-क़द्र में" },
+        ],
+      },
+      {
+        n:  2,
+        ar: 'وَمَا أَدْرَاكَ مَا لَيْلَةُ الْقَدْرِ',
+        tr: "Wa-maa ad-raa-ka maa lay-la-tul-qadr",
+        en: 'And what will make you know what the Night of Decree is?',
+        zh: "你知道权能之夜是什么吗？",
+        hi: "और तुम्हें क्या पता शब-ए-क़द्र क्या है?",
+        words: [
+          { ar: 'وَمَا أَدْرَاكَ', tr: "wa-maa ad-raa-ka", en: 'and what will make you know', zh: "你知道吗", hi: "तुम्हें क्या पता" },
+          { ar: 'مَا لَيْلَةُ الْقَدْرِ', tr: "maa lay-la-tul-qadr", en: 'what the Night of Decree is', zh: "权能之夜是什么", hi: "शब-ए-क़द्र क्या है" },
+        ],
+      },
+      {
+        n:  3,
+        ar: 'لَيْلَةُ الْقَدْرِ خَيْرٌ مِّنْ أَلْفِ شَهْرٍ',
+        tr: "Lay-la-tul-qad-ri khay-rum min al-fi shahr",
+        en: 'The Night of Decree is better than a thousand months.',
+        zh: "权能之夜胜过一千个月。",
+        hi: "शब-ए-क़द्र हज़ार महीनों से बेहतर है।",
+        words: [
+          { ar: 'لَيْلَةُ الْقَدْرِ', tr: "lay-la-tul-qadr", en: 'the Night of Decree', zh: "权能之夜", hi: "शब-ए-क़द्र" },
+          { ar: 'خَيْرٌ مِّنْ أَلْفِ شَهْرٍ', tr: "khay-rum min al-fi shahr", en: 'better than a thousand months', zh: "胜过一千个月", hi: "हज़ार महीनों से बेहतर" },
+        ],
+      },
+      {
+        n:  4,
+        ar: 'تَنَزَّلُ الْمَلَائِكَةُ وَالرُّوحُ فِيهَا بِإِذْنِ رَبِّهِم مِّن كُلِّ أَمْرٍ',
+        tr: "Ta-naz-za-lul-ma-laa-'i-ka-tur-roo-Hu fee-haa bi-idh-ni rab-bi-him min kul-li amr",
+        en: 'The angels and the Spirit descend in it by the permission of their Lord for every matter.',
+        zh: "天使和鲁哈在那夜奉主命为处置各事而降临，",
+        hi: "उस رात میں فرشتے اور روح اپنے رب کی اجازت سے ہر معاملے لے کر اترتے ہیں,",
+        words: [
+          { ar: 'تَنَزَّلُ الْمَلَائِكَةُ وَالرُّوحُ', tr: "ta-naz-za-lul-ma-laa-'i-ka-tur-rooH", en: 'the angels and the Spirit descend', zh: "天使和鲁哈降临", hi: "फ़रिश्ते और रूह उतरते हैं" },
+          { ar: 'فِيهَا بِإِذْنِ رَبِّهِم', tr: "fee-haa bi-idh-ni rab-bi-him", en: 'in it by the permission of their Lord', zh: "奉主命在那夜", hi: "उस रात रब की इजाज़त से" },
+          { ar: 'مِّن كُلِّ أَمْرٍ', tr: "min kul-li amr", en: 'for every matter', zh: "为处置各事", hi: "हर मामले के लिए" },
+        ],
+      },
+      {
+        n:  5,
+        ar: 'سَلَامٌ هِيَ حَتَّىٰ مَطْلَعِ الْفَجْرِ',
+        tr: "Sa-laa-mun hi-ya Hat-taa maT-la-'il-fajr",
+        en: 'It is peace until the emergence of dawn.',
+        zh: "直到黎明来临，那是一夜平安。",
+        hi: "वह फ़जर के निकलने तक अमन ही अमन है।",
+        words: [
+          { ar: 'سَلَامٌ هِيَ', tr: "sa-laa-mun hi-ya", en: 'it is peace', zh: "那是平安", hi: "वह अमन है" },
+          { ar: 'حَتَّىٰ مَطْلَعِ الْفَجْرِ', tr: "Hat-taa maT-la-'il-fajr", en: 'until the dawn rises', zh: "直到黎明来临", hi: "फ़जर तक" },
+        ],
+      },
+    ],
+  },
+]
