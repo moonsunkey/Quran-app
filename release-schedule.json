@@ -1,5 +1,5 @@
 {
-  "startDate": null,
+  "startDate": "2025-03-24",
   "note": "Set startDate to YYYY-MM-DD when all surahs are reviewed and ready. The GitHub Action reads this file daily.",
   "phases": [
     {
