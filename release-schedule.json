@@ -68,7 +68,8 @@
       "id": "al-qadr",
       "number": 97,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-fil",
@@ -104,271 +105,316 @@
       "id": "al-masad",
       "number": 111,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "ash-sharh",
       "number": 94,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "at-tin",
       "number": 95,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-alaq",
       "number": 96,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "ad-duha",
       "number": 93,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-layl",
       "number": 92,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "ash-shams",
       "number": 91,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-balad",
       "number": 90,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-fajr",
       "number": 89,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-ghashiyah",
       "number": 88,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-ala",
       "number": 87,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "at-tariq",
       "number": 86,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-buruj",
       "number": 85,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-inshiqaq",
       "number": 84,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-mutaffifin",
       "number": 83,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-infitar",
       "number": 82,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "at-takwir",
       "number": 81,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "abasa",
       "number": 80,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "an-naziat",
       "number": 79,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "an-naba",
       "number": 78,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-mursalat",
       "number": 77,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-insan",
       "number": 76,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-qiyamah",
       "number": 75,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-muddaththir",
       "number": 74,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-muzzammil",
       "number": 73,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-jinn",
       "number": 72,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "nuh",
       "number": 71,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-maarij",
       "number": 70,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-haqqah",
       "number": 69,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-qalam",
       "number": 68,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "at-taghabun",
       "number": 64,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-munafiqun",
       "number": 63,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-jumuah",
       "number": 62,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "as-saf",
       "number": 61,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-mumtahanah",
       "number": 60,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-hujurat",
       "number": 49,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "luqman",
       "number": 31,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "as-sajdah",
       "number": 32,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "at-tur",
       "number": 52,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "az-zalzalah",
       "number": 99,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-bayyinah",
       "number": 98,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-adiyat",
       "number": 100,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-qariah",
       "number": 101,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "at-takathur",
       "number": 102,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-humazah",
       "number": 104,
       "difficulty": 1,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "ar-rahman",
@@ -380,331 +426,386 @@
       "id": "yasin",
       "number": 36,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-fath",
       "number": 48,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-hadid",
       "number": 57,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-hashr",
       "number": 59,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "at-talaq",
       "number": 65,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "at-tahrim",
       "number": 66,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-mujadila",
       "number": 58,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "ar-rad",
       "number": 13,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "ibrahim",
       "number": 14,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-hijr",
       "number": 15,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-jathiyah",
       "number": 45,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-ahqaf",
       "number": 46,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "muhammad",
       "number": 47,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-ankabut",
       "number": 29,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "ar-rum",
       "number": 30,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "saba",
       "number": 34,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "fatir",
       "number": 35,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "ad-dukhan",
       "number": 44,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-anfal",
       "number": 8,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-hajj",
       "number": 22,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-muminun",
       "number": 23,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-furqan",
       "number": 25,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-qasas",
       "number": 28,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "an-naml",
       "number": 27,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "ash-shuara",
       "number": 26,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-anbiya",
       "number": 21,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "ta-ha",
       "number": 20,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "maryam",
       "number": 19,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "an-nahl",
       "number": 16,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-isra",
       "number": 17,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "yusuf",
       "number": 12,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "hud",
       "number": 11,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "yunus",
       "number": 10,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-anam",
       "number": 6,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "an-nur",
       "number": 24,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "qaf",
       "number": 50,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "adh-dhariyat",
       "number": 51,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "an-najm",
       "number": 53,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-qamar",
       "number": 54,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-maidah",
       "number": 5,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "fussilat",
       "number": 41,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "ash-shura",
       "number": 42,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "az-zukhruf",
       "number": 43,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "ghafir",
       "number": 40,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "az-zumar",
       "number": 39,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "sad",
       "number": 38,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "as-saffat",
       "number": 37,
       "difficulty": 2,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-kahf",
       "number": 18,
       "difficulty": 3,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-ahzab",
       "number": 33,
       "difficulty": 3,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-araf",
       "number": 7,
       "difficulty": 3,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "at-tawbah",
       "number": 9,
       "difficulty": 3,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-anam-adv",
       "number": 6,
       "difficulty": 3,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "ali-imran",
       "number": 3,
       "difficulty": 3,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "an-nisa",
       "number": 4,
       "difficulty": 3,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     },
     {
       "id": "al-baqarah",
       "number": 2,
       "difficulty": 3,
-      "status": "pending"
+      "status": "released",
+      "releasedOn": "2026-03-24"
     }
   ]
 }
