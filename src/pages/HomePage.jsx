@@ -18,8 +18,6 @@ const SURAHS = [
   { id:'al-maun',    number:107, name:'Al-Maun',     arabic:'الماعون',  meaning:'Small Kindnesses',     ayahs:7,   difficulty:'Beginner',     status:'available',   color:'#2ECC71', description:'Those who deny the orphan and neglect prayer deny the religion itself.' },
   { id:'al-kafirun', number:109, name:'Al-Kafirun',  arabic:'الكافرون', meaning:'The Disbelievers',     ayahs:6,   difficulty:'Beginner',     status:'available',   color:'#D4A843', description:'A clear declaration of religious distinction — to you your way, to me mine.' },
   { id:'an-nasr',    number:110, name:'An-Nasr',     arabic:'النصر',    meaning:'The Victory',          ayahs:3,   difficulty:'Beginner',     status:'available',   color:'#4CAF8A', description:'Victory comes from Allah — when it arrives, glorify and seek forgiveness.' },
-  { id:'yasin',     number:36, name:'Ya-Sin',    arabic:'يس',       meaning:'Ya Sin',               ayahs:83,  difficulty:'Intermediate', status:'coming-soon', color:'#9B59B6', description:'Called "the heart of the Quran" — covers resurrection, signs of Allah, and accountability.' },
-  { id:'al-kahf',   number:18, name:'Al-Kahf',   arabic:'الكهف',   meaning:'The Cave',             ayahs:110, difficulty:'Advanced',     status:'coming-soon', color:'#C0504D', description:'Recited on Fridays — four stories covering trials of faith, wealth, knowledge, and power.' },
 ]
 
 const DIFF_COLOR = { Beginner:'#4CAF8A', Intermediate:'#D4A843', Advanced:'#C0504D' }
