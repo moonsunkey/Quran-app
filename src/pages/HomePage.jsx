@@ -6,6 +6,7 @@ import ReviewSession  from '../components/ReviewSession'
 import { SURAH_DATA_MAP } from '../data/surahData'
 import { useSRS }      from '../hooks/useSRS'
 import VocabSection  from '../components/VocabSection'
+import Onboarding    from '../components/Onboarding'
 
 const SURAHS = [
   { id:'al-fatiha', number:1,  name:'Al-Fatiha', arabic:'الفاتحة', meaning:'The Opening',          ayahs:7,   difficulty:'Beginner',     status:'available',   color:'#4CAF8A', description:'The most recited surah — said in every rakat of every prayer, at least 17 times daily. Start here.' },
@@ -103,7 +104,15 @@ function SurahCard({ s }) {
 }
 
 export default function HomePage({ user }) {
-  const [showFeedback, setShowFeedback] = useState(false)
+  const [showFeedback,  setShowFeedback]  = useState(false)
+  const [showOnboarding, setShowOnboarding] = useState(() => {
+    try { return !localStorage.getItem('quran_onboarded') } catch { return false }
+  })
+
+  const handleOnboardingDone = () => {
+    try { localStorage.setItem('quran_onboarded', '1') } catch {}
+    setShowOnboarding(false)
+  }
   const [showReview,   setShowReview]   = useState(false)
   const { cards, dueCards, review, enqueue } = useSRS(null)
 
@@ -130,6 +139,7 @@ export default function HomePage({ user }) {
 
   return (
     <main style={{ maxWidth:860, margin:'0 auto', padding:'32px 16px' }}>
+      {showOnboarding && <Onboarding onDone={handleOnboardingDone} />}
 
       {/* Hero */}
       <div style={{ textAlign:'center', marginBottom:36 }}>

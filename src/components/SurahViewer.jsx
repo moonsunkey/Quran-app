@@ -554,6 +554,61 @@ function GuideTab() {
           </div>
         </div>
       </div>
+
+      {/* Spaced Repetition section */}
+      <div style={{ marginTop:20, background:'rgba(76,175,138,0.06)', border:'1px solid rgba(76,175,138,0.2)', borderRadius:12, padding:'16px 20px' }}>
+        <div style={{ fontSize:13, color:'#4CAF8A', fontWeight:700, marginBottom:10 }}>🔁 Spaced Repetition — How It Works</div>
+        <div style={{ fontSize:12, color:'#a09070', lineHeight:1.8, marginBottom:12 }}>
+          Your brain forgets new information quickly unless you review it at the right time. Spaced repetition solves this by scheduling reviews just before you forget.
+        </div>
+        <div style={{ display:'flex', flexDirection:'column', gap:8, marginBottom:12 }}>
+          {[
+            ['1', 'Mark an ayah done', 'Tap ○ next to any ayah in the Learn tab. It enters your review queue.'],
+            ['2', 'Review from home page', 'A green banner appears when ayahs are due. Tap "Start review".'],
+            ['3', 'See Arabic + transliteration', 'Try to recall the meaning before revealing it.'],
+            ['4', 'Grade yourself honestly', 'Again · Hard · Good · Easy. The algorithm schedules the next review.'],
+            ['5', 'Review gets longer over time', 'Good ayahs come back in days, then weeks, then months.'],
+          ].map(([n, title, desc]) => (
+            <div key={n} style={{ display:'flex', gap:10, alignItems:'flex-start' }}>
+              <div style={{ width:20, height:20, borderRadius:'50%', background:'rgba(76,175,138,0.15)', border:'1px solid rgba(76,175,138,0.3)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:10, color:'#4CAF8A', flexShrink:0, marginTop:1 }}>{n}</div>
+              <div>
+                <div style={{ fontSize:12, color:'#ddd5c0', fontWeight:600 }}>{title}</div>
+                <div style={{ fontSize:11, color:'#6a5a40' }}>{desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div style={{ fontSize:11, color:'#4a3a28', fontStyle:'italic' }}>
+          💡 The same algorithm used by Anki — proven to be the most efficient memorization method.
+        </div>
+      </div>
+
+      {/* Chunk mode section */}
+      <div style={{ marginTop:14, background:'rgba(155,89,182,0.06)', border:'1px solid rgba(155,89,182,0.2)', borderRadius:12, padding:'16px 20px' }}>
+        <div style={{ fontSize:13, color:'#9B59B6', fontWeight:700, marginBottom:10 }}>◈ Chunk Mode — Break It Down</div>
+        <div style={{ fontSize:12, color:'#a09070', lineHeight:1.8, marginBottom:12 }}>
+          Long ayahs are hard to memorize all at once. Professional Quran teachers break each ayah into small word groups — master each chunk, then chain them together.
+        </div>
+        <div style={{ display:'flex', flexDirection:'column', gap:8, marginBottom:12 }}>
+          {[
+            ['1', 'Enable chunk mode', 'Tap ◈ Chunk mode in the Learn tab toolbar.'],
+            ['2', 'See word groups', 'Each ayah splits into groups of 2-4 words.'],
+            ['3', 'Memorize chunk by chunk', 'Read chunk 1 repeatedly until it flows. Then chunk 2. Then chain them.'],
+            ['4', 'Build the full ayah', 'Once all chunks are solid, recite the full ayah from memory.'],
+          ].map(([n, title, desc]) => (
+            <div key={n} style={{ display:'flex', gap:10, alignItems:'flex-start' }}>
+              <div style={{ width:20, height:20, borderRadius:'50%', background:'rgba(155,89,182,0.15)', border:'1px solid rgba(155,89,182,0.3)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:10, color:'#9B59B6', flexShrink:0, marginTop:1 }}>{n}</div>
+              <div>
+                <div style={{ fontSize:12, color:'#ddd5c0', fontWeight:600 }}>{title}</div>
+                <div style={{ fontSize:11, color:'#6a5a40' }}>{desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div style={{ fontSize:11, color:'#4a3a28', fontStyle:'italic' }}>
+          💡 Used by hafiz teachers worldwide — works especially well for long ayahs in Al-Waqia and Al-Mulk.
+        </div>
+      </div>
     </div>
   )
 }

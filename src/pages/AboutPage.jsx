@@ -72,6 +72,16 @@ const CONTENT = {
         body: 'Recitation by Mahmoud Khalil Al-Husary — chosen for his slow, clear delivery, ideal for learners. Switch to Al-Afasy, Abdul Basit, or Al-Minshawi inside any surah.',
       },
       {
+        title: 'Spaced Repetition',
+        color: '#4CAF8A',
+        body: 'Mark ayahs done → they enter your daily review queue. The app brings them back at the perfect time — just before you forget. Uses the SM-2 algorithm (same as Anki). Start reviews from the home page.',
+      },
+      {
+        title: 'Chunk Mode',
+        color: '#9B59B6',
+        body: 'Long ayahs split into 2–4 word chunks. Master each chunk then chain them — the method used by hafiz teachers worldwide. Enable in the Learn tab.',
+      },
+      {
         title: 'Progress',
         color: '#D4A843',
         body: 'Everything saves automatically. Sign in to sync across your phone, tablet, and computer.',
@@ -151,9 +161,19 @@ const CONTENT = {
         body: '诵读者为马哈茂德·哈利勒·侯萨里（Mahmoud Khalil Al-Husary）——以其缓慢清晰的诵读风格著称，非常适合初学者。在任意苏拉中可切换为阿法西、阿卜杜勒·巴斯特或明沙维。',
       },
       {
+        title: '间隔重复记忆',
+        color: '#4CAF8A',
+        body: '标记经文完成 → 进入每日复习队列。应用在遗忘前提醒复习，使用SM-2算法。从主页开始复习。',
+      },
+      {
+        title: '分块模式',
+        color: '#9B59B6',
+        body: '长节分成2-4词小块，逐块掌握再串联——全球哈菲兹教师的方法。在学习标签启用。',
+      },
+      {
         title: '进度保存',
         color: '#D4A843',
-        body: '一切自动保存。登录后可在手机、平板和电脑之间同步进度。',
+        body: '一切自动保存。登录后可跨设备同步。',
       },
     ],
     dua: 'رَبَّنَا تَقَبَّلْ مِنَّا',
@@ -230,9 +250,19 @@ const CONTENT = {
         body: 'तिलावत महमूद ख़लील अल-हुसरी की — धीमी और साफ़ आवाज़ के लिए मशहूर, नए सीखने वालों के लिए बेहतरीन। किसी भी सूरह में अल-अफ़सी, अब्दुल बासित, या मिनशावी में बदल सकते हैं।',
       },
       {
+        title: 'स्पेस्ड रिपीटिशन',
+        color: '#4CAF8A',
+        body: 'आयतें पूरी करें → रोज़ाना रिव्यू क्यू में जाती हैं। SM-2 एल्गोरिदम से सही वक़्त पर याद दिलाता है। होम पेज से शुरू करें।',
+      },
+      {
+        title: 'चंक मोड',
+        color: '#9B59B6',
+        body: 'लंबी आयतें 2-4 शब्दों में बंटती हैं। हर हिस्सा याद करके जोड़ें। लर्न टैब में चालू करें।',
+      },
+      {
         title: 'प्रगति',
         color: '#D4A843',
-        body: 'सब कुछ अपने-आप सेव होता है। साइन इन करके फ़ोन, टैबलेट और कंप्यूटर पर सिंक करें।',
+        body: 'सब कुछ अपने-आप सेव होता है। साइन इन करके सिंक करें।',
       },
     ],
     dua: 'رَبَّنَا تَقَبَّلْ مِنَّا',
