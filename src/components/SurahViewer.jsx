@@ -1,4 +1,5 @@
 // src/components/SurahViewer.jsx
+import { useSRS } from '../hooks/useSRS'
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -138,6 +139,13 @@ const SOUNDS = [
 
 // ── MAIN COMPONENT ─────────────────────────────────────────────────────────────
 export default function SurahViewer({ meta, sections, memorized, onToggle, onMarkSection, syncing, user }) {
+  const { enqueue } = useSRS(user)
+  const handleToggle = (key) => {
+    onToggle(key)
+    // Enqueue for spaced repetition when marking as done
+    const [secId, nStr] = key.split('-')
+    if (!memorized?.[key]) enqueue(key)  // only when marking done (not undone)
+  }
   const [tab,          setTab]          = useState('learn')
   const [activeSec,    setActiveSec]    = useState(sections[0]?.id)
   const [practiceMode, setPracticeMode] = useState('show-all')
@@ -258,16 +266,6 @@ export default function SurahViewer({ meta, sections, memorized, onToggle, onMar
         </div>
       </div>
 
-      {/* Mind map link */}
-      <div style={{ display:'flex', justifyContent:'flex-end', padding:'0 12px 4px' }}>
-        <Link
-          to={`/mindmap/${meta.name.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'')}`}
-          style={{ fontSize:11, color:'#6a5a40', textDecoration:'none', display:'flex', alignItems:'center', gap:4 }}
-        >
-          🗺 Mind map
-        </Link>
-      </div>
-
       {/* Tab bar */}
       <div style={{ borderBottom:'1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth:900, margin:'0 auto', display:'flex' }}>
@@ -288,7 +286,7 @@ export default function SurahViewer({ meta, sections, memorized, onToggle, onMar
           <LearnTab
             sections={sections} sec={sec} activeSec={activeSec}
             setActiveSec={id => { setActiveSec(id); setExpandedKey(null); stopAutoPlay(); }}
-            memorized={mem} onToggle={onToggle} onMarkSection={onMarkSection}
+            memorized={mem} onToggle={handleToggle} onMarkSection={onMarkSection}
             audio={audio} meta={meta} expandedKey={expandedKey} setExpandedKey={setExpandedKey}
             autoPlaying={autoPlaying} autoAyah={autoAyah} verseRefsRef={verseRefsRef}
             onStartAutoPlay={startAutoPlay} onStopAutoPlay={stopAutoPlay} langs={langs}
@@ -300,7 +298,7 @@ export default function SurahViewer({ meta, sections, memorized, onToggle, onMar
           <PracticeTab
             sections={sections} sec={sec} activeSec={activeSec}
             setActiveSec={id => { setActiveSec(id); audio.stop(); }}
-            memorized={mem} onToggle={onToggle}
+            memorized={mem} onToggle={handleToggle}
             practiceMode={practiceMode} setPracticeMode={setPracticeMode}
             audio={audio} meta={meta} langs={langs}
           />
@@ -318,7 +316,7 @@ export default function SurahViewer({ meta, sections, memorized, onToggle, onMar
 
         {/* ── PROGRESS TAB ── */}
         {tab === 'progress' && (
-          <ProgressTab sections={sections} memorized={mem} onToggle={onToggle} onMarkSection={onMarkSection} meta={meta} />
+          <ProgressTab sections={sections} memorized={mem} onToggle={handleToggle} onMarkSection={onMarkSection} meta={meta} />
         )}
       </div>
 
@@ -591,6 +589,9 @@ function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle,
           {/* Auto-play button */}
           <button onClick={autoPlaying ? onStopAutoPlay : onStartAutoPlay} style={{ padding:'8px 16px', fontSize:13, border:`1px solid ${autoPlaying ? '#C0504D' : 'rgba(212,168,67,0.3)'}`, borderRadius:20, background: autoPlaying ? 'rgba(192,80,77,0.1)' : 'rgba(212,168,67,0.08)', color: autoPlaying ? '#C0504D' : '#D4A843', cursor:'pointer' }}>
             {autoPlaying ? '⏹ Stop auto-play' : '▶▶ Auto-play section'}
+          </button>
+          <button onClick={() => { setChunkMode(c => !c); setActiveChunk(0) }} style={{ padding:'7px 14px', fontSize:12, border:`1px solid ${chunkMode ? 'rgba(155,89,182,0.5)' : 'rgba(255,255,255,0.1)'}`, borderRadius:20, background: chunkMode ? 'rgba(155,89,182,0.15)' : 'transparent', color: chunkMode ? '#9B59B6' : '#6a5a40', cursor:'pointer' }}>
+            {chunkMode ? '◉ Chunk mode ON' : '◈ Chunk mode'}
           </button>
         </div>
       </div>

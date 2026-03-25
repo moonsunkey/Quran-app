@@ -1,7 +1,9 @@
 // src/pages/HomePage.jsx
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import FeedbackModal from '../components/FeedbackModal'
+import FeedbackModal  from '../components/FeedbackModal'
+import ReviewSession  from '../components/ReviewSession'
+import { useSRS }      from '../hooks/useSRS'
 import VocabSection  from '../components/VocabSection'
 
 const SURAHS = [
@@ -101,6 +103,8 @@ function SurahCard({ s }) {
 
 export default function HomePage({ user }) {
   const [showFeedback, setShowFeedback] = useState(false)
+  const [showReview,   setShowReview]   = useState(false)
+  const { dueCards, review } = useSRS(null)
   const totalDone = SURAHS.filter(s => s.status==='available').reduce((acc, s) => {
     try {
       const saved = localStorage.getItem(`quran_progress_${s.id}`)
@@ -161,6 +165,43 @@ export default function HomePage({ user }) {
       </div>
 
       {showFeedback && <FeedbackModal onClose={() => setShowFeedback(false)} />}
+
+      {/* Daily review banner */}
+      {dueCards.length > 0 && !showReview && (
+        <div style={{ marginBottom:20, background:'rgba(76,175,138,0.07)', border:'1px solid rgba(76,175,138,0.25)', borderRadius:12, padding:'14px 20px', display:'flex', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap', gap:12 }}>
+          <div style={{ display:'flex', alignItems:'center', gap:12 }}>
+            <div style={{ width:36, height:36, borderRadius:10, background:'rgba(76,175,138,0.15)', border:'1px solid rgba(76,175,138,0.3)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:18, flexShrink:0 }}>🔁</div>
+            <div>
+              <div style={{ fontSize:13, color:'#4CAF8A', fontWeight:700, marginBottom:2 }}>
+                {dueCards.length} ayah{dueCards.length > 1 ? 's' : ''} due for review
+              </div>
+              <div style={{ fontSize:11, color:'#6a5a40' }}>Spaced repetition — review what you've learned before you forget it</div>
+            </div>
+          </div>
+          <button onClick={() => setShowReview(true)} style={{ padding:'9px 20px', borderRadius:8, border:'1px solid rgba(76,175,138,0.4)', background:'rgba(76,175,138,0.15)', color:'#4CAF8A', fontSize:13, fontWeight:700, cursor:'pointer', flexShrink:0 }}>
+            Start review →
+          </button>
+        </div>
+      )}
+
+      {/* Review session overlay */}
+      {showReview && (
+        <div style={{ position:'fixed', inset:0, background:'#06101c', zIndex:100, overflowY:'auto' }}>
+          <div style={{ padding:'20px 16px 0', display:'flex', justifyContent:'space-between', alignItems:'center', borderBottom:'1px solid rgba(212,168,67,0.1)', marginBottom:8 }}>
+            <div style={{ fontSize:14, color:'#D4A843', fontWeight:600 }}>Daily Review</div>
+          </div>
+          <ReviewSession
+            dueCards={dueCards}
+            allSections={{}}
+            onReview={review}
+            onClose={() => setShowReview(false)}
+            langs={{ en:true }}
+          />
+        </div>
+      )}
+
+      {/* old showFeedback already handled above */}
+      {false && <FeedbackModal onClose={() => setShowFeedback(false)} />}
 
       {/* Surah grid */}
       <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(260px,1fr))', gap:14 }}>
