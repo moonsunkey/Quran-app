@@ -12,22 +12,6 @@ function hexRgb(h) {
   return `${parseInt(h.slice(1,3),16)},${parseInt(h.slice(3,5),16)},${parseInt(h.slice(5,7),16)}`
 }
 
-function speakArabic(text) {
-  // Use Google Translate TTS — reliable Arabic pronunciation
-  const encoded = encodeURIComponent(text)
-  const url = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encoded}&tl=ar&client=tw-ob`
-  const audio = new Audio(url)
-  audio.play().catch(() => {
-    // Fallback to Web Speech API
-    if (!window.speechSynthesis) return
-    window.speechSynthesis.cancel()
-    const utt = new SpeechSynthesisUtterance(text)
-    utt.lang = 'ar-SA'
-    utt.rate = 0.8
-    window.speechSynthesis.speak(utt)
-  })
-}
-
 function VocabCard({ word, lang, learned, onToggle }) {
   const [flipped, setFlipped] = useState(false)
   const col = TYPE_COLOR[word.type] || '#D4A843'
@@ -72,10 +56,13 @@ function VocabCard({ word, lang, learned, onToggle }) {
           {/* Arabic + audio */}
           <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:8 }}>
             <div style={{ fontSize:22, fontFamily:'Amiri,serif', color:'#ddd5c0' }}>{word.ar}</div>
-            <button
-              onClick={e => { e.stopPropagation(); speakArabic(word.ar) }}
-              style={{ background:`rgba(${rgb},0.15)`, border:`1px solid rgba(${rgb},0.3)`, borderRadius:20, padding:'4px 10px', color:col, fontSize:11, cursor:'pointer' }}
-            >▶ Listen</button>
+            <a
+              href={`https://forvo.com/search/${encodeURIComponent(word.ar)}/ar/`}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={e => e.stopPropagation()}
+              style={{ background:`rgba(${rgb},0.15)`, border:`1px solid rgba(${rgb},0.3)`, borderRadius:20, padding:'4px 10px', color:col, fontSize:11, cursor:'pointer', textDecoration:'none' }}
+            >▶ Hear</a>
           </div>
 
           {/* Meanings */}
