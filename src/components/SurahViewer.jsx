@@ -660,6 +660,13 @@ function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle,
         const isExp   = expandedKey === key
         const playKey = `${meta.number}-${v.n}`
         const isPlay  = audio.playing === playKey
+        // Build word chunks for chunk mode
+        const chunks = v.words ? (() => {
+          const size = v.words.length <= 4 ? v.words.length : v.words.length <= 8 ? 3 : 4
+          const result = []
+          for (let i = 0; i < v.words.length; i += size) result.push(v.words.slice(i, i+size))
+          return result
+        })() : []
 
         return (
           <div key={key} ref={el => { if (verseRefsRef) verseRefsRef.current[v.n] = el }} style={{ background: autoAyah===v.n ? `rgba(${hexRgb(sec.color)},0.08)` : isMem ? 'rgba(76,175,138,0.04)' : 'rgba(255,255,255,0.02)', border:`1px solid ${autoAyah===v.n ? sec.color : isMem ? 'rgba(76,175,138,0.2)' : isPlay ? `rgba(${hexRgb(sec.color)},0.4)` : isExp ? `rgba(${hexRgb(sec.color)},0.2)` : 'rgba(255,255,255,0.06)'}`, borderRadius:10, marginBottom:10, overflow:'hidden', transition:'all 0.3s' }}>
