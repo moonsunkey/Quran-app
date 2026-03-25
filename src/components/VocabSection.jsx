@@ -13,12 +13,19 @@ function hexRgb(h) {
 }
 
 function speakArabic(text) {
-  if (!window.speechSynthesis) return
-  window.speechSynthesis.cancel()
-  const utt = new SpeechSynthesisUtterance(text)
-  utt.lang = 'ar-SA'
-  utt.rate = 0.8
-  window.speechSynthesis.speak(utt)
+  // Use Google Translate TTS — reliable Arabic pronunciation
+  const encoded = encodeURIComponent(text)
+  const url = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encoded}&tl=ar&client=tw-ob`
+  const audio = new Audio(url)
+  audio.play().catch(() => {
+    // Fallback to Web Speech API
+    if (!window.speechSynthesis) return
+    window.speechSynthesis.cancel()
+    const utt = new SpeechSynthesisUtterance(text)
+    utt.lang = 'ar-SA'
+    utt.rate = 0.8
+    window.speechSynthesis.speak(utt)
+  })
 }
 
 function VocabCard({ word, lang, learned, onToggle }) {
