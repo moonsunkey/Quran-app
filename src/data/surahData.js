@@ -1,8 +1,8 @@
 // src/data/surahData.js
 // Shared surah data map — imported by SurahPage, ReviewSession, and any
-// component that needs to look up verse data by surah id.
-//
-// ── ADD NEW SURAHS HERE (same as SurahPage.jsx) ──────────────────────────────
+// component that needs verse data by surah id.
+// ADD NEW SURAHS HERE when adding a new surah data file.
+
 import { SECTIONS as AL_FATIHA_S,  SURAH_META as AL_FATIHA_M  } from './al-fatiha'
 import { SECTIONS as AL_WAQIA_S,   SURAH_META as AL_WAQIA_M   } from './al-waqia'
 import { SECTIONS as AL_MULK_S,    SURAH_META as AL_MULK_M    } from './al-mulk'

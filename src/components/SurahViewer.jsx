@@ -561,6 +561,8 @@ function GuideTab() {
 // ── LEARN TAB ─────────────────────────────────────────────────────────────────
 function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle, onMarkSection, audio, meta, expandedKey, setExpandedKey, autoPlaying, autoAyah, verseRefsRef, onStartAutoPlay, onStopAutoPlay, langs }) {
   const mem = memorized || {}
+  const [chunkMode, setChunkMode] = useState(false)
+  const [activeChunk, setActiveChunk] = useState(0)
   const sectionDone = sec.verses.every(v => mem[`${sec.id}-${v.n}`])
 
   return (
