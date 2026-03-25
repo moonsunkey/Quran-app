@@ -44,10 +44,15 @@ export default function ReviewSession({ dueCards, allSections, onReview, onClose
   // Find verse data from key like "section-1"
   const verseData = (() => {
     if (!card) return null
-    const [secId, nStr] = card.key.split('-')
-    const n = parseInt(nStr)
-    // Search all sections
-    for (const sections of Object.values(allSections)) {
+    // Key format: "sectionId-ayahN" e.g. "bismillah-1"
+    // Find the last hyphen to split (section ids can contain hyphens)
+    const lastDash = card.key.lastIndexOf('-')
+    const secId = card.key.slice(0, lastDash)
+    const n = parseInt(card.key.slice(lastDash + 1))
+    // Search all surahs in allSections (SURAH_DATA_MAP)
+    for (const surahData of Object.values(allSections)) {
+      const sections = surahData.sections || surahData
+      if (!Array.isArray(sections)) continue
       for (const sec of sections) {
         if (sec.id === secId) {
           const v = sec.verses.find(v => v.n === n)

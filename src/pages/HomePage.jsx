@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import FeedbackModal  from '../components/FeedbackModal'
 import ReviewSession  from '../components/ReviewSession'
+import { SURAH_DATA_MAP } from '../data/surahData'
 import { useSRS }      from '../hooks/useSRS'
 import VocabSection  from '../components/VocabSection'
 
@@ -104,7 +105,21 @@ function SurahCard({ s }) {
 export default function HomePage({ user }) {
   const [showFeedback, setShowFeedback] = useState(false)
   const [showReview,   setShowReview]   = useState(false)
-  const { dueCards, review } = useSRS(null)
+  const { cards, dueCards, review, enqueue } = useSRS(null)
+
+  // Seed SRS from existing progress on first load — uses all surahs in SURAH_DATA_MAP
+  useEffect(() => {
+    Object.keys(SURAH_DATA_MAP).forEach(id => {
+      try {
+        const saved = localStorage.getItem(`quran_progress_${id}`)
+        if (!saved) return
+        const prog = JSON.parse(saved)
+        Object.entries(prog).forEach(([key, done]) => {
+          if (done) enqueue(key)
+        })
+      } catch {}
+    })
+  }, [])
   const totalDone = SURAHS.filter(s => s.status==='available').reduce((acc, s) => {
     try {
       const saved = localStorage.getItem(`quran_progress_${s.id}`)
@@ -192,7 +207,7 @@ export default function HomePage({ user }) {
           </div>
           <ReviewSession
             dueCards={dueCards}
-            allSections={{}}
+            allSections={SURAH_DATA_MAP}
             onReview={review}
             onClose={() => setShowReview(false)}
             langs={{ en:true }}
