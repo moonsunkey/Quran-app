@@ -693,9 +693,46 @@ function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle,
             {/* Expanded syllable breakdown */}
             {isExp && (
               <div style={{ borderTop:`1px solid rgba(${hexRgb(sec.color)},0.12)`, padding:'12px 14px', background:'rgba(0,0,0,0.25)' }}>
-                {/* Word-by-word breakdown if available */}
+                {/* Word-by-word breakdown — chunk mode or normal */}
                 {v.words && v.words.length > 0 ? (
                   <div>
+                    {chunkMode && chunks.length > 1 ? (
+                      <div>
+                        <div style={{ fontSize:10, color:'#9B59B6', letterSpacing:1, marginBottom:10 }}>
+                          ◈ CHUNK MODE — {chunks.length} CHUNKS · tap a chunk to focus
+                        </div>
+                        <div style={{ display:'flex', flexDirection:'column', gap:10, marginBottom:12 }}>
+                          {chunks.map((chunk, ci) => (
+                            <div key={ci}
+                              onClick={e => { e.stopPropagation(); setActiveChunk(ci) }}
+                              style={{
+                                border:`1px solid ${activeChunk===ci ? 'rgba(155,89,182,0.6)' : 'rgba(155,89,182,0.2)'}`,
+                                borderRadius:10, padding:'10px 12px', cursor:'pointer',
+                                background: activeChunk===ci ? 'rgba(155,89,182,0.1)' : 'rgba(155,89,182,0.03)',
+                                transition:'all 0.15s',
+                              }}>
+                              <div style={{ fontSize:10, color:'#9B59B6', marginBottom:6 }}>Chunk {ci+1} of {chunks.length}</div>
+                              <div style={{ display:'flex', gap:8, flexWrap:'wrap' }}>
+                                {chunk.map((w, wi) => {
+                                  const col = wordColor(w.tr)
+                                  return (
+                                    <div key={wi} style={{ textAlign:'center', padding:'6px 10px', background:`rgba(${hexRgb(col)},0.07)`, border:`1px solid rgba(${hexRgb(col)},0.25)`, borderRadius:8 }}>
+                                      <div dir="rtl" style={{ fontSize:20, color:'#f5ecd8', fontFamily:'Amiri,serif', marginBottom:3 }}>{w.ar}</div>
+                                      <div style={{ fontSize:11, color:col, fontStyle:'italic' }}>{w.tr.replace(/-/g,'')}</div>
+                                      {langs.en && <div style={{ fontSize:10, color:'#7a6a52', marginTop:2 }}>{w.en}</div>}
+                                    </div>
+                                  )
+                                })}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <div style={{ fontSize:11, color:'#6a5a40', marginBottom:8, fontStyle:'italic' }}>
+                          💡 Read chunk {activeChunk+1} aloud 3× until it flows. Then move to chunk {Math.min(activeChunk+2, chunks.length)}.
+                        </div>
+                      </div>
+                    ) : (
+                    <div>
                     <div style={{ fontSize:10, color:sec.color, letterSpacing:1, marginBottom:10 }}>WORD BY WORD — 逐词解析</div>
                     <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(130px,1fr))', gap:8, marginBottom:12 }}>
                       {v.words.map((w, i) => {
@@ -718,6 +755,8 @@ function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle,
                         )
                       })}
                     </div>
+                  </div>
+                    )}
                   </div>
                 ) : (
                   <div>
