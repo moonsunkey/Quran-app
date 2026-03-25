@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import FeedbackModal from '../components/FeedbackModal'
+import VocabSection  from '../components/VocabSection'
 
 const SURAHS = [
   { id:'al-fatiha', number:1,  name:'Al-Fatiha', arabic:'الفاتحة', meaning:'The Opening',          ayahs:7,   difficulty:'Beginner',     status:'available',   color:'#4CAF8A', description:'The most recited surah — said in every rakat of every prayer, at least 17 times daily. Start here.' },
@@ -168,6 +169,11 @@ export default function HomePage({ user }) {
 
       <div style={{ textAlign:'center', marginTop:36, fontSize:11, color:'#3a2a18', lineHeight:2 }}>
         Audio · Mahmoud Khalil Al-Husary · May Allah make this a means of benefit. آمين
+      </div>
+
+      {/* Vocabulary section */}
+      <div style={{ marginTop:40, borderTop:'1px solid rgba(255,255,255,0.06)', paddingTop:32 }}>
+        <VocabSection />
       </div>
     </main>
   )
