@@ -258,6 +258,16 @@ export default function SurahViewer({ meta, sections, memorized, onToggle, onMar
         </div>
       </div>
 
+      {/* Mind map link */}
+      <div style={{ display:'flex', justifyContent:'flex-end', padding:'0 12px 4px' }}>
+        <Link
+          to={`/mindmap/${meta.name.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'')}`}
+          style={{ fontSize:11, color:'#6a5a40', textDecoration:'none', display:'flex', alignItems:'center', gap:4 }}
+        >
+          🗺 Mind map
+        </Link>
+      </div>
+
       {/* Tab bar */}
       <div style={{ borderBottom:'1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth:900, margin:'0 auto', display:'flex' }}>
