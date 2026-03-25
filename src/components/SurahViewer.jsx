@@ -662,7 +662,7 @@ function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle,
         const isPlay  = audio.playing === playKey
         // Build word chunks for chunk mode
         const chunks = v.words ? (() => {
-          const size = v.words.length <= 4 ? v.words.length : v.words.length <= 8 ? 3 : 4
+          const size = v.words.length <= 2 ? v.words.length : 2
           const result = []
           for (let i = 0; i < v.words.length; i += size) result.push(v.words.slice(i, i+size))
           return result
@@ -703,7 +703,7 @@ function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle,
                 {/* Word-by-word breakdown — chunk mode or normal */}
                 {v.words && v.words.length > 0 ? (
                   <div>
-                    {chunkMode && chunks.length > 1 ? (
+                    {chunkMode && chunks.length > 0 ? (
                       <div>
                         <div style={{ fontSize:10, color:'#9B59B6', letterSpacing:1, marginBottom:10 }}>
                           ◈ CHUNK MODE — {chunks.length} CHUNKS · tap a chunk to focus
