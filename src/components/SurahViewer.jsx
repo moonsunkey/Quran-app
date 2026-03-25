@@ -662,7 +662,7 @@ function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle,
         const isPlay  = audio.playing === playKey
         // Build word chunks for chunk mode
         const chunks = v.words ? (() => {
-          const size = v.words.length <= 2 ? v.words.length : 2
+          const size = v.words.length <= 3 ? v.words.length : 3
           const result = []
           for (let i = 0; i < v.words.length; i += size) result.push(v.words.slice(i, i+size))
           return result
