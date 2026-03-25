@@ -56,13 +56,6 @@ function VocabCard({ word, lang, learned, onToggle }) {
           {/* Arabic + audio */}
           <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:8 }}>
             <div style={{ fontSize:22, fontFamily:'Amiri,serif', color:'#ddd5c0' }}>{word.ar}</div>
-            <a
-              href={`https://forvo.com/search/${encodeURIComponent(word.ar)}/ar/`}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={e => e.stopPropagation()}
-              style={{ background:`rgba(${rgb},0.15)`, border:`1px solid rgba(${rgb},0.3)`, borderRadius:20, padding:'4px 10px', color:col, fontSize:11, cursor:'pointer', textDecoration:'none' }}
-            >▶ Hear</a>
           </div>
 
           {/* Meanings */}
