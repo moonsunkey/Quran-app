@@ -6,7 +6,6 @@ import ReviewSession  from '../components/ReviewSession'
 import { SURAH_DATA_MAP } from '../data/surahData'
 import { useSRS }      from '../hooks/useSRS'
 import VocabSection   from '../components/VocabSection'
-import FeaturedAyahs  from '../components/FeaturedAyahs'
 import Onboarding    from '../components/Onboarding'
 
 const SURAHS = [
@@ -246,9 +245,25 @@ export default function HomePage({ user }) {
         Audio · Mahmoud Khalil Al-Husary · May Allah make this a means of benefit. آمين
       </div>
 
-      {/* Featured Ayahs section */}
-      <div style={{ marginTop:40, borderTop:'1px solid rgba(255,255,255,0.06)', paddingTop:32 }}>
-        <FeaturedAyahs />
+      {/* Featured Ayahs link card */}
+      <div style={{ marginTop:40, borderTop:'1px solid rgba(255,255,255,0.06)', paddingTop:32, marginBottom:8 }}>
+        <Link to="/featured" style={{ textDecoration:'none', display:'block' }}>
+          <div style={{ background:'rgba(212,168,67,0.05)', border:'1px solid rgba(212,168,67,0.2)', borderRadius:14, padding:'20px 24px', display:'flex', alignItems:'center', justifyContent:'space-between', gap:16, transition:'all 0.2s' }}
+            onMouseEnter={e => e.currentTarget.style.borderColor='rgba(212,168,67,0.45)'}
+            onMouseLeave={e => e.currentTarget.style.borderColor='rgba(212,168,67,0.2)'}>
+            <div style={{ display:'flex', alignItems:'center', gap:14 }}>
+              <div style={{ fontSize:28 }}>⭐</div>
+              <div>
+                <div style={{ fontSize:15, color:'#D4A843', fontWeight:700, marginBottom:3 }}>Featured Ayahs</div>
+                <div style={{ fontSize:12, color:'#6a5a40', lineHeight:1.6 }}>
+                  Ayatul Kursi · Last two of Al-Baqarah · Ayah of Light · and more<br/>
+                  Full breakdown by meaning lines · word by word · audio
+                </div>
+              </div>
+            </div>
+            <div style={{ fontSize:20, color:'#D4A843', flexShrink:0 }}>→</div>
+          </div>
+        </Link>
       </div>
 
       {/* Vocabulary section */}

@@ -5,8 +5,8 @@ import HomePage   from './pages/HomePage'
 import SurahPage  from './pages/SurahPage'
 import AboutPage      from './pages/AboutPage'
 import QuranMapPage  from './pages/QuranMapPage'
-import AdminPage     from './pages/AdminPage'
-import MindMapPage   from './pages/MindMapPage'
+import AdminPage          from './pages/AdminPage'
+import FeaturedAyahsPage  from './pages/FeaturedAyahsPage'
 import Header     from './components/Header'
 
 export default function App() {
@@ -29,7 +29,7 @@ export default function App() {
         <Route path="/about"     element={<AboutPage />} />
         <Route path="/surahs"    element={<QuranMapPage />} />
         <Route path="/admin"     element={<AdminPage />} />
-        <Route path="/mindmap/:id" element={<MindMapPage />} />
+        <Route path="/featured"  element={<FeaturedAyahsPage />} />
         <Route path="*"          element={<Navigate to="/" replace />} />
       </Routes>
     </div>
