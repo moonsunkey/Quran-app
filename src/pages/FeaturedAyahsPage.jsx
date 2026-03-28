@@ -110,7 +110,7 @@ function AyahPage({ ayah, lang }) {
                 return (
                   <div key={i} style={{ background:`rgba(${hexRgb(col)},0.07)`, border:`1px solid rgba(${hexRgb(col)},0.25)`, borderRadius:8, padding:'8px 10px' }}>
                     <div dir="rtl" style={{ fontSize:20, color:'#f5ecd8', fontFamily:'Amiri,serif', textAlign:'right', lineHeight:1.6, marginBottom:4 }}>{w.ar}</div>
-                    <div style={{ fontSize:11, color:col, fontStyle:'italic', marginBottom:4 }}>{w.tr.replace(/-/g,'')}</div>
+                    <div style={{ fontSize:11, color:col, fontStyle:'italic', marginBottom:4 }}>{w.tr}</div>
                     <div style={{ fontSize:11, color:'#7a6a52' }}>
                       {lang === 'zh' ? w.zh : lang === 'hi' ? w.hi : w.en}
                     </div>
