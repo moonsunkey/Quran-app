@@ -7,6 +7,14 @@ function hexRgb(h) {
   return `${parseInt(h.slice(1,3),16)},${parseInt(h.slice(3,5),16)},${parseInt(h.slice(5,7),16)}`
 }
 
+function playAudio(surah, ayah) {
+  const s = String(surah).padStart(3, '0')
+  const a = String(ayah).padStart(3, '0')
+  const url = `https://everyayah.com/data/Husary_128kbps/${s}${a}.mp3`
+  const audio = new Audio(url)
+  audio.play().catch(e => console.error('Audio error:', e))
+}
+
 function wordColor(tr) {
   if (!tr) return '#D4A843'
   if (/aa|ee|oo/.test(tr)) return '#81d4c0'
@@ -67,9 +75,20 @@ function AyahCard({ ayah, lang }) {
       {expanded && (
         <div style={{ borderTop:`1px solid rgba(${rgb},0.15)`, padding:'16px 18px', background:'rgba(0,0,0,0.2)' }}>
 
-          {/* Full Arabic */}
-          <div style={{ fontSize:24, fontFamily:'Amiri,serif', color:'#ddd5c0', direction:'rtl', textAlign:'right', lineHeight:2, marginBottom:14 }}>
-            {ayah.ar}
+            {/* Arabic + audio button */}
+          <div style={{ display:'flex', alignItems:'flex-start', justifyContent:'space-between', gap:12, marginBottom:14 }}>
+            <div style={{ fontSize:24, fontFamily:'Amiri,serif', color:'#ddd5c0', direction:'rtl', textAlign:'right', lineHeight:2, flex:1 }}>
+              {ayah.ar}
+            </div>
+            <div style={{ flexShrink:0, marginTop:8, display:'flex', flexDirection:'column', gap:6 }}>
+              {(Array.isArray(ayah.audioAyah) ? ayah.audioAyah : [ayah.audioAyah]).map((a, i) => (
+                <button
+                  key={i}
+                  onClick={e => { e.stopPropagation(); playAudio(ayah.audioSurah, a) }}
+                  style={{ padding:'7px 14px', borderRadius:20, border:`1px solid rgba(${rgb},0.4)`, background:`rgba(${rgb},0.12)`, color:ayah.color, fontSize:11, fontWeight:600, cursor:'pointer', whiteSpace:'nowrap' }}
+                >▶ {Array.isArray(ayah.audioAyah) ? `Ayah ${a}` : 'Listen'}</button>
+              ))}
+            </div>
           </div>
 
           {/* Transliteration */}
@@ -80,30 +99,35 @@ function AyahCard({ ayah, lang }) {
           </div>
 
           {/* Translation */}
-          <div style={{ fontSize:13, color:'#a09070', lineHeight:1.8, marginBottom:lang === 'en' ? 14 : 8 }}>
+          <div style={{ fontSize:13, color:'#a09070', lineHeight:1.8, marginBottom:8 }}>
             {lang === 'zh' ? ayah.zh : lang === 'hi' ? ayah.hi : ayah.en}
           </div>
           {lang === 'all' && (
             <>
-              <div style={{ fontSize:12, color:'#4CAF8A', lineHeight:1.7, marginBottom:6 }}>{ayah.zh}</div>
-              <div style={{ fontSize:12, color:'#FF7043', lineHeight:1.7, marginBottom:14 }}>{ayah.hi}</div>
+              <div style={{ fontSize:12, color:'#4CAF8A', lineHeight:1.7, marginBottom:4 }}>{ayah.zh}</div>
+              <div style={{ fontSize:12, color:'#FF7043', lineHeight:1.7, marginBottom:0 }}>{ayah.hi}</div>
             </>
           )}
 
-          {/* Key words */}
+          {/* Word-by-word breakdown */}
           {ayah.words && ayah.words.length > 0 && (
-            <div style={{ marginBottom:14 }}>
-              <div style={{ fontSize:10, color:ayah.color, letterSpacing:1, marginBottom:8 }}>KEY WORDS</div>
-              <div style={{ display:'flex', flexWrap:'wrap', gap:8 }}>
-                {ayah.words.map((w, i) => (
-                  <div key={i} style={{ background:`rgba(${rgb},0.07)`, border:`1px solid rgba(${rgb},0.2)`, borderRadius:8, padding:'8px 10px', textAlign:'center' }}>
-                    <div style={{ fontSize:16, fontFamily:'Amiri,serif', color:'#ddd5c0', marginBottom:3 }}>{w.ar}</div>
-                    <div style={{ fontSize:10, color: wordColor(w.tr), fontStyle:'italic', marginBottom:3 }}>{w.tr.replace(/-/g,'')}</div>
-                    <div style={{ fontSize:10, color:'#6a5a40' }}>
-                      {lang === 'zh' ? w.zh : lang === 'hi' ? w.hi : w.en}
+            <div style={{ marginTop:14, marginBottom:14 }}>
+              <div style={{ fontSize:10, color:ayah.color, letterSpacing:1, marginBottom:10 }}>WORD BY WORD</div>
+              <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(120px,1fr))', gap:8 }}>
+                {ayah.words.map((w, i) => {
+                  const col = wordColor(w.tr)
+                  return (
+                    <div key={i} style={{ background:`rgba(${hexRgb(col)},0.07)`, border:`1px solid rgba(${hexRgb(col)},0.25)`, borderRadius:8, padding:'8px 10px' }}>
+                      <div dir="rtl" style={{ fontSize:20, color:'#f5ecd8', fontFamily:'Amiri,serif', textAlign:'right', marginBottom:4, lineHeight:1.6 }}>{w.ar}</div>
+                      <div style={{ fontSize:11, color:col, fontStyle:'italic', marginBottom:4 }}>{w.tr.replace(/-/g,'')}</div>
+                      <div style={{ fontSize:11, color:'#7a6a52', lineHeight:1.4 }}>
+                        {lang === 'zh' ? w.zh : lang === 'hi' ? w.hi : w.en}
+                      </div>
+                      {lang === 'all' && w.zh && <div style={{ fontSize:10, color:'#8fb8a0', marginTop:2 }}>{w.zh}</div>}
+                      {lang === 'all' && w.hi && <div style={{ fontSize:10, color:'#FF7043', marginTop:1 }}>{w.hi}</div>}
                     </div>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
             </div>
           )}
