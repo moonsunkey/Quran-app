@@ -5,7 +5,8 @@ import FeedbackModal  from '../components/FeedbackModal'
 import ReviewSession  from '../components/ReviewSession'
 import { SURAH_DATA_MAP } from '../data/surahData'
 import { useSRS }      from '../hooks/useSRS'
-import VocabSection  from '../components/VocabSection'
+import VocabSection   from '../components/VocabSection'
+import FeaturedAyahs  from '../components/FeaturedAyahs'
 import Onboarding    from '../components/Onboarding'
 
 const SURAHS = [
@@ -243,6 +244,11 @@ export default function HomePage({ user }) {
 
       <div style={{ textAlign:'center', marginTop:36, fontSize:11, color:'#3a2a18', lineHeight:2 }}>
         Audio · Mahmoud Khalil Al-Husary · May Allah make this a means of benefit. آمين
+      </div>
+
+      {/* Featured Ayahs section */}
+      <div style={{ marginTop:40, borderTop:'1px solid rgba(255,255,255,0.06)', paddingTop:32 }}>
+        <FeaturedAyahs />
       </div>
 
       {/* Vocabulary section */}
