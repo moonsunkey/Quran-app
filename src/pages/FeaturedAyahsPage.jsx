@@ -15,18 +15,38 @@ function wordColor(tr) {
   return '#D4A843'
 }
 
-function playAudio(surah, ayah) {
+// Shared audio instance — allows stop from anywhere
+let currentAudio = null
+
+function playAudio(surah, ayah, onEnd) {
+  if (currentAudio) {
+    currentAudio.pause()
+    currentAudio.currentTime = 0
+    currentAudio = null
+  }
   const s = String(surah).padStart(3, '0')
   const a = String(ayah).padStart(3, '0')
   const audio = new Audio(`https://everyayah.com/data/Husary_128kbps/${s}${a}.mp3`)
+  audio.onended = () => { currentAudio = null; if (onEnd) onEnd() }
   audio.play().catch(e => console.error(e))
+  currentAudio = audio
+  return audio
+}
+
+function stopAudio() {
+  if (currentAudio) {
+    currentAudio.pause()
+    currentAudio.currentTime = 0
+    currentAudio = null
+  }
 }
 
 function AyahPage({ ayah, lang }) {
-  const [learned, setLearned] = useState(() => {
+  const [learned,  setLearned]  = useState(() => {
     try { return !!JSON.parse(localStorage.getItem('quran_featured_learned') || '{}')[ayah.id] } catch { return false }
   })
   const [showWords, setShowWords] = useState(false)
+  const [playing,   setPlaying]   = useState(null)  // which ayah number is playing
   const rgb = hexRgb(ayah.color)
 
   const toggleLearned = () => {
@@ -59,11 +79,15 @@ function AyahPage({ ayah, lang }) {
       </div>
 
       {/* Audio buttons */}
-      <div style={{ display:'flex', gap:8, marginBottom:24, flexWrap:'wrap' }}>
+      <div style={{ display:'flex', gap:8, marginBottom:24, flexWrap:'wrap', alignItems:'center' }}>
         {(Array.isArray(ayah.audioAyah) ? ayah.audioAyah : [ayah.audioAyah]).map((a, i) => (
-          <button key={i} onClick={() => playAudio(ayah.audioSurah, a)}
-            style={{ padding:'8px 18px', borderRadius:20, border:`1px solid rgba(${rgb},0.4)`, background:`rgba(${rgb},0.1)`, color:ayah.color, fontSize:13, fontWeight:600, cursor:'pointer' }}>
-            ▶ {ayah.audioAyah.length > 1 ? `Ayah ${a}` : 'Listen'}
+          <button key={i}
+            onClick={() => {
+              if (playing === a) { stopAudio(); setPlaying(null) }
+              else { playAudio(ayah.audioSurah, a, () => setPlaying(null)); setPlaying(a) }
+            }}
+            style={{ padding:'8px 18px', borderRadius:20, border:`1px solid rgba(${rgb},${playing===a?0.7:0.4})`, background: playing===a ? `rgba(${rgb},0.25)` : `rgba(${rgb},0.1)`, color:ayah.color, fontSize:13, fontWeight:600, cursor:'pointer', transition:'all 0.15s' }}>
+            {playing === a ? `⏹ Stop${ayah.audioAyah.length > 1 ? ` ${a}` : ''}` : `▶ ${ayah.audioAyah.length > 1 ? `Ayah ${a}` : 'Listen'}`}
           </button>
         ))}
       </div>
@@ -111,10 +135,25 @@ function AyahPage({ ayah, lang }) {
                   <div key={i} style={{ background:`rgba(${hexRgb(col)},0.07)`, border:`1px solid rgba(${hexRgb(col)},0.25)`, borderRadius:8, padding:'8px 10px' }}>
                     <div dir="rtl" style={{ fontSize:20, color:'#f5ecd8', fontFamily:'Amiri,serif', textAlign:'right', lineHeight:1.6, marginBottom:4 }}>{w.ar}</div>
                     <div style={{ fontSize:11, color:col, fontStyle:'italic', marginBottom:4 }}>{w.tr}</div>
-                    <div style={{ fontSize:11, color:'#7a6a52' }}>
+                    <div style={{ fontSize:11, color:'#7a6a52', marginBottom: w.root ? 6 : 0 }}>
                       {lang === 'zh' ? w.zh : lang === 'hi' ? w.hi : w.en}
                     </div>
                     {lang === 'all' && <><div style={{ fontSize:10, color:'#4CAF8A', marginTop:2 }}>{w.zh}</div><div style={{ fontSize:10, color:'#FF7043', marginTop:1 }}>{w.hi}</div></>}
+                    {w.root && (
+                      <div style={{ marginTop:6, paddingTop:6, borderTop:'1px solid rgba(255,255,255,0.06)' }}>
+                        <div style={{ fontSize:9, color:'#9B59B6', letterSpacing:0.5, marginBottom:4 }}>
+                          ROOT · <span style={{ fontFamily:'Amiri,serif', fontSize:11 }}>{w.root.l}</span>
+                          {w.root.tr && <span style={{ color:'#81d4c0', fontStyle:'italic', marginLeft:4 }}>({w.root.tr})</span>}
+                        </div>
+                        {w.root.d.map((d, di) => (
+                          <div key={di} style={{ fontSize:9, color:'#6a5a40', lineHeight:1.8 }}>
+                            → <span style={{ color:'#a09070' }}>{d.tr}</span>
+                            {d.ar && <span style={{ fontFamily:'Amiri,serif', color:'#6a5a40', marginLeft:4, fontSize:11 }}>{d.ar}</span>}
+                            <span style={{ color:'#5a4a32', marginLeft:4 }}>— {d.en}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )
               })}
