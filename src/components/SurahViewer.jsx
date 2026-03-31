@@ -618,6 +618,7 @@ function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle,
   const mem = memorized || {}
   const [chunkMode, setChunkMode] = useState(false)
   const [activeChunk, setActiveChunk] = useState(0)
+  const [speed, setSpeed] = useState(() => parseFloat(localStorage.getItem('quran_speed') || '1'))
   const sectionDone = sec.verses.every(v => mem[`${sec.id}-${v.n}`])
 
   return (
@@ -648,19 +649,15 @@ function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle,
             {autoPlaying ? '⏹ Stop auto-play' : '▶▶ Auto-play section'}
           </button>
           {/* Speed control */}
-          {[0.75, 1, 1.25].map(s => {
-            const active = parseFloat(localStorage.getItem('quran_speed') || '1') === s
-            return (
-              <button key={s} onClick={() => {
-                localStorage.setItem('quran_speed', s)
-                if (audio?.audioRef?.current) audio.audioRef.current.playbackRate = s
-                // Force re-render
-                setChunkMode(c => c)
-              }} style={{ padding:'5px 10px', fontSize:11, border:`1px solid ${active ? 'rgba(212,168,67,0.5)' : 'rgba(255,255,255,0.1)'}`, borderRadius:16, background: active ? 'rgba(212,168,67,0.15)' : 'transparent', color: active ? '#D4A843' : '#6a5a40', cursor:'pointer' }}>
-                {s}x
-              </button>
-            )
-          })}
+          {[0.75, 1, 1.25].map(s => (
+            <button key={s} onClick={() => {
+              setSpeed(s)
+              localStorage.setItem('quran_speed', s)
+              if (audio?.audioRef?.current) audio.audioRef.current.playbackRate = s
+            }} style={{ padding:'5px 10px', fontSize:11, border:`1px solid ${speed===s ? 'rgba(212,168,67,0.5)' : 'rgba(255,255,255,0.1)'}`, borderRadius:16, background: speed===s ? 'rgba(212,168,67,0.15)' : 'transparent', color: speed===s ? '#D4A843' : '#6a5a40', cursor:'pointer' }}>
+              {s}x
+            </button>
+          ))}
           <button onClick={() => { setChunkMode(c => !c); setActiveChunk(0) }} style={{ padding:'7px 14px', fontSize:12, border:`1px solid ${chunkMode ? 'rgba(155,89,182,0.5)' : 'rgba(255,255,255,0.1)'}`, borderRadius:20, background: chunkMode ? 'rgba(155,89,182,0.15)' : 'transparent', color: chunkMode ? '#9B59B6' : '#6a5a40', cursor:'pointer' }}>
             {chunkMode ? '◉ Chunk mode ON' : '◈ Chunk mode'}
           </button>
