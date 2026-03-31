@@ -197,26 +197,27 @@ export default function FeaturedAyahsPage() {
             <div style={{ fontSize:11, color:'#6a5a40' }}>Famous individual ayahs every Muslim should know</div>
           </div>
         </div>
-        {/* Language toggle */}
-        <div style={{ display:'flex', gap:4 }}>
-          {[['en','EN'],['zh','中文'],['hi','हिंदी'],['all','All']].map(([l,label]) => (
-            <button key={l} onClick={() => setLang(l)} style={{
-              padding:'5px 12px', borderRadius:16, border:'none', cursor:'pointer', fontSize:11,
-              background: lang===l ? 'rgba(212,168,67,0.2)' : 'rgba(255,255,255,0.04)',
-              color: lang===l ? '#D4A843' : '#6a5a40', fontWeight: lang===l ? 700 : 400,
-            }}>{label}</button>
-          ))}
-        </div>
-        {/* Speed control */}
-        <div style={{ display:'flex', gap:3, alignItems:'center' }}>
-          <span style={{ fontSize:10, color:'#4a3a28', marginRight:2 }}>Speed:</span>
-          {[0.75, 1, 1.25].map(s => (
-            <button key={s} onClick={() => changeSpeed(s)} style={{
-              padding:'4px 9px', borderRadius:14, border:`1px solid ${speed===s ? 'rgba(212,168,67,0.5)' : 'rgba(255,255,255,0.08)'}`,
-              background: speed===s ? 'rgba(212,168,67,0.15)' : 'transparent',
-              color: speed===s ? '#D4A843' : '#6a5a40', fontSize:11, cursor:'pointer',
-            }}>{s}x</button>
-          ))}
+        {/* Controls — language + speed */}
+        <div style={{ display:'flex', gap:12, alignItems:'center', flexWrap:'wrap' }}>
+          <div style={{ display:'flex', gap:4 }}>
+            {[['en','EN'],['zh','中文'],['hi','हिंदी'],['all','All']].map(([l,label]) => (
+              <button key={l} onClick={() => setLang(l)} style={{
+                padding:'5px 12px', borderRadius:16, border:'none', cursor:'pointer', fontSize:11,
+                background: lang===l ? 'rgba(212,168,67,0.2)' : 'rgba(255,255,255,0.04)',
+                color: lang===l ? '#D4A843' : '#6a5a40', fontWeight: lang===l ? 700 : 400,
+              }}>{label}</button>
+            ))}
+          </div>
+          <div style={{ display:'flex', gap:3, alignItems:'center' }}>
+            <span style={{ fontSize:10, color:'#4a3a28', marginRight:2 }}>Speed:</span>
+            {[0.75, 1, 1.25].map(s => (
+              <button key={s} onClick={() => changeSpeed(s)} style={{
+                padding:'4px 9px', borderRadius:14, border:`1px solid ${speed===s ? 'rgba(212,168,67,0.5)' : 'rgba(255,255,255,0.08)'}`,
+                background: speed===s ? 'rgba(212,168,67,0.15)' : 'transparent',
+                color: speed===s ? '#D4A843' : '#6a5a40', fontSize:11, cursor:'pointer',
+              }}>{s}x</button>
+            ))}
+          </div>
         </div>
       </div>
 
