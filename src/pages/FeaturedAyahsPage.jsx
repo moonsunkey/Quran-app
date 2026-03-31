@@ -27,6 +27,7 @@ function playAudio(surah, ayah, onEnd) {
   const s = String(surah).padStart(3, '0')
   const a = String(ayah).padStart(3, '0')
   const audio = new Audio(`https://everyayah.com/data/Husary_128kbps/${s}${a}.mp3`)
+  audio.oncanplay = () => { audio.playbackRate = parseFloat(localStorage.getItem('quran_speed') || '1') }
   audio.onended = () => { currentAudio = null; if (onEnd) onEnd() }
   audio.play().catch(e => console.error(e))
   currentAudio = audio
@@ -175,7 +176,14 @@ function AyahPage({ ayah, lang }) {
 }
 
 export default function FeaturedAyahsPage() {
-  const [lang, setLang] = useState('en')
+  const [lang,  setLang]  = useState('en')
+  const [speed, setSpeed] = useState(() => parseFloat(localStorage.getItem('quran_speed') || '1'))
+
+  const changeSpeed = (s) => {
+    setSpeed(s)
+    localStorage.setItem('quran_speed', s)
+    if (currentAudio) currentAudio.playbackRate = s
+  }
 
   return (
     <div style={{ minHeight:'100vh', background:'#06101c', fontFamily:"'Lato',Georgia,serif", color:'#ddd5c0' }}>
@@ -197,6 +205,17 @@ export default function FeaturedAyahsPage() {
               background: lang===l ? 'rgba(212,168,67,0.2)' : 'rgba(255,255,255,0.04)',
               color: lang===l ? '#D4A843' : '#6a5a40', fontWeight: lang===l ? 700 : 400,
             }}>{label}</button>
+          ))}
+        </div>
+        {/* Speed control */}
+        <div style={{ display:'flex', gap:3, alignItems:'center' }}>
+          <span style={{ fontSize:10, color:'#4a3a28', marginRight:2 }}>Speed:</span>
+          {[0.75, 1, 1.25].map(s => (
+            <button key={s} onClick={() => changeSpeed(s)} style={{
+              padding:'4px 9px', borderRadius:14, border:`1px solid ${speed===s ? 'rgba(212,168,67,0.5)' : 'rgba(255,255,255,0.08)'}`,
+              background: speed===s ? 'rgba(212,168,67,0.15)' : 'transparent',
+              color: speed===s ? '#D4A843' : '#6a5a40', fontSize:11, cursor:'pointer',
+            }}>{s}x</button>
           ))}
         </div>
       </div>

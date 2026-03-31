@@ -60,7 +60,7 @@ function useAudio(reciterId) {
   useEffect(() => {
     const a = new Audio()
     audioRef.current = a
-    a.oncanplay    = () => setLoading(false)
+    a.oncanplay    = () => { setLoading(false); a.playbackRate = parseFloat(localStorage.getItem('quran_speed') || '1') }
     a.ontimeupdate = () => { if (a.duration) setProgress(a.currentTime / a.duration * 100) }
     a.onended      = () => { setPlaying(null); setProgress(0) }
     a.onerror      = () => { setLoading(false); setPlaying(null) }
@@ -100,7 +100,7 @@ function useAudio(reciterId) {
     else { play(surah, ayah) }
   }, [playing, play, stop])
 
-  return { toggle, play, stop, playing, loading, progress }
+  return { toggle, play, stop, playing, loading, progress, audioRef }
 }
 
 // ── PRONUNCIATION GUIDE DATA ──────────────────────────────────────────────────
@@ -647,6 +647,20 @@ function LearnTab({ sections, sec, activeSec, setActiveSec, memorized, onToggle,
           <button onClick={autoPlaying ? onStopAutoPlay : onStartAutoPlay} style={{ padding:'8px 16px', fontSize:13, border:`1px solid ${autoPlaying ? '#C0504D' : 'rgba(212,168,67,0.3)'}`, borderRadius:20, background: autoPlaying ? 'rgba(192,80,77,0.1)' : 'rgba(212,168,67,0.08)', color: autoPlaying ? '#C0504D' : '#D4A843', cursor:'pointer' }}>
             {autoPlaying ? '⏹ Stop auto-play' : '▶▶ Auto-play section'}
           </button>
+          {/* Speed control */}
+          {[0.75, 1, 1.25].map(s => {
+            const active = parseFloat(localStorage.getItem('quran_speed') || '1') === s
+            return (
+              <button key={s} onClick={() => {
+                localStorage.setItem('quran_speed', s)
+                if (audio?.audioRef?.current) audio.audioRef.current.playbackRate = s
+                // Force re-render
+                setChunkMode(c => c)
+              }} style={{ padding:'5px 10px', fontSize:11, border:`1px solid ${active ? 'rgba(212,168,67,0.5)' : 'rgba(255,255,255,0.1)'}`, borderRadius:16, background: active ? 'rgba(212,168,67,0.15)' : 'transparent', color: active ? '#D4A843' : '#6a5a40', cursor:'pointer' }}>
+                {s}x
+              </button>
+            )
+          })}
           <button onClick={() => { setChunkMode(c => !c); setActiveChunk(0) }} style={{ padding:'7px 14px', fontSize:12, border:`1px solid ${chunkMode ? 'rgba(155,89,182,0.5)' : 'rgba(255,255,255,0.1)'}`, borderRadius:20, background: chunkMode ? 'rgba(155,89,182,0.15)' : 'transparent', color: chunkMode ? '#9B59B6' : '#6a5a40', cursor:'pointer' }}>
             {chunkMode ? '◉ Chunk mode ON' : '◈ Chunk mode'}
           </button>
